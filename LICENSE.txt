@@ -1,0 +1,37 @@
+Copyright [2025]\[Foundation for Renewable Energy & Environment].All Rights Reserved.
+
+1.Definitions
+"Software" means the source code,object code, documentation, digital assets, and any accompanying materials contained in this repository (the "Repository").
+
+2. Grant of Rights
+   No license or other rights are granted under this Agreement. The Software is made available solely for the purpose of viewing its contents within the Repository. You may not otherwise use, copy, reproduce, display, perform, distribute, modify, translate, adapt, compile, execute, run, or create derivative works of the Software, in whole or in part, without the prior express written permission of the copyright holder.
+
+3. Prohibited Uses
+   Without limiting the foregoing, you shall not, and shall not permit any third party to:
+   a. Download, copy, or otherwise reproduce the Software or any portion thereof.
+   b. Modify, translate, reverse‑engineer, decompile, disassemble, or otherwise attempt to derive the source code of object code components (if any).
+   c. Compile, execute, run, or otherwise use the Software for any purpose.
+   d. Distribute, publish, sublicense, lease, lend, sell, or otherwise transfer the Software or any rights thereto.
+   e. Use the Software to provide services to third parties, whether commercial or non‑commercial.
+   f. Remove, alter, or obscure any copyright, trademark, or other proprietary notice contained in or on the Software.
+
+4. Ownership
+   The Software is and shall remain the exclusive property of the copyright holder. All rights not expressly granted herein are reserved.
+
+5. No Warranty
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON‑INFRINGEMENT.
+
+6. Limitation of Liability
+   IN NO EVENT SHALL THE COPYRIGHT HOLDER OR ITS AFFILIATES BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+7. Termination
+   Any breach of this License will immediately and automatically terminate any rights that may have been implied under Section 2. Upon termination, you must destroy all copies of the Software in your possession or control.
+
+8. Governing Law
+   This License shall be governed by and construed in accordance with the laws of the State of \[STATE/COUNTRY], without regard to conflict of law principles.
+
+9. Severability
+   If any provision of this License is held to be unenforceable, that provision shall be reformed only to the extent necessary to make it enforceable, and the remaining provisions shall remain in full force and effect.
+
+10. Entire Agreement
+    This License constitutes the entire agreement between the parties with respect to the Software and supersedes all prior or contemporaneous understandings or agreements, whether written or oral, regarding such subject matter.
