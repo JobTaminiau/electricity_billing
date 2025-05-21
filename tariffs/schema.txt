@@ -1,0 +1,17 @@
+code                str            required
+customer_charge     float          required
+supply_charge       float          required
+merchant_charge     float          required
+demand              list[Demand]   optional
+energy              list[Energy]   optional
+
+Demand / Energy
+└─ rate             float          required
+└─ window           dict           required (may be empty)
+
+Window fields (all optional)
+    months          list[int]      1–12
+    weekdays_only   true/false/null
+    start           "HH:MM"
+    end             "HH:MM"
+    include_holidays true/false

@@ -1,0 +1,9 @@
+code: SC-9-GEN-NYC-RATE-1-HT
+customer_charge: 71.0
+supply_charge: 6.7563
+merchant_charge: 0.0778
+demand:
+  - {rate: 29.50, window: {months: [6,7,8,9], include_holidays: true}}
+  - {rate: 20.51, window: {months: [1,2,3,4,5,10,11,12], include_holidays: true}}
+energy:
+  - {rate: 1.54, window: {include_holidays: true}}

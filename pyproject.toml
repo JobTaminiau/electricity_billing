@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "coned_billing"
+version = "0.1.0"
+description = "Light-weight Consolidated Edison billing engine"
+authors = [{ name = "Job Taminiau", email = "jt@freefutures.org" }]
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+dependencies = [
+    "pandas>=2.0",
+    "numpy>=1.24",
+    "pyyaml>=6.0",
+    "pytest>=8.35"
+]
+
+[project.scripts]
+coned-bill = "coned_billing.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["coned_billing"]

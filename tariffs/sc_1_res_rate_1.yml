@@ -1,0 +1,7 @@
+code: SC-1-RES-NYC-RATE-1
+customer_charge: 20.00           # $/month
+supply_charge: 12.2432           # ¢/kWh
+merchant_charge: 0.1408          # ¢/kWh
+demand: []                       # no demand components
+energy:
+  - {rate: 16.107, window: {include_holidays: true}}
