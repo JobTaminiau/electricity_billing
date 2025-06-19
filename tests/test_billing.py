@@ -2,11 +2,11 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import pytest
-
+import coned_billing
 from coned_billing.loader import load_all, TimeWindow, EnergyCharge, DemandCharge, RateSchedule, load_rate
 
 # ─────────────────────────────── constants ────────────────────────────────
-TAR_DIR = Path("../tariffs")
+TAR_DIR = Path(coned_billing.__file__).parent / "tariffs"
 SCHEDULES = load_all(TAR_DIR)
 
 

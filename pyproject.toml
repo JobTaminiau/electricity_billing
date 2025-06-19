@@ -25,3 +25,6 @@ coned-bill = "coned_billing.cli:main"
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["coned_billing*"]
+
+[tool.setuptools.package-data]
+coned_billing = ["tariffs/*.yml"]
