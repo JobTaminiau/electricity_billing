@@ -3,7 +3,7 @@ from datetime import time
 from pathlib import Path
 from typing import Dict, List
 
-from models import RateSchedule, DemandCharge, EnergyCharge, TimeWindow
+from .models import RateSchedule, DemandCharge, EnergyCharge, TimeWindow
 
 
 # helper ───────────────────────────────────────────────────────────────────

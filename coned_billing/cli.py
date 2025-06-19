@@ -1,7 +1,7 @@
 import argparse
 import sys
 
-from billing import bill
+from .billing import bill
 
 
 def main() -> None:

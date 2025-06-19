@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from loader import load_all, TimeWindow, EnergyCharge, DemandCharge, RateSchedule, load_rate
+from coned_billing.loader import load_all, TimeWindow, EnergyCharge, DemandCharge, RateSchedule, load_rate
 
 # ─────────────────────────────── constants ────────────────────────────────
 TAR_DIR = Path("../tariffs")

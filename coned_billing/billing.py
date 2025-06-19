@@ -1,6 +1,7 @@
 from pathlib import Path
 import pandas as pd
-from loader import load_rate
+
+from .loader import load_rate
 
 
 def bill(load_csv: str, tariff_yml: str) -> pd.DataFrame:
