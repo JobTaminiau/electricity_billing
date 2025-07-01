@@ -4,4 +4,5 @@ supply_charge: 12.2432           # ¢/kWh
 merchant_charge: 0.1408          # ¢/kWh
 demand: []                       # no demand components
 energy:
-  - {rate: 16.107, window: {include_holidays: true}}
+  - {rate: 16.107, window: {months: [1,2,3,4,5,10,11,12], include_holidays: true}}
+  - {rate: 18.518, window: {months: [6,7,8,9], include_holidays: true}}
