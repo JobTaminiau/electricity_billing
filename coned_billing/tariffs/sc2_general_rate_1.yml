@@ -1,0 +1,7 @@
+code: SC-2-GEN-NYC-RATE-1
+customer_charge: 33.0
+supply_charge: 6.7563
+merchant_charge: 0.0778
+demand: []
+energy:
+  - {rate: 16.69, window: {include_holidays: true}}         # flat
