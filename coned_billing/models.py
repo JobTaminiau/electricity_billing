@@ -95,7 +95,6 @@ class RateSchedule:
     energy_components: list[EnergyCharge]
     supply_charge: float
     merchant_charge: float
-    n_customers: int = 1  # sets the number of customers for the customer charge
 
     # ──────── billing engine ────────
     def bill(
@@ -103,6 +102,7 @@ class RateSchedule:
         load_df: pd.DataFrame,
         kw_col: str = "kW",
         ts_col: str | None = None,
+        n_customers: int = 1  # sets the number of customers for the customer charge
     ) -> pd.DataFrame:
         """
         Parameters
@@ -155,7 +155,7 @@ class RateSchedule:
         monthly_fee = (
             grouped.size().rename("obs_count").to_frame()
             * 0.0  # broadcast shape
-            + self.customer_charge * self.n_customers
+            + self.customer_charge * n_customers
         )
 
         # ── Summaries ───────────────────────────────────────────────────────
