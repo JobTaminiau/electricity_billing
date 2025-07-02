@@ -21,8 +21,8 @@ def _to_minutes(t: time) -> int:  # 00:15->15
     return t.hour * 60 + t.minute
 
 
-def _is_weekend(ts: pd.Timestamp) -> bool:
-    return ts.weekday() >= 5  # 5=Sat,6=Sun
+def _is_weekend(ts: pd.DatetimeIndex ) -> bool:
+    return ts.weekday >= 5  # 5=Sat,6=Sun
 
 
 # ──────────────────────────────────── core DSL ───────────────────────────────────
