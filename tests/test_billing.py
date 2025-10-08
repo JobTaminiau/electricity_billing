@@ -4,6 +4,7 @@ import pandas as pd
 import pytest
 import coned_billing
 from coned_billing.loader import load_all, TimeWindow, EnergyCharge, DemandCharge, RateSchedule, load_rate
+from datetime import time
 
 # ─────────────────────────────── constants ────────────────────────────────
 TAR_DIR = Path(coned_billing.__file__).parent / "tariffs"
@@ -65,3 +66,52 @@ def test_bill_has_no_nan(sched: RateSchedule):
     """Billing engine must produce finite, ≥ 0 totals."""
     _, IDX = _synthetic_load()
     assert _no_nan_in_bill(sched, IDX), "NaN present in bill output"
+
+
+def test_demand_charge_uses_monthly_peak():
+    idx = pd.date_range(
+        "2023-01-01",
+        periods=10,
+        freq="H",
+        tz="America/New_York",
+    )
+    df = pd.DataFrame({"kW": [1, 2, 3, 8, 3, 1, 4, 2, 5, 1]}, index=idx)
+    sched = RateSchedule(
+        code="TEST",
+        customer_charge=0.0,
+        demand_components=[DemandCharge(rate=15.0, window=TimeWindow())],
+        energy_components=[EnergyCharge(rate=0.0, window=TimeWindow())],
+        supply_charge=0.0,
+        merchant_charge=0.0,
+    )
+
+    monthly = sched.bill(df)
+
+    jan = pd.Period("2023-01", freq="M")
+    assert monthly.loc[jan, "demand_cost"] == pytest.approx(15.0 * 8)
+
+
+def test_demand_charge_window_filters_peak():
+    idx = pd.date_range(
+        "2023-01-02 00:00",
+        periods=24,
+        freq="H",
+        tz="America/New_York",
+    )
+    values = np.full(len(idx), 5.0)
+    values[1] = 25.0  # overnight spike outside window
+    values[14] = 12.0  # afternoon peak inside window
+    df = pd.DataFrame({"kW": values}, index=idx)
+    sched = RateSchedule(
+        code="TEST",
+        customer_charge=0.0,
+        demand_components=[DemandCharge(rate=20.0, window=TimeWindow(start=time(12, 0), end=time(18, 0)))],
+        energy_components=[EnergyCharge(rate=0.0, window=TimeWindow())],
+        supply_charge=0.0,
+        merchant_charge=0.0,
+    )
+
+    monthly = sched.bill(df)
+
+    jan = pd.Period("2023-01", freq="M")
+    assert monthly.loc[jan, "demand_cost"] == pytest.approx(20.0 * 12.0)

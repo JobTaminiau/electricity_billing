@@ -176,3 +176,38 @@ class RateSchedule:
         )
 
         return monthly
+
+
+"""
+Bill amounts are averages of twelve monthly bills for each year, 
+based on the consumption level indicated on each chart. Actual customer consumption and demand will vary
+Delivery Charges include: 
+Customer Charge: INCLUDED
+Delivery (Energy): INCLUDED
+Delivery (Demand): INCLUDED
+Monthly Adjustment Clause ("MAC"): NOT INCLUDED,
+MAC Adjustment: NOT INCLUDED
+Billing and Payment Processing Charge: NOT INCLUDED
+Delivery Revenue Surcharge: NOT INCLUDED
+Revenue Decoupling Mechanism Adjustment: NOT INCLUDED
+Dynamic Load Management Surcharge: NOT INCLUDED
+Metering Charges: NOT INCLUDED, 
+VDER Cost Recovery: NOT INCLUDED
+AMP Recovery: NOT INCLUDED
+EVMR Charge: NOT INCLUDED
+
+Commodity charges include:
+Market Supply Charge ("MSC")
+MSC I Adjustment
+Merchant Function Charge
+MSC II Adjustment
+Clean Energy Standard Supply Surcharge.
+ 
+Surcharges include: 
+Systems Benefits Charge
+Renewable Portfolio Standard Charge
+Temporary State Assessment Surcharge, 
+Clean Energy Standard Delivery Surcharge
+Tax Surcredit
+Gross Receipts Tax.
+"""
