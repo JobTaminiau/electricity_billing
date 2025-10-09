@@ -5,8 +5,14 @@
 code: SC-1-RES-NYC-RATE-1
 customer_charge: 20.00           # $/month
 supply_charge: 11.531           # ¢/kWh, see supply_charge.py
-merchant_charge: 0.1466          # ¢/kWh, # leaf 335 in PSC No. 10 - Electricity, effective jan 2025
+merchant_charge: 0.3457          # ¢/kWh, # leaf 335 in PSC No. 10 - Electricity, effective jan 2025
 demand: []                       # no demand components
 energy:
   - {rate: 16.107, window: {months: [1,2,3,4,5,10,11,12], include_holidays: true}}
   - {rate: 18.518, window: {months: [6,7,8,9], include_holidays: true}}
+
+
+0:
+  sc 1 0.1466 + 0.1991
+  sc 2 0.1217 + 0.1462
+  sc 9 0.0797 + 0.0342
