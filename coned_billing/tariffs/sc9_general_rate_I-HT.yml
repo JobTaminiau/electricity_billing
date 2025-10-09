@@ -1,4 +1,4 @@
-# leaf 397 in PSC NO. 10 - Electricity
+# leaf 444 in PSC NO. 10 - Electricity
 # Initial Effective Date: 01/01/2025
 # Issued in compliance with Order in Case 22-E-0064 dated 07/20/2023
 
@@ -10,6 +10,6 @@ demand_delivery:
   - {rate: 29.50, window: {months: [6,7,8,9], include_holidays: true}}
   - {rate: 20.51, window: {months: [1,2,3,4,5,10,11,12], include_holidays: true}}
 demand_supply:
-  - {rate: 11.35, window: {include_holidays: true}}
+  - {rate: 11.35, window: {include_holidays: true}}  # Statement of Market Supply Charge - Capacity October 2025
 energy:
   - {rate: 1.54, window: {include_holidays: true}}

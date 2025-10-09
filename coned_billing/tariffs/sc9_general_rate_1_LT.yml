@@ -11,7 +11,7 @@ demand_delivery:
   - {rate: 33.50, window: {months: [1,2,3,4,5,10,11,12], include_holidays: true}}
 
 demand_supply:
-  - {rate: 11.35, window: {include_holidays: true}}
+  - {rate: 11.35, window: {include_holidays: true}}  # Statement of Market Supply Charge - Capacity October 2025
 
 energy:
   - {rate: 1.66, window: {include_holidays: true}}         # flat
