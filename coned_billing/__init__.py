@@ -2,6 +2,7 @@ from importlib.metadata import PackageNotFoundError, version as _version
 
 from .models import TimeWindow, DemandCharge, EnergyCharge, RateSchedule
 from .loader import load_rate, load_all
+from .summary import rate_schedule_summary_dataframe, rate_schedule_summary_table
 
 __all__ = [
     "TimeWindow",
@@ -10,6 +11,8 @@ __all__ = [
     "RateSchedule",
     "load_rate",
     "load_all",
+    "rate_schedule_summary_dataframe",
+    "rate_schedule_summary_table",
 ]
 
 try:
