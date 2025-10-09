@@ -47,7 +47,8 @@ demand_delivery:
       months: [1, 2, 3, 4, 5, 10, 11, 12]
       include_holidays: true
 
-demand_supply: []
+demand_supply:
+  - {rate: 11.35, window: {include_holidays: true}}
 
 energy:
   - rate: 0.79  # cents per kWh
