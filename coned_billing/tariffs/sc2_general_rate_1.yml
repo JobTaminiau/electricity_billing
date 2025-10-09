@@ -5,7 +5,8 @@
 code: SC-2-GEN-NYC-RATE-1
 customer_charge: 33.0
 supply_charge: 10.4483  # see supply_charge.py
-merchant_charge: 0.2679  # leaf 335 in PSC No. 10 - Electricity, effective jan 2025
+merchant_charge: 0.3101  # leaf 335 in PSC No. 10 - Electricity,
+# effective jan 2025, includes uncollectible charges retrieved from Statement of Merchant Function Charge No. 169 (October 2025)
 demand: []
 energy:
   - {rate: 19.90, window: {months: [6,7,8,9], include_holidays: true}}
