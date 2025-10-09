@@ -1,9 +1,9 @@
-code                str            required
-customer_charge     float          required
-supply_charge       float          required
-merchant_charge     float          required
-demand              list[Demand]   optional
-energy              list[Energy]   optional
+code                str            required  # name of rate
+customer_charge     float          required  # fixed monthly price per customer
+supply_charge       float          required  # market supply charge
+merchant_charge     float          required  # merchant function charge
+demand_delivery     list[Demand]   optional  # demand delivery charges
+energy              list[Energy]   optional  # energy rates
 
 Demand / Energy
 └─ rate             float          required

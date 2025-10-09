@@ -3,7 +3,7 @@ customer_charge: 500.0
 supply_charge: 7.6885  # see supply_charge.py
 merchant_charge: 0.1561
 
-demand:
+demand_delivery:
   # ─── Summer Months (June to September) ───────────────────────────────
 
   # Weekdays, 8 AM to 6 PM → $11.59/kW

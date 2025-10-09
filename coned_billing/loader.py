@@ -29,7 +29,7 @@ def load_rate(path: Path) -> RateSchedule:
 
     demand = [
         DemandCharge(rate=dc["rate"], window=_window_from_dict(dc["window"]))
-        for dc in data.get("demand", [])
+        for dc in data.get("demand_delivery", [])
     ]
     energy = [
         EnergyCharge(rate=ec["rate"], window=_window_from_dict(ec["window"]))
