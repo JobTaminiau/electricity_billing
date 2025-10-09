@@ -81,7 +81,7 @@ def test_demand_charge_uses_monthly_peak():
         code="TEST",
         customer_charge=0.0,
         demand_components=[DemandCharge(rate=15.0, window=TimeWindow())],
-        demand_supply=[],
+        demand_supply=[DemandCharge(rate=15.0, window=TimeWindow())],
         energy_components=[EnergyCharge(rate=0.0, window=TimeWindow())],
         supply_charge=0.0,
         merchant_charge=0.0,
@@ -91,7 +91,7 @@ def test_demand_charge_uses_monthly_peak():
 
     jan = pd.Period("2023-01", freq="M")
     assert monthly.loc[jan, "demand_cost"] == pytest.approx(15.0 * 8)
-    assert monthly.loc[jan, "demand_supply_cost"] == pytest.approx(0.0)
+    assert monthly.loc[jan, "demand_supply_cost"] == pytest.approx(15.0 * 8)
 
 
 def test_demand_charge_window_filters_peak():
