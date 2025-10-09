@@ -34,6 +34,7 @@ def _rates_non_negative(sched: RateSchedule) -> bool:
         and sched.merchant_charge >= 0
         and all(ec.rate >= 0 for ec in sched.energy_components)
         and all(dc.rate >= 0 for dc in sched.demand_components)
+        and all(dc.rate >= 0 for dc in sched.demand_supply)
     )
 
 
@@ -80,6 +81,7 @@ def test_demand_charge_uses_monthly_peak():
         code="TEST",
         customer_charge=0.0,
         demand_components=[DemandCharge(rate=15.0, window=TimeWindow())],
+        demand_supply=[],
         energy_components=[EnergyCharge(rate=0.0, window=TimeWindow())],
         supply_charge=0.0,
         merchant_charge=0.0,
@@ -89,6 +91,7 @@ def test_demand_charge_uses_monthly_peak():
 
     jan = pd.Period("2023-01", freq="M")
     assert monthly.loc[jan, "demand_cost"] == pytest.approx(15.0 * 8)
+    assert monthly.loc[jan, "demand_supply_cost"] == pytest.approx(0.0)
 
 
 def test_demand_charge_window_filters_peak():
@@ -106,6 +109,7 @@ def test_demand_charge_window_filters_peak():
         code="TEST",
         customer_charge=0.0,
         demand_components=[DemandCharge(rate=20.0, window=TimeWindow(start=time(12, 0), end=time(18, 0)))],
+        demand_supply=[],
         energy_components=[EnergyCharge(rate=0.0, window=TimeWindow())],
         supply_charge=0.0,
         merchant_charge=0.0,
@@ -115,3 +119,4 @@ def test_demand_charge_window_filters_peak():
 
     jan = pd.Period("2023-01", freq="M")
     assert monthly.loc[jan, "demand_cost"] == pytest.approx(20.0 * 12.0)
+    assert monthly.loc[jan, "demand_supply_cost"] == pytest.approx(0.0)
