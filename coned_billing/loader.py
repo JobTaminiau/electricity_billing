@@ -31,6 +31,10 @@ def load_rate(path: Path) -> RateSchedule:
         DemandCharge(rate=dc["rate"], window=_window_from_dict(dc["window"]))
         for dc in data.get("demand_delivery", [])
     ]
+    demand_supply = [
+        DemandCharge(rate=dc["rate"], window=_window_from_dict(dc["window"]))
+        for dc in data.get("demand_supply", [])
+    ]
     energy = [
         EnergyCharge(rate=ec["rate"], window=_window_from_dict(ec["window"]))
         for ec in data.get("energy", [])
@@ -40,6 +44,7 @@ def load_rate(path: Path) -> RateSchedule:
         code=data["code"],
         customer_charge=data["customer_charge"],
         demand_components=demand,
+        demand_supply=demand_supply,
         energy_components=energy,
         supply_charge=data["supply_charge"],
         merchant_charge=data["merchant_charge"],

@@ -1,3 +1,7 @@
+# leaf 444 in PSC NO. 10 - Electricity
+# Initial Effective Date: 01/01/2025
+# Issued in compliance with Order in Case 22-E-0064 dated 07/20/2023
+
 code: SC-9-GEN-NYC-RATE-2-LT
 customer_charge: 500.0
 supply_charge: 7.6885  # see supply_charge.py
@@ -46,6 +50,9 @@ demand_delivery:
     window:
       months: [1, 2, 3, 4, 5, 10, 11, 12]
       include_holidays: true
+
+demand_supply:
+  - {rate: 11.35, window: {include_holidays: true}} # Statement of Market Supply Charge - Capacity October 2025
 
 energy:
   - rate: 0.79  # cents per kWh

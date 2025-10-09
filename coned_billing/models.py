@@ -84,6 +84,7 @@ class RateSchedule:
     code                Human-readable label (e.g. "SC-2 (General, <10 kW)")
     customer_charge     $/month
     demand_components   list[DemandCharge]
+    demand_supply       list[DemandCharge]
     energy_components   list[EnergyCharge]
     supply_charge       cents/kWh (flat)
     merchant_charge     cents/kWh (flat)
@@ -92,6 +93,7 @@ class RateSchedule:
     code: str
     customer_charge: float
     demand_components: list[DemandCharge]
+    demand_supply: list[DemandCharge]
     energy_components: list[EnergyCharge]
     supply_charge: float
     merchant_charge: float
@@ -142,14 +144,20 @@ class RateSchedule:
         energy_cost += kwh * (self.supply_charge + self.merchant_charge) / 100.0
 
         # ── Demand charges (peak) ────────────────────────────────────────────
-        demand_cost = pd.Series(0.0, index=idx)
+        demand_delivery_cost = pd.Series(0.0, index=idx)
+        demand_supply_cost = pd.Series(0.0, index=idx)
         grouped = load_df.groupby(load_df.index.to_period("M"))
         for period, sub in grouped:
             for dc in self.demand_components:
                 mask = dc.window.mask(sub.index)
                 if mask.any():
                     peak_kw = sub.loc[mask, kw_col].max()
-                    demand_cost.loc[sub.index] += dc.rate * peak_kw / len(sub)
+                    demand_delivery_cost.loc[sub.index] += dc.rate * peak_kw / len(sub)
+            for sc in self.demand_supply:
+                mask = sc.window.mask(sub.index)
+                if mask.any():
+                    peak_kw = sub.loc[mask, kw_col].max()
+                    demand_supply_cost.loc[sub.index] += sc.rate * peak_kw / len(sub)
 
         # ── Monthly customer charge ─────────────────────────────────────────
         monthly_fee = (
@@ -162,7 +170,8 @@ class RateSchedule:
         result = pd.DataFrame(
             {
                 "energy_cost": energy_cost,
-                "demand_cost": demand_cost,
+                "demand_cost": demand_delivery_cost,
+                "demand_supply_cost": demand_supply_cost,
                 kw_col: load_df[kw_col],
             }
         )
@@ -172,7 +181,10 @@ class RateSchedule:
         )
         monthly["customer_charge"] = monthly.pop("obs_count")
         monthly["total"] = (
-            monthly["energy_cost"] + monthly["demand_cost"] + monthly["customer_charge"]
+            monthly["energy_cost"]
+            + monthly["demand_cost"]
+            + monthly["demand_supply_cost"]
+            + monthly["customer_charge"]
         )
 
         return monthly
