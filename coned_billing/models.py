@@ -210,4 +210,17 @@ Temporary State Assessment Surcharge,
 Clean Energy Standard Delivery Surcharge
 Tax Surcredit
 Gross Receipts Tax.
+
+
+relevant notes:
+For Customers billed under SC 1 Rate V and SC 2 Rate III, maximum as-used daily demand values, where
+applicable, shall be determined by calculating the highest integrated 60-minute demand ending in each day
+and being entirely comprised of intervals ending in the same time period. Such Customer’s monthly
+maximum demand shall be determined by calculating the highest integrated 60-minute demand during the
+billing period in which such use is made. 
+
+for tou:
+The demand charge for each time period will be determined by multiplying the maximum demand for the
+respective time period by the rate applicable to the demand for that time period. The total demand charge will be
+the sum of the charges for each of the time periods
 """

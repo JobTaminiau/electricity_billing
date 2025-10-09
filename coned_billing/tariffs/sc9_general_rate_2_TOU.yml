@@ -1,7 +1,7 @@
 code: SC-9-GEN-NYC-RATE-2-LT
 customer_charge: 500.0
-supply_charge: 6.7563
-merchant_charge: 0.0778
+supply_charge: 7.6885  # see supply_charge.py
+merchant_charge: 0.0797
 
 demand:
   # ─── Summer Months (June to September) ───────────────────────────────
