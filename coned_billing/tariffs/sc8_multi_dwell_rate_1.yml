@@ -3,6 +3,7 @@
 # Issued in compliance with Order in Case 25-E-0072 dated 01/22/2026
 # Service Classification No. 8 - Multiple Dwellings - Redistribution
 # Rate I - Standard (non-TOU), Low Tension
+# Source: docs/sc8_multi_dwelling_psc10.pdf (pages 671-680 of full tariff)
 
 code: SC-8-MULTIDWELL-NYC-RATE-1-LT
 customer_charge: 59.00           # $/month
