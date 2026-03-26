@@ -1,0 +1,20 @@
+# leaf 432 in PSC NO. 10 - Electricity
+# Initial Effective Date: 02/01/2026
+# Issued in compliance with Order in Case 25-E-0072 dated 01/22/2026
+# Service Classification No. 8 - Multiple Dwellings - Redistribution
+# Rate I - Standard (non-TOU), Low Tension
+
+code: SC-8-MULTIDWELL-NYC-RATE-1-LT
+customer_charge: 59.00           # $/month
+supply_charge: 7.6885            # ¢/kWh, General Rule 25 (Market Supply Charge)
+merchant_charge: 0.1561          # ¢/kWh, leaf 335, effective Jan 2025
+
+demand_delivery:
+  - {rate: 55.65, window: {months: [6,7,8,9], include_holidays: true}}           # summer, low-tension
+  - {rate: 42.90, window: {months: [1,2,3,4,5,10,11,12], include_holidays: true}} # non-summer, low-tension
+
+demand_supply:
+  - {rate: 11.35, window: {include_holidays: true}}  # Market Supply Charge - Capacity, Oct 2025
+
+energy:
+  - {rate: 1.23, window: {include_holidays: true}}    # $0.0123/kWh = 1.23 ¢/kWh, flat all months
