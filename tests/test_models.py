@@ -1,10 +1,10 @@
 from datetime import time
 
-import numpy as np
 import pandas as pd
 import pytest
 
 from coned_billing.calendars import _CONED_HOLIDAYS
+from coned_billing.errors import LoadDataError
 from coned_billing.models import (
     DemandCharge,
     EnergyCharge,
@@ -115,7 +115,9 @@ def test_bill_regular_frequency_components_sum():
     )
 
 
-def test_bill_handles_irregular_intervals():
+def test_bill_rejects_irregular_intervals():
+    # WP1: irregular timestamps used to be billed as stretched intervals with an
+    # assumed 1 h first interval (F3.1). They are now rejected.
     idx = pd.to_datetime(
         [
             "2023-05-01 08:00",
@@ -124,24 +126,8 @@ def test_bill_handles_irregular_intervals():
         ]
     ).tz_localize("America/New_York")
     load = pd.DataFrame({"kW": [4.0, 6.0, 8.0]}, index=idx)
-    sched = _base_schedule()
-
-    monthly = sched.bill(load)
-    period = pd.Period("2023-05", freq="M")
-
-    dt_hours = np.array([1.0, 0.75, 4.5])  # first row defaults to 1 hour
-    kwh = load["kW"].to_numpy() * dt_hours
-    component_rates = np.array([10.0, 10.0, 20.0])
-    energy_expected = np.sum(kwh * component_rates / 100.0) + np.sum(kwh) * (2.0 + 1.0) / 100.0
-
-    demand_expected = 5.0 * 8.0
-    demand_supply_expected = 2.0 * 8.0
-    customer_expected = 30.0
-
-    assert monthly.loc[period, "energy_cost"] == pytest.approx(energy_expected)
-    assert monthly.loc[period, "demand_cost"] == pytest.approx(demand_expected)
-    assert monthly.loc[period, "demand_supply_cost"] == pytest.approx(demand_supply_expected)
-    assert monthly.loc[period, "customer_charge"] == pytest.approx(customer_expected)
+    with pytest.raises(LoadDataError):
+        _base_schedule().bill(load)
 
 
 def test_bill_accepts_ts_column_and_multiple_customers():

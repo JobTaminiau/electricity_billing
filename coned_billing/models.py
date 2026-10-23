@@ -8,6 +8,8 @@ import numpy as np
 import pandas as pd
 
 from .calendars import _CONED_HOLIDAYS
+from .errors import LoadDataError
+from .load import GapPolicy, Label, LoadProfile
 
 __all__ = [
     "DemandCharge",
@@ -30,6 +32,29 @@ def _month_periods(idx: pd.DatetimeIndex) -> pd.PeriodIndex:
     """Monthly periods of the index's wall-clock time (tz dropped explicitly)."""
     naive = idx.tz_localize(None) if idx.tz is not None else idx
     return naive.to_period("M")
+
+
+def _check_n_customers(n: object) -> None:
+    if isinstance(n, bool) or not isinstance(n, (int, np.integer)) or n < 1:
+        raise LoadDataError(f"n_customers must be a positive integer, got {n!r}")
+
+
+def _infer_interval(index: pd.Index) -> pd.Timedelta:
+    """Smallest elapsed spacing of a timestamp index (validated afterwards)."""
+    if len(index) < 2:
+        raise LoadDataError(
+            "cannot infer the interval from fewer than 2 timestamps; pass interval="
+        )
+    if not isinstance(index, pd.DatetimeIndex) or index.tz is None:
+        raise LoadDataError(
+            "timestamps must be a timezone-aware DatetimeIndex; parse CSV files with "
+            "coned_billing.read_load_csv"
+        )
+    diffs = np.diff(np.sort(index.as_unit("ns").asi8))
+    positive = diffs[diffs > 0]
+    if positive.size == 0:
+        raise LoadDataError("all timestamps are identical")
+    return pd.Timedelta(int(positive.min()), unit="ns")
 
 
 # ──────────────────────────────────── core DSL ───────────────────────────────────
@@ -108,38 +133,52 @@ class RateSchedule:
     # ──────── billing engine ────────
     def bill(
         self,
-        load_df: pd.DataFrame,
+        load_df: pd.DataFrame | LoadProfile,
         kw_col: str = "kW",
         ts_col: str | None = None,
         n_customers: int = 1,  # sets the number of customers for the customer charge
+        *,
+        interval: str | pd.Timedelta | None = None,
+        label: Label = "start",
+        on_gap: GapPolicy = "raise",
     ) -> pd.DataFrame:
         """
         Parameters
         ----------
-        load_df   DataFrame with a tz-aware DateTimeIndex or a column named *ts_col*
-                  and a power column (*kW*). Can be any frequency ≤ 1 h.
+        load_df   A :class:`~coned_billing.load.LoadProfile`, or a DataFrame with a
+                  tz-aware DatetimeIndex (or a column named *ts_col*) and an
+                  interval-average power column *kw_col* in kW.
+        interval  Interval duration of a DataFrame input ("15min", "30min", "1h").
+                  If omitted, it is inferred as the smallest spacing between
+                  timestamps, and the grid must then be regular (WP1). Ignored for
+                  a LoadProfile.
+        label     Whether DataFrame timestamps mark interval "start" (default,
+                  the pre-WP1 convention) or "end".
+        on_gap    "raise" (default) rejects missing intervals; "allow" bills
+                  observed intervals only. Never stretches intervals.
         Returns
         -------
         DataFrame with all cost components + totals per calendar month
+        (New York local time).
         """
-        if ts_col:
-            load_df = load_df.set_index(ts_col)
-        load_df = load_df.sort_index()
-        idx = load_df.index  # convenience
-
-        # convert each row's demand (kW) into energy (kWh for that interval)
-        if idx.freq is not None:  # regular grid → fast path
-            kwh = load_df[kw_col] * (pd.Timedelta(idx.freq) / pd.Timedelta("1h"))
-        else:  # fallback: variable intervals
-            dt_hours = (
-                idx.to_series()
-                .diff()
-                .dt.total_seconds()
-                .fillna(0)
-                .div(3600.0)
-                .replace(0, 1)  # first row or zero-width → assume 1 h
+        _check_n_customers(n_customers)
+        if isinstance(load_df, LoadProfile):
+            profile = load_df
+        else:
+            frame = load_df.set_index(ts_col) if ts_col else load_df
+            if interval is None:
+                interval = _infer_interval(frame.index)
+            profile = LoadProfile.from_series(
+                frame[kw_col],
+                quantity="kW",
+                interval=interval,
+                label=label,
+                on_gap=on_gap,
             )
-            kwh = load_df[kw_col] * dt_hours
+        idx = profile.start  # New York interval starts
+        load_kw = pd.Series(profile.kw, index=idx, name=kw_col)
+        load_df = load_kw.to_frame()
+        kwh = pd.Series(profile.kwh, index=idx)
 
         # ── Energy charges (volumetric) ──────────────────────────────────────
         energy_cost = pd.Series(0.0, index=idx)
@@ -178,7 +217,7 @@ class RateSchedule:
                 "energy_cost": energy_cost,
                 "demand_cost": demand_delivery_cost,
                 "demand_supply_cost": demand_supply_cost,
-                kw_col: load_df[kw_col],
+                kw_col: load_kw,
             }
         )
 

@@ -211,3 +211,117 @@ Warnings seen there:
 ### Open questions for the owner
 
 See the WP0 checkpoint report in the project thread.
+
+### After the WP0 checkpoint (owner decisions, 2026-10-23)
+
+- Push of `research-quality` authorized (no PR, no merge). First GitHub CI run
+  (`eb82225`) passed on every job: https://github.com/JobTaminiau/electricity_billing/actions/runs/40009153241
+- Downloading primary sources through the owner's laptop authorized, and
+  **earlier years are in scope** ("Include rates for earlier years"):
+  historical tariff versions and supply prices for 2020-2025 join the plan
+  (WP3, WP8). Collected on the laptop under
+  `electricity_billing-wp0\sources\` with sha256 manifests:
+  - current PSC No. 10 full tariff (760 pp, leaves 1-503) and addenda.
+    coned.com offers no separate General Rules or SC files. Key leaves: GR 2
+    definitions 12-20, GR 10 demand from 82 (10.10/10.11 around 90-94),
+    GR 25 MSC 328-336, GR 26 337-359, SC-8 Rate I 432-435;
+  - 459 superseded leaves in force during 2020-2025, from the NY PSC
+    Electronic Tariff System, with case and effective/cancelled dates;
+  - Con Ed tariff snapshots (2019-2026);
+  - the MSC calculator data file (2010-2026), the only primary MSC energy
+    series (no monthly MSC energy statements are published);
+  - Statements of MSC Capacity and MFC (2020-2025) and MSC adjustment
+    summaries.
+- Sources policy agreed: the repository keeps the manifests plus only the
+  leaves each tariff version cites; the full set is kept outside git.
+
+## WP1: load-data contract and interval energy
+
+### What was done
+
+- `coned_billing/load.py`: `LoadProfile` (validated regular grid: New York
+  interval starts, explicit `interval`, read-only `kw`, recorded `gaps`),
+  `LoadProfile.from_series` / `from_frame`, and `read_load_csv`.
+- `coned_billing/errors.py`: `ConEdBillingError` and
+  `LoadDataError(ConEdBillingError, ValueError)`.
+- `RateSchedule.bill` builds a `LoadProfile` (or accepts one), bills in
+  New York time, and validates `n_customers`. `billing.bill()` and the CLI
+  read the CSV through `read_load_csv` and take `interval` and `label`.
+- `docs/load_data.md` documents the contract; `docs/MIGRATION.md` lists the
+  behaviour changes.
+
+### Decisions
+
+- **Supported intervals:** 5, 15, 30 and 60 minutes. These are the strict
+  regular-grid research path. 5 minutes is included for WP4's
+  integrated-demand tests. Irregular intervals are not supported.
+- **Label convention:** no default in the new API. The legacy
+  `RateSchedule.bill` / `bill()` / CLI keep `label="start"`, the pre-WP1
+  implicit convention.
+- **Gap policy:** reject by default. `on_gap="allow"` records gaps and bills
+  only observed intervals; nothing is imputed or stretched.
+- **Unsorted input:** reject by default; `sort=True` opts in.
+- **Naive timestamps:** reject by default. Localizing needs `localize_tz` plus
+  `ambiguous="raise"|"infer"` and `nonexistent="raise"`. No shifting policy is
+  offered, because it would invent or drop energy.
+- **CSV parsing:** a row-level check that the time of day is followed by an
+  offset, so a bare date is not mistaken for one. Rows with offsets are
+  parsed with `utc=True`; a file mixing offset and naive rows is rejected.
+- **Empty input:** rejected. A single interval is valid.
+- **Negative values:** rejected on this import-only path (PV is WP7).
+- **Legacy `interval` inference:** when the old DataFrame API is called
+  without `interval`, the smallest timestamp spacing is used and must then
+  validate as a regular grid. This keeps nyc-solarcity's call working.
+  WP5 deprecates the old API.
+- **R1.8 (New York calendars) is done here.** It is in R1, which is why the
+  F3.3 "UTC vs New York" xfail is removed in WP1 rather than WP2. Holiday
+  matching (F3.2) remains xfailed for WP2.
+- **pandas 3 datetime resolution:** pandas 3 can store datetimes in µs, so all
+  elapsed-time arithmetic goes through `.as_unit("ns")`. The first draft
+  misread µs as ns; the tests caught it.
+
+### Tests
+
+`tests/test_load.py` has 38 test functions (97 cases with parametrization).
+They cover:
+
+- energy independent of `.freq`, and known totals at 5/15/30/60 minutes;
+- kW and kWh equivalence, start/end labels including month assignment, and
+  gaps (rejected, or recorded and never stretched);
+- duplicate instants, including one instant written with two different
+  offsets, and the unsorted policy;
+- empty and single-interval input, and NaN, ±inf, text, booleans and
+  negative values;
+- invalid intervals and options, and misaligned grids;
+- naive input and localization policies, including nonexistent and
+  ambiguous times;
+- DST-day counts (23/25, 46/50, 92/100), distinct repeated hours, and
+  UTC/New York equivalence;
+- leap February, and CSV input: mixed offsets, round trip, `Z`, naive,
+  mixed, blank, missing value and missing column;
+- `n_customers` validation and read-only values;
+- that aligned grids never cross a month boundary;
+- a seeded random property test (25 grids), plus a Hypothesis property test
+  that is skipped where Hypothesis is not installed.
+
+Changed: `tests/test_models.py::test_bill_handles_irregular_intervals` now
+asserts rejection (`test_bill_rejects_irregular_intervals`), a deliberate
+behaviour change. Four xfails are resolved and their markers removed: F3.1 ×2,
+F3.3 CSV, and F3.3 UTC/New York.
+
+Not yet in WP1: "a CSV round trip preserves billing results" is tested on the
+legacy engine only. It is re-checked on the new engine in WP5.
+
+### Results (cloud, CPython 3.13.17, pandas 3.0.5, numpy 2.5.3)
+
+`pytest -W error`: 135 passed, 2 skipped (Hypothesis, great_tables not
+installed), 19 xfailed. ruff and mypy are clean. Laptop matrix: see the WP1
+checkpoint.
+
+### Open questions
+
+- nyc-solarcity's hourly loads now fail loudly if they contain gaps or
+  duplicate hours. The 2024 ConEd forecast shape has a missing 2024-12-31,
+  which used to be silently stretched. Owner to decide whether nyc-solarcity
+  should pass `on_gap="allow"` or fix its inputs. Nothing has been changed
+  in nyc-solarcity.

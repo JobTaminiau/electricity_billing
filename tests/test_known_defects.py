@@ -1,7 +1,8 @@
 """Regression tests for the defects confirmed in WP0 (review findings F3.1-F3.8).
 
 Each test asserts the *correct* behaviour and is marked ``xfail(strict=True)``
-with its finding ID. The work package that fixes a defect removes the marker
+with its finding ID while the defect is open. Resolved so far: F3.1 and the
+CSV/local-time parts of F3.3 (WP1). The work package that fixes a defect removes the marker
 (and may adapt the test to the new API). A strict xfail that starts passing
 fails the suite: investigate it, do not delete the test.
 
@@ -21,6 +22,7 @@ import pytest
 import coned_billing
 from coned_billing import calendars
 from coned_billing.billing import bill
+from coned_billing.errors import LoadDataError
 from coned_billing.loader import load_rate
 from coned_billing.models import EnergyCharge, RateSchedule, TimeWindow
 
@@ -54,7 +56,6 @@ def _write(tmp_path: Path, body: str) -> Path:
 
 
 # ───────────────────────────── F3.1 interval energy ─────────────────────────────
-@_xfail("F3.1: interval energy depends on DatetimeIndex.freq")
 def test_energy_independent_of_freq_metadata():
     idx = pd.date_range("2024-01-01", periods=4, freq="15min", tz=NY)
     no_freq = pd.DatetimeIndex(list(idx))
@@ -65,22 +66,16 @@ def test_energy_independent_of_freq_metadata():
         assert cost == pytest.approx(1.0, abs=1e-12)
 
 
-@_xfail("F3.1: missing intervals are billed as stretched intervals")
 def test_missing_intervals_are_not_stretched():
     idx = pd.date_range("2024-01-01", "2024-01-31 23:45", freq="15min", tz=NY)
     idx = pd.DatetimeIndex(list(idx[idx.day != 15]))
     load = pd.DataFrame({"kW": 1.0}, index=idx)
     # Either reject the gap, or bill only observed energy: 30 days x 24 h x 1 kW.
-    try:
-        cost = _energy_only().bill(load)["energy_cost"].sum()
-    except (ValueError, coned_billing_error()):
-        return
+    # Default: the gap is rejected. Opt-in: only observed energy, 30 d x 24 h x 1 kW.
+    with pytest.raises(LoadDataError, match="missing interval"):
+        _energy_only().bill(load)
+    cost = _energy_only().bill(load, on_gap="allow")["energy_cost"].sum()
     assert cost == pytest.approx(720.0, abs=1e-9)
-
-
-def coned_billing_error() -> type[Exception]:
-    """The package-specific base exception once it exists (WP1), else a sentinel."""
-    return getattr(coned_billing, "ConEdBillingError", ValueError)
 
 
 # ───────────────────────────── F3.2 holidays ────────────────────────────────────
@@ -141,7 +136,6 @@ def test_component_specific_holiday_set(tmp_path):
 
 
 # ───────────────────────────── F3.3 local time / CSV ────────────────────────────
-@_xfail("F3.3: months and TOU windows evaluated in the index timezone")
 def test_utc_and_new_york_inputs_give_identical_bills():
     sched = load_rate(TARIFFS / "sc9_general_rate_2_TOU.yml")
     idx = pd.date_range("2023-01-01", "2023-12-31 23:00", freq="h", tz=NY)
@@ -151,7 +145,6 @@ def test_utc_and_new_york_inputs_give_identical_bills():
     assert utc == pytest.approx(ny, rel=1e-12)
 
 
-@_xfail("F3.3: CSV spanning a DST change fails (object/str timestamp column)")
 def test_csv_across_dst_bills(tmp_path):
     idx = pd.date_range("2023-03-11", "2023-03-13", freq="h", tz=NY)
     load_csv = tmp_path / "load.csv"
