@@ -394,4 +394,4 @@ def test_holiday_peak_excluded_from_holiday_excluding_demand_window():
     kw[pd.Timestamp("2023-07-04 15:00", tz=NY)] = 500.0  # July 4 (Tue) spike
     kw[pd.Timestamp("2023-07-05 15:00", tz=NY)] = 80.0
     out = sched.bill(LoadProfile.from_series(kw, quantity="kW", interval="1h", label="start"))
-    assert out["demand_cost"].iloc[0] == 80.0
+    assert out["demand_cost"].iloc[0] == pytest.approx(80.0, rel=1e-12)
