@@ -7,8 +7,8 @@ from datetime import time
 import numpy as np
 import pandas as pd
 
-from .calendars import _CONED_HOLIDAYS
-from .errors import LoadDataError
+from .calendars import TARIFF_TZ, HolidaySet, get_holiday_set
+from .errors import ConEdBillingError, LoadDataError
 from .load import GapPolicy, Label, LoadProfile
 
 __all__ = [
@@ -24,8 +24,8 @@ def _to_minutes(t: time) -> int:  # 00:15->15
     return t.hour * 60 + t.minute
 
 
-def _is_weekend(ts: pd.DatetimeIndex) -> bool:
-    return ts.day_of_week >= 5  # 5=Sat,6=Sun
+def _is_weekend(ts: pd.DatetimeIndex) -> np.ndarray:
+    return np.asarray(ts.day_of_week >= 5)  # 5=Sat,6=Sun
 
 
 def _month_periods(idx: pd.DatetimeIndex) -> pd.PeriodIndex:
@@ -60,31 +60,101 @@ def _infer_interval(index: pd.Index) -> pd.Timedelta:
 # ──────────────────────────────────── core DSL ───────────────────────────────────
 @dataclass(frozen=True, slots=True)
 class TimeWindow:
-    """Single rule for when a charge applies."""
+    """Single rule for when a charge applies, evaluated in New York civil time.
+
+    Semantics (WP2, documented in docs/calendars.md):
+
+    * ``months``: calendar months 1-12 (None = all months).
+    * ``weekdays_only``: True = Monday-Friday, False = Saturday/Sunday, None = all days.
+    * ``start`` / ``end``: half-open ``[start, end)`` local clock times. ``start``
+      None means 00:00; ``end`` None means end of day (midnight that ends the
+      day; write ``end: end_of_day`` in YAML). ``"24:00"`` is not accepted.
+      Overnight windows (``end <= start``) are rejected.
+    * Holidays: a window excludes the days of its holiday set. Name the set with
+      ``excluded_holidays`` (see :data:`coned_billing.calendars.HOLIDAY_SETS`).
+      The legacy flag maps ``include_holidays=False`` to ``"coned_six"`` and
+      ``include_holidays=True`` to ``"none"``. Holiday exclusion applies on top
+      of the weekday filter.
+    """
 
     months: Sequence[int] | None = None  # e.g., (6, 7, 8, 9)
     weekdays_only: bool | None = None  # True=Mon-Fri, False=Sat/Sun, None=any
     start: time | None = None  # inclusive (defaults 00:00)
-    end: time | None = None  # exclusive (defaults 24:00)
+    end: time | None = None  # exclusive (None = end of day)
     include_holidays: bool = False
+    excluded_holidays: str | HolidaySet | None = None
+
+    def __post_init__(self) -> None:
+        if self.months is not None:
+            months = list(self.months)
+            if not months:
+                raise ConEdBillingError("months must not be empty (use None for all months)")
+            bad = [
+                m
+                for m in months
+                if isinstance(m, bool) or not isinstance(m, (int, np.integer)) or not 1 <= m <= 12
+            ]
+            if bad:
+                raise ConEdBillingError(f"months must be integers 1-12, got {bad}")
+            if len(set(months)) != len(months):
+                raise ConEdBillingError(f"duplicate months in {months}")
+            object.__setattr__(self, "months", tuple(int(m) for m in months))
+        if self.weekdays_only not in (None, True, False):
+            raise ConEdBillingError(
+                f"weekdays_only must be true, false or null, got {self.weekdays_only!r}"
+            )
+        for name in ("start", "end"):
+            t = getattr(self, name)
+            if t is not None and (not isinstance(t, time) or t.second or t.microsecond or t.tzinfo):
+                raise ConEdBillingError(
+                    f"{name} must be a naive whole-minute datetime.time, got {t!r}"
+                )
+        s = 0 if self.start is None else _to_minutes(self.start)
+        e = 24 * 60 if self.end is None else _to_minutes(self.end)
+        if e <= s:
+            raise ConEdBillingError(
+                f"window end {self.end} is not after start {self.start}; overnight windows are "
+                "not supported, split them into two windows"
+            )
+        if self.excluded_holidays is not None:
+            if self.include_holidays:
+                raise ConEdBillingError(
+                    "give either include_holidays=True or excluded_holidays, not both"
+                )
+            get_holiday_set(self.excluded_holidays)  # validate early
+
+    @property
+    def holiday_set(self) -> HolidaySet:
+        if self.excluded_holidays is not None:
+            return get_holiday_set(self.excluded_holidays)
+        return get_holiday_set("none" if self.include_holidays else "coned_six")
 
     def mask(self, idx: pd.DatetimeIndex) -> np.ndarray:
+        """Boolean mask of the instants in ``idx`` that fall inside the window.
+
+        ``idx`` must be timezone-aware; it is converted to New York time.
+        """
+        if not isinstance(idx, pd.DatetimeIndex) or idx.tz is None:
+            raise ConEdBillingError(
+                "TimeWindow.mask needs a timezone-aware DatetimeIndex (tariff calendars are "
+                "evaluated in America/New_York)"
+            )
+        idx = idx.tz_convert(TARIFF_TZ)
         m = np.full(idx.shape, True, dtype=bool)
 
         if self.months is not None:
-            m &= idx.month.isin(self.months)
+            m &= np.asarray(idx.month.isin(self.months))
         if self.weekdays_only is True:
             m &= ~_is_weekend(idx)
         elif self.weekdays_only is False:
             m &= _is_weekend(idx)
 
-        if not self.include_holidays:
-            m &= ~idx.normalize().isin(_CONED_HOLIDAYS)
+        m &= ~self.holiday_set.contains(idx)
 
         if self.start is not None or self.end is not None:
             s = 0 if self.start is None else _to_minutes(self.start)
             e = 24 * 60 if self.end is None else _to_minutes(self.end)
-            minute_of_day = idx.hour * 60 + idx.minute
+            minute_of_day = np.asarray(idx.hour * 60 + idx.minute)
             m &= (minute_of_day >= s) & (minute_of_day < e)
 
         return m

@@ -2,9 +2,10 @@
 
 Each test asserts the *correct* behaviour and is marked ``xfail(strict=True)``
 with its finding ID while the defect is open. Resolved so far: F3.1 and the
-CSV/local-time parts of F3.3 (WP1). The work package that fixes a defect removes the marker
-(and may adapt the test to the new API). A strict xfail that starts passing
-fails the suite: investigate it, do not delete the test.
+CSV/local-time parts of F3.3 (WP1); F3.2 and the F3.8 end-of-day part
+(WP2). The work package that fixes a defect removes the marker (and may
+adapt the test to the new API). A strict xfail that starts passing fails the
+suite: investigate it, do not delete the test.
 
 Expected values are independent of the package: durations, hand arithmetic,
 calendar dates, and rates read from the bundled 02/01/2026 leaves.
@@ -79,39 +80,33 @@ def test_missing_intervals_are_not_stretched():
 
 
 # ───────────────────────────── F3.2 holidays ────────────────────────────────────
-@_xfail("F3.2: holiday tz mismatch, tz-aware July 4 not excluded")
 def test_tz_aware_july4_excluded_by_holiday_excluding_window():
     idx = pd.DatetimeIndex([pd.Timestamp("2023-07-04 12:00", tz=NY)])
     assert TimeWindow(include_holidays=False).mask(idx).tolist() == [False]
 
 
-@_xfail("F3.2: holiday tz mismatch, UTC input on July 4 local")
 def test_utc_input_july4_local_excluded():
     # 2023-07-04 16:00 UTC is 12:00 EDT on July 4.
     idx = pd.DatetimeIndex([pd.Timestamp("2023-07-04 16:00", tz="UTC")])
     assert TimeWindow(include_holidays=False).mask(idx).tolist() == [False]
 
 
-@_xfail("F3.2: Thanksgiving computed as first Thursday")
 def test_thanksgiving_is_fourth_thursday():
     # Independent calendar: Nov 27 2025 and Nov 26 2026 are the fourth Thursdays.
     idx = pd.DatetimeIndex(["2025-11-06", "2025-11-27", "2026-11-05", "2026-11-26"])
     assert list(calendars.is_coned_holiday(idx)) == [False, True, False, True]
 
 
-@_xfail("F3.2: holidays cached only for 2020-2030")
 @pytest.mark.parametrize("day", ["2019-12-25", "2031-07-04", "2035-01-01"])
 def test_holidays_outside_cached_range(day):
     assert list(calendars.is_coned_holiday(pd.DatetimeIndex([day]))) == [True]
 
 
-@_xfail("F3.2: scalar is_coned_holiday raises AttributeError")
 def test_scalar_holiday_lookup():
     assert calendars.is_coned_holiday(pd.Timestamp("2023-07-04")) is True
     assert calendars.is_coned_holiday(pd.Timestamp("2023-07-05")) is False
 
 
-@_xfail("F3.2: single global holiday set, no per-component holiday sets")
 def test_component_specific_holiday_set(tmp_path):
     # Fixture tariff: a window that excludes only Independence Day and Labor Day
     # (the SC-1 Rate II summer on-peak pattern). Christmas must stay inside it.
@@ -125,7 +120,7 @@ def test_component_specific_holiday_set(tmp_path):
         energy:
           - rate: 1.0
             window:
-              holidays: [independence_day, labor_day]
+              excluded_holidays: [independence_day, labor_day]
         """,
     )
     window = load_rate(path).energy_components[0].window
@@ -301,7 +296,6 @@ def test_misspelled_window_key_rejected(tmp_path):
         load_rate(path)
 
 
-@_xfail("F3.8: '24:00' end-of-day cannot be expressed or is rejected unclearly")
 def test_end_of_day_24_00_is_explicit(tmp_path):
     path = _write(
         tmp_path,

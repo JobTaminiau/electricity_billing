@@ -30,7 +30,7 @@ def test_window_from_dict_round_trip():
     window = _window_from_dict(payload)
 
     assert isinstance(window, TimeWindow)
-    assert window.months == payload["months"]
+    assert window.months == (6, 7, 8)
     assert window.weekdays_only is True
     assert window.start == time(9, 0)
     assert window.end == time(17, 30)

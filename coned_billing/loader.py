@@ -1,26 +1,44 @@
+import re
 from datetime import time
 from pathlib import Path
 
 import yaml
 
+from .errors import ConEdBillingError
 from .models import DemandCharge, EnergyCharge, RateSchedule, TimeWindow
 
-
 # helper ───────────────────────────────────────────────────────────────────
-def _parse_time(s: str | None) -> time | None:
+END_OF_DAY = "end_of_day"
+_HHMM = re.compile(r"^([01]\d|2[0-3]):([0-5]\d)$")
+
+
+def _parse_time(s: str | None, *, field: str = "start") -> time | None:
+    """Parse "HH:MM" (00:00-23:59). ``end: end_of_day`` (or omission) means midnight."""
     if s is None:
         return None
-    hh, mm = map(int, s.split(":"))
-    return time(hh, mm)
+    if field == "end" and s == END_OF_DAY:
+        return None
+    if not isinstance(s, str):
+        raise ConEdBillingError(f'{field} must be a quoted "HH:MM" string, got {s!r}')
+    if s.strip() == "24:00":
+        raise ConEdBillingError(
+            f'{field}: "24:00" is not accepted; write end: {END_OF_DAY} (or omit end) '
+            "for a window that runs to midnight"
+        )
+    m = _HHMM.match(s.strip())
+    if not m:
+        raise ConEdBillingError(f'{field} must be "HH:MM" between 00:00 and 23:59, got {s!r}')
+    return time(int(m.group(1)), int(m.group(2)))
 
 
 def _window_from_dict(d: dict) -> TimeWindow:
     return TimeWindow(
         months=d.get("months"),
         weekdays_only=d.get("weekdays_only"),
-        start=_parse_time(d.get("start")),
-        end=_parse_time(d.get("end")),
+        start=_parse_time(d.get("start"), field="start"),
+        end=_parse_time(d.get("end"), field="end"),
         include_holidays=d.get("include_holidays", False),
+        excluded_holidays=d.get("excluded_holidays"),
     )
 
 

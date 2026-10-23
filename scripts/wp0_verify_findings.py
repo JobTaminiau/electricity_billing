@@ -7,6 +7,7 @@ Run from the repository root::
 Prints one line per check with the observed value. The output is pasted into
 docs/dev/PROGRESS.md. This script exercises the *pre-upgrade* API on purpose;
 it is a one-off diagnostic and will stop being meaningful as WP1-WP5 land.
+Run it at commit 048544d (WP0); later commits change the APIs it probes.
 """
 
 from __future__ import annotations

@@ -78,8 +78,9 @@ def test_bill_has_no_nan(sched: RateSchedule):
 
 
 def test_demand_charge_uses_monthly_peak():
+    # 2023-01-03 (Tuesday): Jan 1 is New Year's Day, which default windows exclude.
     idx = pd.date_range(
-        "2023-01-01",
+        "2023-01-03",
         periods=10,
         freq="h",
         tz="America/New_York",

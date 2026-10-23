@@ -12,7 +12,9 @@ The CSV file entered into the model must contain the following columns:
 State the interval duration and whether timestamps mark interval start or end
 (`coned-bill load.csv tariff.yml --interval 15min --label end`). Gaps,
 duplicates, misaligned or naive timestamps are rejected. The full input
-contract is in [docs/load_data.md](docs/load_data.md).
+contract is in [docs/load_data.md](docs/load_data.md). Holidays and
+time-of-use windows (New York time, cited holiday sets, `end_of_day`) are
+described in [docs/calendars.md](docs/calendars.md).
 
 > **Status:** this package is being upgraded to research quality on branch
 > `research-quality` (work packages WP0-WP9, log in `docs/dev/PROGRESS.md`).

@@ -3,7 +3,6 @@ from datetime import time
 import pandas as pd
 import pytest
 
-from coned_billing.calendars import _CONED_HOLIDAYS
 from coned_billing.errors import LoadDataError
 from coned_billing.models import (
     DemandCharge,
@@ -37,13 +36,9 @@ def test_timewindow_weekday_and_weekend_flags():
 
 
 def test_timewindow_excludes_holidays_by_default():
-    reference_holiday = min(_CONED_HOLIDAYS)
-    idx = pd.DatetimeIndex(
-        [
-            reference_holiday - pd.Timedelta(days=1),
-            reference_holiday,
-        ]
-    )
+    # 2023-07-04 (Independence Day, a Tuesday) is in the default "coned_six" set;
+    # 2023-07-03 is an ordinary Monday. Dates from an independent calendar.
+    idx = pd.DatetimeIndex(["2023-07-03 12:00", "2023-07-04 12:00"]).tz_localize("America/New_York")
 
     default_window = TimeWindow()
     include_window = TimeWindow(include_holidays=True)
@@ -53,8 +48,10 @@ def test_timewindow_excludes_holidays_by_default():
 
 
 def test_timewindow_time_bounds_are_half_open():
+    # 2023-01-03 is an ordinary Tuesday (2023-01-01 would be New Year's Day,
+    # which a holiday-excluding window drops entirely).
     idx = pd.date_range(
-        "2023-01-01 07:30",
+        "2023-01-03 07:30",
         periods=4,
         freq="30min",
         tz="America/New_York",

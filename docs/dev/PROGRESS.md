@@ -75,7 +75,7 @@ F3.9   packaging: requires-python '>=3.9'; license meta {'text': 'MIT'}; LICENSE
   excludes holidays from both windows. Whether ConEd holidays are excluded
   for SC-9 Rate II must come from the General Rules or SC-9 common
   provisions, which are not bundled. WP2 must cite it or mark it unverified.
-- **N2. The plan's SC-1 Rate II holiday example does not match the bundled
+- **N2. (Retracted in WP2; see the WP2 entry.) The plan's SC-1 Rate II holiday example does not match the bundled
   leaf.** The plan says the SC-1 Rate II summer on-peak period excludes only
   Independence Day and Labor Day. The bundled SC-1 leaf for Rate II
   (02/01/2026) reads "On-peak: All days, 8 AM to midnight, including
@@ -325,3 +325,84 @@ checkpoint.
   which used to be silently stretched. Owner to decide whether nyc-solarcity
   should pass `on_gap="allow"` or fix its inputs. Nothing has been changed
   in nyc-solarcity.
+
+## WP2: holidays and time windows
+
+### What was done
+
+- `coned_billing/calendars.py` rewritten: rule-based holidays for 1900–2200
+  (`Holiday`, `holiday_date`), named and cited `HolidaySet`s in
+  `HOLIDAY_SETS`, `get_holiday_set`, and scalar/vector `is_coned_holiday`
+  in New York civil time. No observed-day shift.
+- `TimeWindow` gains `excluded_holidays` and full validation; `mask` works
+  in New York time and rejects naive input. Windows are half-open; `end`
+  `None` means end of day.
+- YAML loader: `end_of_day` token, `"24:00"` rejected with a pointer to it,
+  strict `HH:MM`, and the `excluded_holidays` key. The strict schema is WP3.
+- Docs: `docs/calendars.md`; `docs/MIGRATION.md` WP2 section.
+
+### Sources
+
+All from the full PSC No. 10 PDF (`electric-tariff.pdf`, 760 pp., sha256
+`4141be1f16d8e49d5be19b77aa508645753890bb61ffd9019ad27a6459cb851f`,
+retrieved 2026-10-23 19:10Z from coned.com):
+
+- leaf 389.3 rev 1 (eff. 04/06/2020), PDF p. 622: SC 1 Rate IV common
+  provisions, six-day holiday list; same list in Rider leaf 327.2 rev 2
+  (eff. 11/03/2022), PDF p. 486;
+- leaf 389 rev 23 (eff. 02/01/2026), PDF p. 618: SC 1 Rate II on-peak
+  Mon–Fri 10 AM–10 PM, summer excluding Independence Day and Labor Day,
+  non-summer excluding New Year's, Memorial Day, Thanksgiving, Christmas;
+- leaf 449 rev 20 (eff. 02/01/2026), PDF p. 688: SC-9 Rate II windows,
+  "Monday through Friday", no holiday wording;
+- leaf 90 rev 4 (eff. 02/01/2020), PDF p. 104: General Rule 10.10, off-peak
+  is the 48 h of Saturday and Sunday plus 10 PM–8 AM Monday–Friday.
+
+### Findings
+
+- **N2 retracted.** My WP0 reading was wrong: I read the SC-1 Rate III text.
+  Leaf 389 Rate II matches the spec's example (summer on-peak excludes only
+  Independence Day and Labor Day). The two Rate II sets are bundled with
+  that citation.
+- **N1 resolved by the leaf text.** SC-9 Rate II windows have no holiday
+  exclusion (leaf 449, GR 10.10). The legacy YAML still excludes the six
+  holidays; it stays as an unverified legacy value, and since holidays are
+  now matched correctly, tz-aware SC-9 Rate II bills now drop holidays from
+  on-peak demand where they did not before. The WP3 transcription will use
+  set `none`. Owner decision requested at the checkpoint.
+- **For WP4:** General Rule 10.4 (leaf 84 rev 1, eff. 01/01/2024, PDF p. 98)
+  says "the maximum demand shall be the highest 30-minute integrated demand"
+  for customers not otherwise specified. The legacy engine takes the highest
+  interval kW at the input resolution.
+- **For WP3:** the current tariff PDF already carries leaves effective after
+  February 2026 (e.g. SC-9 leaf 452 at 08/01/2026 and 10/01/2026), so
+  versioning must be per leaf, not per document.
+
+### Tests
+
+`tests/test_calendars.py` rewritten with hard-coded dates: Thanksgiving,
+Memorial Day and Labor Day across years; no observed shift; years outside
+2020–2030 and out of range; scalar and vector return types; tz conversion to
+the New York civil date; the SC-1 Rate II sets and citations; component
+windows; custom lists and the YAML key; half-open 08:00/22:00;
+`end_of_day` vs `"24:00"`; invalid times and windows; naive masks;
+weekday/weekend/holiday interactions; UTC/New York/Tokyo equivalence; DST
+boundaries and 14-hour windows on DST days; no aligned 5/15/30/60-minute
+interval crossing a bundled window boundary; and a holiday peak excluded
+from demand.
+
+Strict xfails removed: the six F3.2 tests (tz-aware July 4, UTC July 4,
+Thanksgiving, cache range, scalar lookup, per-component sets) and the F3.8
+"24:00" test. 10 xfails remain (F3.4 ×4, F3.5 ×2, F3.6, F3.7 ×2, F3.8
+misspelled key).
+
+Changed: `tests/test_billing.py::test_demand_charge_uses_monthly_peak` and
+the `tests/test_models.py` half-open test moved off New Year's Day, which
+default windows now correctly exclude; the `tests/test_models.py` holiday
+test now uses tz-aware July 3/4; `tests/test_loader.py` expects `months` as a
+tuple.
+
+### Results (cloud, CPython 3.13.17, pandas 3.0.5, numpy 2.5.3)
+
+`pytest -W error`: 206 passed, 2 skipped (Hypothesis, great_tables not
+installed), 10 xfailed. ruff, ruff format and mypy are clean.
