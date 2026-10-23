@@ -17,6 +17,8 @@ time-of-use windows (New York time, cited holiday sets, `end_of_day`) are
 described in [docs/calendars.md](docs/calendars.md). Dated, source-cited tariff
 versions and their schema are described in [docs/tariff_schema.md](docs/tariff_schema.md); the
 support matrix is [docs/support_matrix.md](docs/support_matrix.md).
+Demand determination (30-minute integrated demand, approximation flags,
+Contract Demand) is described in [docs/demand.md](docs/demand.md).
 
 > **Status:** this package is being upgraded to research quality on branch
 > `research-quality` (work packages WP0-WP9, log in `docs/dev/PROGRESS.md`).

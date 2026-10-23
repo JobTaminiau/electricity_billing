@@ -90,21 +90,21 @@ Voltage: low tension. Zone: not zone-specific.
 Implemented components (latest transcribed version, 2026-02-01):
 
 - `customer_charge` (fixed_charge): 59 USD/month; holidays excluded: none
-- `demand_delivery_summer` (delivery_demand): 55.65 USD/kW; months 6,7,8,9; holidays excluded: none; demand: 30-minute integrated
-- `demand_delivery_other` (delivery_demand): 42.9 USD/kW; months 1,2,3,4,5,10,11,12; holidays excluded: none; demand: 30-minute integrated
+- `demand_delivery_summer` (delivery_demand): 55.65 USD/kW; months 6,7,8,9; holidays excluded: none; demand: 30-minute integrated, fixed_clock
+- `demand_delivery_other` (delivery_demand): 42.9 USD/kW; months 1,2,3,4,5,10,11,12; holidays excluded: none; demand: 30-minute integrated, fixed_clock
 - `energy_delivery` (delivery_energy): 0.0123 USD/kWh; holidays excluded: none
 
 Excluded components:
 
 - `additional_delivery_charges_gr26`: Additional Delivery Charges and Adjustments (General Rule 26). Set by monthly statements (e.g. MAC, surcharges, adjustment factors) that are not transcribed; not modeled.
 - `reactive_power_demand_gr1011`: Reactive Power Demand Charge (General Rule 10.11). Needs kVAr metering data, which the package does not take; not modeled.
-- `minimum_monthly_charge_gr1010`: Minimum Monthly Charge (General Rule 10.10, Contract Demand). Needs the account's highest registered demand in the most recent 18 months; not modeled.
+- `minimum_monthly_charge_gr1010`: Minimum Monthly Charge (General Rule 10.10, Contract Demand). The Contract Demand (highest registered demand in the most recent 18 months) can be computed with coned_billing.demand.contract_demand, but the comparison base (monthly Pure Base Revenue and the MAC, GR 10.10 c, continued on leaf 91, GR 2 and GR 26) was not obtained; not modeled.
 - `supply_charges_gr25`: Supply and supply-related charges (General Rule 25: Market Supply Charge, Merchant Function Charge). Supply is not part of this delivery tariff version; calculations must supply an explicit supply assumption (D5). A packaged, sourced MSC dataset is WP8.
 - `increase_in_rates_gr30`: Increase in Rates and Charges (General Rule 30). Percentage increase shown on a separate statement; not transcribed, not modeled.
 
 Required account inputs: service voltage: low_tension.
 
-Supported demand resolution: billed demand is the 30-minute integrated demand (GR 10.4); deriving it from interval data is WP4.
+Supported demand resolution: billed demand is the 30-minute integrated demand (GR 10.4), from interval data of that length or finer (`coned_billing.demand`). Hourly data are accepted only as a flagged `hourly_approximation`.
 
 ## `sc9_rate1_ht`: SC-9 Rate I - General - Large
 
@@ -125,21 +125,21 @@ Voltage: high tension. Zone: not zone-specific.
 Implemented components (latest transcribed version, 2026-02-01):
 
 - `customer_charge` (fixed_charge): 72 USD/month; holidays excluded: none
-- `demand_delivery_summer` (delivery_demand): 30.41 USD/kW; months 6,7,8,9; holidays excluded: none; demand: 30-minute integrated
-- `demand_delivery_other` (delivery_demand): 21.17 USD/kW; months 1,2,3,4,5,10,11,12; holidays excluded: none; demand: 30-minute integrated
+- `demand_delivery_summer` (delivery_demand): 30.41 USD/kW; months 6,7,8,9; holidays excluded: none; demand: 30-minute integrated, fixed_clock
+- `demand_delivery_other` (delivery_demand): 21.17 USD/kW; months 1,2,3,4,5,10,11,12; holidays excluded: none; demand: 30-minute integrated, fixed_clock
 - `energy_delivery` (delivery_energy): 0.0143 USD/kWh; holidays excluded: none
 
 Excluded components:
 
 - `additional_delivery_charges_gr26`: Additional Delivery Charges and Adjustments (General Rule 26). Set by monthly statements (e.g. MAC, surcharges, adjustment factors) that are not transcribed; not modeled.
 - `reactive_power_demand_gr1011`: Reactive Power Demand Charge (General Rule 10.11). Needs kVAr metering data, which the package does not take; not modeled.
-- `minimum_monthly_charge_gr1010`: Minimum Monthly Charge (General Rule 10.10, Contract Demand). Needs the account's highest registered demand in the most recent 18 months; not modeled.
+- `minimum_monthly_charge_gr1010`: Minimum Monthly Charge (General Rule 10.10, Contract Demand). The Contract Demand (highest registered demand in the most recent 18 months) can be computed with coned_billing.demand.contract_demand, but the comparison base (monthly Pure Base Revenue and the MAC, GR 10.10 c, continued on leaf 91, GR 2 and GR 26) was not obtained; not modeled.
 - `supply_charges_gr25`: Supply and supply-related charges (General Rule 25: Market Supply Charge, Merchant Function Charge). Supply is not part of this delivery tariff version; calculations must supply an explicit supply assumption (D5). A packaged, sourced MSC dataset is WP8.
 - `increase_in_rates_gr30`: Increase in Rates and Charges (General Rule 30). Percentage increase shown on a separate statement; not transcribed, not modeled.
 
 Required account inputs: service voltage: high_tension.
 
-Supported demand resolution: billed demand is the 30-minute integrated demand (GR 10.4); deriving it from interval data is WP4.
+Supported demand resolution: billed demand is the 30-minute integrated demand (GR 10.4), from interval data of that length or finer (`coned_billing.demand`). Hourly data are accepted only as a flagged `hourly_approximation`.
 
 ## `sc9_rate1_lt`: SC-9 Rate I - General - Large
 
@@ -160,21 +160,21 @@ Voltage: low tension. Zone: not zone-specific.
 Implemented components (latest transcribed version, 2026-02-01):
 
 - `customer_charge` (fixed_charge): 72 USD/month; holidays excluded: none
-- `demand_delivery_summer` (delivery_demand): 44.05 USD/kW; months 6,7,8,9; holidays excluded: none; demand: 30-minute integrated
-- `demand_delivery_other` (delivery_demand): 34.5 USD/kW; months 1,2,3,4,5,10,11,12; holidays excluded: none; demand: 30-minute integrated
+- `demand_delivery_summer` (delivery_demand): 44.05 USD/kW; months 6,7,8,9; holidays excluded: none; demand: 30-minute integrated, fixed_clock
+- `demand_delivery_other` (delivery_demand): 34.5 USD/kW; months 1,2,3,4,5,10,11,12; holidays excluded: none; demand: 30-minute integrated, fixed_clock
 - `energy_delivery` (delivery_energy): 0.0154 USD/kWh; holidays excluded: none
 
 Excluded components:
 
 - `additional_delivery_charges_gr26`: Additional Delivery Charges and Adjustments (General Rule 26). Set by monthly statements (e.g. MAC, surcharges, adjustment factors) that are not transcribed; not modeled.
 - `reactive_power_demand_gr1011`: Reactive Power Demand Charge (General Rule 10.11). Needs kVAr metering data, which the package does not take; not modeled.
-- `minimum_monthly_charge_gr1010`: Minimum Monthly Charge (General Rule 10.10, Contract Demand). Needs the account's highest registered demand in the most recent 18 months; not modeled.
+- `minimum_monthly_charge_gr1010`: Minimum Monthly Charge (General Rule 10.10, Contract Demand). The Contract Demand (highest registered demand in the most recent 18 months) can be computed with coned_billing.demand.contract_demand, but the comparison base (monthly Pure Base Revenue and the MAC, GR 10.10 c, continued on leaf 91, GR 2 and GR 26) was not obtained; not modeled.
 - `supply_charges_gr25`: Supply and supply-related charges (General Rule 25: Market Supply Charge, Merchant Function Charge). Supply is not part of this delivery tariff version; calculations must supply an explicit supply assumption (D5). A packaged, sourced MSC dataset is WP8.
 - `increase_in_rates_gr30`: Increase in Rates and Charges (General Rule 30). Percentage increase shown on a separate statement; not transcribed, not modeled.
 
 Required account inputs: service voltage: low_tension.
 
-Supported demand resolution: billed demand is the 30-minute integrated demand (GR 10.4); deriving it from interval data is WP4.
+Supported demand resolution: billed demand is the 30-minute integrated demand (GR 10.4), from interval data of that length or finer (`coned_billing.demand`). Hourly data are accepted only as a flagged `hourly_approximation`.
 
 ## `sc9_rate2_lt`: SC-9 Rate II - General - Large - Time-of-Day
 
@@ -194,21 +194,21 @@ Voltage: low tension. Zone: not zone-specific.
 Implemented components (latest transcribed version, 2026-02-01):
 
 - `customer_charge` (fixed_charge): 510 USD/month; holidays excluded: none
-- `demand_summer_weekday_0800_1800` (delivery_demand): 11.33 USD/kW; months 6,7,8,9; Mon-Fri; 08:00-18:00; holidays excluded: none; demand: 30-minute integrated
-- `demand_summer_weekday_0800_2200` (delivery_demand): 22.82 USD/kW; months 6,7,8,9; Mon-Fri; 08:00-22:00; holidays excluded: none; demand: 30-minute integrated
-- `demand_summer_all_hours` (delivery_demand): 20.61 USD/kW; months 6,7,8,9; holidays excluded: none; demand: 30-minute integrated
-- `demand_other_weekday_0800_2200` (delivery_demand): 19.41 USD/kW; months 1,2,3,4,5,10,11,12; Mon-Fri; 08:00-22:00; holidays excluded: none; demand: 30-minute integrated
-- `demand_other_all_hours` (delivery_demand): 5.85 USD/kW; months 1,2,3,4,5,10,11,12; holidays excluded: none; demand: 30-minute integrated
+- `demand_summer_weekday_0800_1800` (delivery_demand): 11.33 USD/kW; months 6,7,8,9; Mon-Fri; 08:00-18:00; holidays excluded: none; demand: 30-minute integrated, fixed_clock
+- `demand_summer_weekday_0800_2200` (delivery_demand): 22.82 USD/kW; months 6,7,8,9; Mon-Fri; 08:00-22:00; holidays excluded: none; demand: 30-minute integrated, fixed_clock
+- `demand_summer_all_hours` (delivery_demand): 20.61 USD/kW; months 6,7,8,9; holidays excluded: none; demand: 30-minute integrated, fixed_clock
+- `demand_other_weekday_0800_2200` (delivery_demand): 19.41 USD/kW; months 1,2,3,4,5,10,11,12; Mon-Fri; 08:00-22:00; holidays excluded: none; demand: 30-minute integrated, fixed_clock
+- `demand_other_all_hours` (delivery_demand): 5.85 USD/kW; months 1,2,3,4,5,10,11,12; holidays excluded: none; demand: 30-minute integrated, fixed_clock
 - `energy_delivery` (delivery_energy): 0.0079 USD/kWh; holidays excluded: none
 
 Excluded components:
 
 - `additional_delivery_charges_gr26`: Additional Delivery Charges and Adjustments (General Rule 26). Set by monthly statements (e.g. MAC, surcharges, adjustment factors) that are not transcribed; not modeled.
 - `reactive_power_demand_gr1011`: Reactive Power Demand Charge (General Rule 10.11). Needs kVAr metering data, which the package does not take; not modeled.
-- `minimum_monthly_charge_gr1010`: Minimum Monthly Charge (General Rule 10.10, Contract Demand). Needs the account's highest registered demand in the most recent 18 months; not modeled.
+- `minimum_monthly_charge_gr1010`: Minimum Monthly Charge (General Rule 10.10, Contract Demand). The Contract Demand (highest registered demand in the most recent 18 months) can be computed with coned_billing.demand.contract_demand, but the comparison base (monthly Pure Base Revenue and the MAC, GR 10.10 c, continued on leaf 91, GR 2 and GR 26) was not obtained; not modeled.
 - `supply_charges_gr25`: Supply and supply-related charges (General Rule 25: Market Supply Charge, Merchant Function Charge). Supply is not part of this delivery tariff version; calculations must supply an explicit supply assumption (D5). A packaged, sourced MSC dataset is WP8.
 - `increase_in_rates_gr30`: Increase in Rates and Charges (General Rule 30). Percentage increase shown on a separate statement; not transcribed, not modeled.
 
 Required account inputs: service voltage: low_tension.
 
-Supported demand resolution: billed demand is the 30-minute integrated demand (GR 10.4); deriving it from interval data is WP4.
+Supported demand resolution: billed demand is the 30-minute integrated demand (GR 10.4), from interval data of that length or finer (`coned_billing.demand`). Hourly data are accepted only as a flagged `hourly_approximation`.

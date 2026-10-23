@@ -3,9 +3,9 @@
 Each test asserts the *correct* behaviour and is marked ``xfail(strict=True)``
 with its finding ID while the defect is open. Resolved so far: F3.1 and the
 CSV/local-time parts of F3.3 (WP1); F3.2 and the F3.8 end-of-day part
-(WP2); F3.4 and F3.8 (WP3). The work package that fixes a defect removes the marker (and may
-adapt the test to the new API). A strict xfail that starts passing fails the
-suite: investigate it, do not delete the test.
+(WP2); F3.4 and F3.8 (WP3); F3.5 (WP4). The work package that fixes a defect
+removes the marker (and may adapt the test to the new API). A strict xfail
+that starts passing fails the suite: investigate it, do not delete the test.
 
 Expected values are independent of the package: durations, hand arithmetic,
 calendar dates, and rates read from the bundled 02/01/2026 leaves.
@@ -24,7 +24,9 @@ import pytest
 import coned_billing
 from coned_billing import calendars
 from coned_billing.billing import bill
-from coned_billing.errors import LoadDataError, TariffSelectionError
+from coned_billing.demand import billed_demand
+from coned_billing.errors import DemandDeterminationError, LoadDataError, TariffSelectionError
+from coned_billing.load import LoadProfile
 from coned_billing.loader import load_rate
 from coned_billing.models import EnergyCharge, RateSchedule, TimeWindow
 from coned_billing.tariff_schema import default_registry
@@ -211,52 +213,36 @@ def test_load_outside_tariff_effective_period_is_rejected():
 
 
 # ───────────────────────────── F3.5 demand measurement ──────────────────────────
-@_xfail("F3.5: demand uses raw input maxima, no measurement interval")
-def test_demand_uses_declared_integration_interval(tmp_path):
-    path = _write(
-        tmp_path,
-        """
-        code: TEST
-        customer_charge: 0
-        supply_charge: 0
-        merchant_charge: 0
-        demand_delivery:
-          - rate: 1.0
-            measurement_interval: 30min
-            window: {include_holidays: true}
-        energy:
-          - {rate: 0, window: {include_holidays: true}}
-        """,
-    )
-    idx = pd.date_range("2024-01-02 00:00", periods=8, freq="15min", tz=NY)
-    kw = np.zeros(8)
+# WP4: demand follows each component's measurement rule (GR 10.4, 30-minute
+# integrated demand) through coned_billing.demand. The tests use the versioned
+# SC-9 Rate I tariff instead of a legacy YAML key.
+def _sc9_demand():
+    v = default_registry().historical("sc9_rate1_lt", date(2026, 3, 1))
+    return v.component("demand_delivery_other")
+
+
+def test_demand_uses_declared_integration_interval():
+    idx = pd.date_range("2026-03-03 00:00", periods=96, freq="15min", tz=NY)
+    kw = np.zeros(96)
     kw[3] = 40.0  # one 15-min spike; 30-min block average = (0 + 40) / 2 = 20 kW
-    out = load_rate(path).bill(pd.DataFrame({"kW": kw}, index=idx))
-    assert out["demand_cost"].sum() == pytest.approx(20.0, abs=1e-12)
-
-
-@_xfail("F3.5: hourly input accepted for a sub-hourly demand determinant")
-def test_hourly_input_rejected_for_15min_demand(tmp_path):
-    path = _write(
-        tmp_path,
-        """
-        code: TEST
-        customer_charge: 0
-        supply_charge: 0
-        merchant_charge: 0
-        demand_delivery:
-          - rate: 1.0
-            measurement_interval: 15min
-            window: {include_holidays: true}
-        energy:
-          - {rate: 0, window: {include_holidays: true}}
-        """,
+    profile = LoadProfile.from_series(
+        pd.Series(kw, index=idx), quantity="kW", interval="15min", label="start"
     )
-    idx = pd.date_range("2024-01-02", periods=24, freq="h", tz=NY)
-    # WP3 made the legacy loader reject the unknown key ``measurement_interval``;
-    # the match is narrowed so that rejection does not count as the WP4 fix.
-    with pytest.raises(Exception, match=r"(?i)resolution"):
-        load_rate(path).bill(pd.DataFrame({"kW": 1.0}, index=idx))
+    d = billed_demand(
+        profile, _sc9_demand(), period_start=date(2026, 3, 3), period_end=date(2026, 3, 4)
+    )
+    assert d.kw == pytest.approx(20.0, abs=1e-12)
+
+
+def test_hourly_input_rejected_for_30min_demand():
+    idx = pd.date_range("2026-03-03", periods=24, freq="h", tz=NY)
+    profile = LoadProfile.from_series(
+        pd.Series(1.0, index=idx), quantity="kW", interval="1h", label="start"
+    )
+    with pytest.raises(DemandDeterminationError, match=r"(?i)resolution"):
+        billed_demand(
+            profile, _sc9_demand(), period_start=date(2026, 3, 3), period_end=date(2026, 3, 4)
+        )
 
 
 # ───────────────────────────── F3.6 bill coverage ───────────────────────────────

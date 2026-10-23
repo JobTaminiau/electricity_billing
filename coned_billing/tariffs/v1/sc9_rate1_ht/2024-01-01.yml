@@ -29,14 +29,17 @@ eligibility: 'SC-9 Rate I applicability (leaf 445): "To all Customers other than
 required_account_inputs:
 - 'service voltage: high_tension'
 assumptions:
+- GR 10.4 gives the highest 30-minute integrated demand but does not say whether the 30 minutes are
+  fixed clock intervals or a rolling window. Fixed intervals starting on the hour and half hour (New
+  York time) are assumed (demand_measurement.convention fixed_clock). Owner to confirm.
 - Delivery charges only. Supply (GR 25), GR 26 adjustments and the GR 30 percentage increase are excluded
   and listed under excluded_components.
 - 'Effective dates are dates of service: start inclusive, end exclusive. Bills spanning a rate change
   are prorated by days of service (GR 10.5.1, leaf 85); proration is applied by the billing engine (WP5).'
 - The Customer Charge 'per month' is read as a monthly charge prorated by elapsed days / 30 under GR 10.5.2,
   not as a per-bill or per-calendar-month charge. Owner to confirm.
-- Maximum demand is the highest 30-minute integrated demand in the billing period (GR 10.4); WP4 derives
-  it from interval data.
+- Maximum demand is the highest 30-minute integrated demand in the billing period (GR 10.4); coned_billing.demand
+  derives it from interval data of 30 minutes or finer.
 components:
 - id: customer_charge
   name: Customer Charge
@@ -81,6 +84,7 @@ components:
   demand_measurement:
     method: integrated_demand
     integration_minutes: 30
+    convention: fixed_clock
     source:
       document: psc10-leaf-84-r1
       leaf: '84'
@@ -114,6 +118,7 @@ components:
   demand_measurement:
     method: integrated_demand
     integration_minutes: 30
+    convention: fixed_clock
     source:
       document: psc10-leaf-84-r1
       leaf: '84'
@@ -183,7 +188,9 @@ excluded_components:
     text: Reactive Power Demand Charge, applicable as specified in General Rule 10.11.
 - id: minimum_monthly_charge_gr1010
   name: Minimum Monthly Charge (General Rule 10.10, Contract Demand)
-  reason: Needs the account's highest registered demand in the most recent 18 months; not modeled.
+  reason: The Contract Demand (highest registered demand in the most recent 18 months) can be computed
+    with coned_billing.demand.contract_demand, but the comparison base (monthly Pure Base Revenue and the
+    MAC, GR 10.10 c, continued on leaf 91, GR 2 and GR 26) was not obtained; not modeled.
   source:
     document: psc10-leaf-90-r4
     leaf: '90'

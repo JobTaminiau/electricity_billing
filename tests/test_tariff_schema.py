@@ -108,6 +108,7 @@ def _demand(**over):
         "demand_measurement": {
             "method": "integrated_demand",
             "integration_minutes": 30,
+            "convention": "fixed_clock",
             "source": _cite(),
         },
         "source": _cite(),
@@ -855,3 +856,43 @@ def test_parse_does_not_mutate_its_input():
     before = copy.deepcopy(d)
     _parse(d)
     assert d == before
+
+
+# ─────────────────────────────── demand measurement (WP4) ─────────────────────
+def _measurement(**over):
+    m = {
+        "method": "integrated_demand",
+        "integration_minutes": 30,
+        "convention": "fixed_clock",
+        "source": _cite(),
+    }
+    m.update(over)
+    return {k: v for k, v in m.items() if v is not None}
+
+
+@pytest.mark.parametrize("convention", ["fixed_clock", "rolling"])
+def test_demand_conventions_load(convention):
+    v = _parse(_with_component(_demand(demand_measurement=_measurement(convention=convention))))
+    assert v.component("demand").demand_measurement.convention == convention
+
+
+@pytest.mark.parametrize(
+    ("measurement", "field"),
+    [
+        (_measurement(convention=None), "convention"),
+        (_measurement(convention="sliding"), "convention"),
+        (_measurement(integration_minutes=45), "integration_minutes"),
+        ({"method": "input_interval_maximum", "convention": "fixed_clock"}, "convention"),
+    ],
+)
+def test_bad_demand_measurement_is_rejected(measurement, field):
+    with pytest.raises(TariffSchemaError, match=rf"demand_measurement\.{field}"):
+        _parse(_with_component(_demand(demand_measurement=measurement)))
+
+
+def test_every_transcribed_demand_component_states_its_convention():
+    for v in default_registry():
+        for c in v.components:
+            m = c.demand_measurement
+            if m is not None and m.method == "integrated_demand":
+                assert (m.integration_minutes, m.convention) == (30, "fixed_clock"), v.key

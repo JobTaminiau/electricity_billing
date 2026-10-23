@@ -9,6 +9,7 @@ from __future__ import annotations
 
 __all__ = [
     "ConEdBillingError",
+    "DemandDeterminationError",
     "LoadDataError",
     "TariffSchemaError",
     "TariffSelectionError",
@@ -29,3 +30,7 @@ class TariffSchemaError(ConEdBillingError, ValueError):
 
 class TariffSelectionError(ConEdBillingError, LookupError):
     """No single tariff version applies (unknown, uncovered or ambiguous)."""
+
+
+class DemandDeterminationError(ConEdBillingError, ValueError):
+    """Billed demand cannot be determined as the tariff requires (see docs/demand.md)."""

@@ -1,7 +1,14 @@
 from importlib.metadata import PackageNotFoundError
 from importlib.metadata import version as _version
 
-from .errors import ConEdBillingError, LoadDataError, TariffSchemaError, TariffSelectionError
+from .demand import BilledDemand, MonthlyDemand, billed_demand, billed_demands, contract_demand
+from .errors import (
+    ConEdBillingError,
+    DemandDeterminationError,
+    LoadDataError,
+    TariffSchemaError,
+    TariffSelectionError,
+)
 from .load import Gap, LoadProfile, read_load_csv
 from .loader import load_all, load_rate
 from .models import DemandCharge, EnergyCharge, RateSchedule, TimeWindow
@@ -14,18 +21,24 @@ from .tariff_schema import (
 )
 
 __all__ = [
+    "BilledDemand",
     "ConEdBillingError",
     "DemandCharge",
+    "DemandDeterminationError",
     "EnergyCharge",
     "Gap",
     "LoadDataError",
     "LoadProfile",
+    "MonthlyDemand",
     "RateSchedule",
     "TariffRegistry",
     "TariffSchemaError",
     "TariffSelectionError",
     "TariffVersion",
     "TimeWindow",
+    "billed_demand",
+    "billed_demands",
+    "contract_demand",
     "default_registry",
     "load_all",
     "load_rate",

@@ -118,6 +118,9 @@ _UNIT_FOR_DETERMINANT = {
 BLOCK_PRORATION_RULES = ("bounds_days_over_30", "total_days_over_30", "reject_partial_periods")
 #: Proration of whole-component charges (GR 10.5.2).
 PRORATION_RULES = ("days_over_30", "none")
+#: Demand integration lengths in minutes (divisors of 60) and interval conventions (R5).
+INTEGRATION_MINUTES = (5, 15, 30, 60)
+DEMAND_CONVENTIONS = ("fixed_clock", "rolling")
 
 _ID = re.compile(r"^[a-z][a-z0-9_]*$")
 _VERSION = re.compile(r"^(legacy|\d{4}-\d{2}-\d{2}(-r\d+)?)$")
@@ -245,11 +248,15 @@ class Proration:
 
 @dataclass(frozen=True, slots=True)
 class DemandMeasurement:
-    """How billed demand is measured (R5; used by WP4)."""
+    """How billed demand is measured (R5; applied by coned_billing.demand)."""
 
     method: Literal["integrated_demand", "input_interval_maximum"]
     integration_minutes: int | None
     source: Citation | None = None
+    #: ``fixed_clock``: consecutive intervals aligned to the clock (:00, :30 for
+    #: 30 minutes, New York time); ``rolling``: every window of that length that
+    #: starts on an input interval. See docs/demand.md.
+    convention: Literal["fixed_clock", "rolling"] | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -444,14 +451,27 @@ def _proration(v: object, ctx: _Ctx, rules: Sequence[str]) -> Proration:
 
 
 def _demand_measurement(v: object, ctx: _Ctx) -> DemandMeasurement:
-    d = _mapping(v, ctx, ("method",), ("integration_minutes", "source"))
+    d = _mapping(v, ctx, ("method",), ("integration_minutes", "convention", "source"))
     method = _choice(d["method"], ctx / "method", ("integrated_demand", "input_interval_maximum"))
-    minutes = d.get("integration_minutes")
+    minutes, convention = d.get("integration_minutes"), d.get("convention")
     if method == "integrated_demand":
         minutes = _int(minutes, ctx / "integration_minutes", minimum=1)
-    elif minutes is not None:
-        raise (ctx / "integration_minutes").fail("only allowed with method integrated_demand")
-    return DemandMeasurement(method, minutes, _opt_citation(d.get("source"), ctx / "source"))  # type: ignore[arg-type]
+        if minutes not in INTEGRATION_MINUTES:
+            raise (ctx / "integration_minutes").fail(
+                f"must be one of {list(INTEGRATION_MINUTES)} (a divisor of 60, so that "
+                "demand intervals align with the clock hour)"
+            )
+        convention = _choice(convention, ctx / "convention", DEMAND_CONVENTIONS)
+    else:
+        for key, val in (("integration_minutes", minutes), ("convention", convention)):
+            if val is not None:
+                raise (ctx / key).fail("only allowed with method integrated_demand")
+    return DemandMeasurement(
+        method,  # type: ignore[arg-type]
+        minutes,
+        _opt_citation(d.get("source"), ctx / "source"),
+        convention,
+    )
 
 
 def _blocks(v: object, ctx: _Ctx, category: _Category) -> tuple[Block, ...]:

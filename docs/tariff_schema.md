@@ -2,7 +2,8 @@
 
 Tariff data is stored as dated, source-cited *versions*, validated strictly on
 load. The code is in `coned_billing/tariff_schema.py`. The billing engine
-starts using these versions in WP5. Until then, `RateSchedule.bill` and
+starts using these versions in WP5; demand determination from them is in
+`docs/demand.md` (WP4). Until then, `RateSchedule.bill` and
 `load_rate` keep working on the legacy files.
 
 ```python
@@ -67,7 +68,7 @@ appended, as in `2024-01-01-r18`. The legacy values are kept as version
 | `proration` | `days_over_30` or `none`, with its citation |
 | `window` | `months`, `weekdays_only`, `start`, `end` and a **required** `excluded_holidays` (see `docs/calendars.md`) |
 | `exclusive_group` | Components in a group must cover every hour exactly once. Energy components must belong to one. |
-| `demand_measurement` | Required for demand: `{method: integrated_demand, integration_minutes: 30}` (GR 10.4), or `input_interval_maximum` for legacy data |
+| `demand_measurement` | Required for demand: `{method: integrated_demand, integration_minutes: 30, convention: fixed_clock}` (GR 10.4), or `input_interval_maximum` for legacy data. `integration_minutes` is 5, 15, 30 or 60, and `convention` (`fixed_clock` or `rolling`) is required with it. See `docs/demand.md`. |
 | `source` | `{document, leaf, revision, page, text, method}`. `text` quotes the leaf; `method` is `text_layer` or `page_image`. Required unless the version is `unverified`. |
 
 A `USD/month` block is a flat charge for that block, and it is allowed only as

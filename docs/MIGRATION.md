@@ -110,3 +110,24 @@ package. The CHANGELOG is written in WP9 from these notes.
 - **SC-9 Rate II holidays:** the transcribed versions exclude no holidays,
   following leaf 449 (owner decision, 2026-10-23). The legacy file keeps its
   six-holiday exclusion.
+
+## WP4
+
+- **New: demand determination** in `coned_billing.demand`, documented in
+  `docs/demand.md`.
+  - `billed_demand` and `billed_demands` return a `BilledDemand` per demand
+    component and billing period: kW, the peak interval, status and flags.
+  - `contract_demand` and `MonthlyDemand` give the SC-8 and SC-9 Contract
+    Demand from history, without look-ahead.
+  - The new error is `DemandDeterminationError` (a `ValueError`).
+- **Integrated demand.** 5- and 15-minute data are integrated to the tariff's
+  30-minute demand (GR 10.4) instead of being billed at their raw maximum.
+  Hourly data for a 30-minute determinant is rejected, unless the caller
+  passes `resolution="hourly_approximation"`, which flags the result.
+- **Schema:** `demand_measurement` with `method: integrated_demand` now needs
+  `convention` (`fixed_clock` or `rolling`), and `integration_minutes` must be
+  5, 15, 30 or 60. Every transcribed version states `fixed_clock`, recorded as
+  an assumption.
+- **Not changed yet:** the legacy `RateSchedule.bill` still takes the largest
+  input-interval kW. It is replaced in WP5. The F3.5 tests now run against
+  `coned_billing.demand`.

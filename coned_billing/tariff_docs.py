@@ -107,7 +107,7 @@ def render_support_matrix(reg: TariffRegistry) -> str:
             if c.demand_measurement is not None:
                 m = c.demand_measurement
                 dem = (
-                    f"; demand: {m.integration_minutes}-minute integrated"
+                    f"; demand: {m.integration_minutes}-minute integrated, {m.convention}"
                     if m.method == "integrated_demand"
                     else "; demand: input-interval maximum"
                 )
@@ -127,7 +127,9 @@ def render_support_matrix(reg: TariffRegistry) -> str:
             lines += [
                 "Supported demand resolution: billed demand is the "
                 + ", ".join(f"{m}-minute" for m in minutes)
-                + " integrated demand (GR 10.4); deriving it from interval data is WP4.",
+                + " integrated demand (GR 10.4), from interval data of that length or finer"
+                " (`coned_billing.demand`). Hourly data are accepted only as a flagged"
+                " `hourly_approximation`.",
                 "",
             ]
     return "\n".join(lines).rstrip() + "\n"

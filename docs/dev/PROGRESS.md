@@ -61,7 +61,7 @@ F3.9   packaging: requires-python '>=3.9'; license meta {'text': 'MIT'}; LICENSE
 | F3.2 | Reproduced (all four sub-points) | The review's dollar figures are not re-derived; the mechanisms are. See new finding N2 on the SC-1 Rate II example. | 7 strict xfails incl. a fixture tariff for per-component holiday sets; WP2 |
 | F3.3 | Reproduced | Different load from the review, same effect (UTC index shifts months and TOU hours). With pandas 3 the CSV column dtype is `str`, with 2.x `object`; both fail. | 2 strict xfails; WP1 (CSV), WP2/WP5 (local time) |
 | F3.4 | Reproduced | Values, missing tiers, stray `0:` key, no date enforcement. The bundled SC-8 PDF starts at leaf 436 (Rate III); the SC-8 YAML cites leaf 432, not bundled. No General Rules bundled. | 4 strict xfails (values, tier, stray key, dates); WP3. `.gitignore` and `sources.md` fixed now |
-| F3.5 | Reproduced | Raw max of input kW, no measurement interval. Neither the SC-8 nor SC-9 leaves define the integration interval; it sits in the General Rules (GR 10), not bundled. | 2 strict xfails; WP4 |
+| F3.5 | Reproduced | Raw max of input kW, no measurement interval. Neither the SC-8 nor SC-9 leaves define the integration interval; it sits in the General Rules (GR 10), not bundled. | 2 strict xfails; fixed in WP4 (tests adapted to `coned_billing.demand`) |
 | F3.6 | Reproduced | `total` carries no completeness or exclusion information. | 1 strict xfail; WP5 |
 | F3.7 | Reproduced | Flat 10 kW January reports `kW` = 7,440. Delivery, supply and merchant energy are summed into `energy_cost`. | 2 strict xfails; WP5 |
 | F3.8 | Reproduced | `weekday_only` silently dropped (window becomes all days); `"24:00"` raises a bare `datetime.time` error. | 2 strict xfails; WP3 (schema), WP2 (end-of-day) |
@@ -571,3 +571,115 @@ installed), 10 xfailed. ruff, ruff format and mypy are clean.
 `pytest -W error`: 345 passed, 2 skipped, 5 xfailed. ruff, ruff format and
 mypy are clean. A wheel built locally contains `tariffs/v1/` and loads all 57
 versions outside the checkout.
+
+## WP4: demand determination
+
+### What was done
+
+- **Demand module** `coned_billing/demand.py`, documented in `docs/demand.md`:
+  - `billed_demand` and `billed_demands` compute the highest 30-minute
+    integrated demand per component window and billing period (GR 10.4,
+    leaf 84 r0/r1). Each result records the peak interval, the method and
+    convention, the input resolution, the number of demand intervals, the
+    days of the period inside the window's months, a status and flags.
+  - Each additive SC-9 Rate II component takes its own maximum.
+  - A demand interval counts only if it lies wholly inside both the window
+    and the billing period.
+  - Strict resolution (`exact`) rejects input coarser than the integration
+    interval. `resolution="hourly_approximation"` accepts hourly data, uses
+    the hourly averages, and flags the result as `approximated`.
+  - Missing input raises; `on_incomplete="skip"` leaves incomplete demand
+    intervals out, with a flag.
+  - Legacy versions (`input_interval_maximum`) keep the raw maximum, with
+    status `unverified`.
+- **Contract Demand.** `contract_demand` implements the rule of leaves
+  440 r5 (SC-8) and 454 r5 (SC-9): the highest registered demand in the most
+  recent 18 months, or since the account start. It has no look-ahead, and
+  `include_current_period` must be stated explicitly.
+- **Schema.** `demand_measurement.convention` (`fixed_clock` or `rolling`) is
+  required for integrated demand, and `integration_minutes` must be a divisor
+  of 60. All 31 transcribed SC-8 and SC-9 versions state `fixed_clock`, with
+  an assumption line.
+- **Minimum Monthly Charge.** It stays excluded in every SC-8 and SC-9
+  version. Its reason now says why: GR 10.10 c continues on leaf 91, and the
+  definition of Pure Base Revenue (GR 2) and the MAC values (GR 26) were not
+  obtained, so the revenue base cannot be verified.
+
+### Assessment of minimum, contract and history provisions (task 6)
+
+| Provision | Tariffs | Verified source | Decision |
+|---|---|---|---|
+| Maximum demand, 30-minute integrated | SC-8 RI, SC-9 RI, SC-9 RII | GR 10.4 (leaf 84) | Implemented |
+| Contract Demand from 18 months of history | SC-8 RI, SC-9 RI/RII | leaves 440 r5, 454 r5 (current revisions only) | Implemented as a helper; not yet used by any charge |
+| Minimum Monthly Charge = Contract Demand × 40% of demand delivery charges, if above Pure Base Revenue | SC-8, SC-9 | GR 10.10 a, b (leaf 90 r4); the comparison (c) continues on leaf 91, not obtained | Excluded |
+| Contract Demand reduction on request | SC-8, SC-9 | GR 10.10 (not obtained) | Not modeled |
+| Pre-2024 Rate I "minimum charge" (first 10 kW or 5 kW) | SC-8 RI, SC-9 RI | rate leaves 432 and 445 | Already modeled as the flat first demand block (WP3) |
+| Rate II eligibility history (over 1,500 kW / 900 kW in 12 months) | SC-9 | leaf 447 r1 | Eligibility only, not a charge; not modeled |
+| Computed demand for small meters (0.1 kW per 18 kWh) | all | GR 10.4 | Not modeled |
+| Multi-meter accounts (GR 10.8) | all | not obtained | Not modeled |
+| SC-1 and SC-2 Rate I | none: no demand charge | — | n/a |
+
+### Decisions
+
+- **Fixed clock-aligned 30-minute intervals** are assumed, because GR 10.4
+  does not say whether the interval is fixed or rolling. The assumption is
+  recorded in every affected version and can be changed per version.
+  `rolling` is available for sensitivity runs.
+- **Window membership:** a demand interval counts only if every input interval
+  in it is in the window. This follows GR 10.4's standby wording ("entirely
+  comprised of intervals ending in the same time period"); the general rule is
+  silent.
+- **Ties:** the earliest peak interval is reported.
+- **Billing periods across rate changes:** one determinant per billing period
+  (GR 10.4). Rates are prorated by GR 10.5.1 in WP5.
+- **Periods across season months:** the determinant is the maximum over the
+  in-window days, and the period is flagged. How such a bill is split is left
+  to WP5 and the owner.
+
+### Findings
+
+- **N11.** GR 10.4 r1 (01/01/2024) adds 60-minute demand for SC-1 Rate V and
+  SC-2 Rate III, and daily as-used demand for standby service. Both are
+  outside D3. For all other customers the 30-minute rule is unchanged from
+  r0.
+- **N12.** GR 10.5.2 says "Rates and charges assessed per kW will be prorated
+  for 30 days", while kW blocks are "totaled and then prorated on the basis of
+  the number of elapsed days divided by 30". The tariff files read the first
+  sentence the same way, as days / 30 (`proration: days_over_30`). It could
+  also mean that flat kW charges are billed as for 30 days, i.e. not scaled.
+  This matters for WP5; owner to confirm.
+- **N13.** The leaves do not say whether the current billing period is one of
+  the 18 months of Contract Demand history. Nor do they say which SC-9 Rate II
+  time-period maximum is the "registered demand".
+
+### Tests
+
+- `tests/test_demand.py` has 32 cases, all with hand-computed values:
+  - constant load;
+  - an isolated 15-minute spike in 15-, 30- and 60-minute determinants,
+    under fixed and rolling conventions;
+  - 5-minute integration;
+  - fixed versus rolling intervals, and alignment across a DST day;
+  - a peak outside a window, and intervals that straddle a window edge;
+  - SC-9 Rate II additive maxima, with the charge checked against leaf 449
+    rates typed by hand;
+  - holiday sets, including SC-9 Rate II counting a July 4 peak;
+  - strict rejection of hourly input, and the flagged approximation;
+  - the legacy method;
+  - missing data, raised and skipped, and a period not covered by the data;
+  - billing-period edges and no look-ahead;
+  - periods spanning season months and rate changes;
+  - argument checks;
+  - Contract Demand: the 18-month horizon with and without the current
+    period, no look-ahead when future data is appended, a young account,
+    gaps, and the required explicit choice.
+- `tests/test_tariff_schema.py` has 7 new cases for `convention` and
+  `integration_minutes`.
+- The F3.5 strict xfails (×2) were adapted to `coned_billing.demand`, and
+  their markers removed. 3 xfails remain: F3.6, and F3.7 ×2 (WP5).
+
+### Results (cloud, CPython 3.13.17, pandas 3.0.5, numpy 2.5.3)
+
+`pytest -W error`: 386 passed, 2 skipped, 3 xfailed. ruff, ruff format and
+mypy are clean. `scripts/check_transcription_text.py`: 587 text-layer quotes,
+0 problems.
