@@ -1,0 +1,6226 @@
+{
+ "sc1_rate1/2019-01-01": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 15.76,
+    "source": [
+     "psc10-leaf-388-r11",
+     "388",
+     11
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_other": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 10.817,
+    "source": [
+     "psc10-leaf-388-r11",
+     "388",
+     11
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_summer": {
+    "blocks": [
+     [
+      250.0,
+      10.817,
+      "cents/kWh"
+     ],
+     [
+      null,
+      12.434,
+      "cents/kWh"
+     ]
+    ],
+    "category": "delivery_energy",
+    "rate": null,
+    "source": [
+     "psc10-leaf-388-r11",
+     "388",
+     11
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2019-01-01",
+   "2020-02-01"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc1_rate1/2020-02-01": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 16.0,
+    "source": [
+     "psc10-leaf-388-r13",
+     "388",
+     13
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_other": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 11.125,
+    "source": [
+     "psc10-leaf-388-r13",
+     "388",
+     13
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_summer": {
+    "blocks": [
+     [
+      250.0,
+      11.125,
+      "cents/kWh"
+     ],
+     [
+      null,
+      12.788,
+      "cents/kWh"
+     ]
+    ],
+    "category": "delivery_energy",
+    "rate": null,
+    "source": [
+     "psc10-leaf-388-r13",
+     "388",
+     13
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2020-02-01",
+   "2021-01-01"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc1_rate1/2021-01-01": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 16.5,
+    "source": [
+     "psc10-leaf-388-r14",
+     "388",
+     14
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_other": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 11.976,
+    "source": [
+     "psc10-leaf-388-r14",
+     "388",
+     14
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_summer": {
+    "blocks": [
+     [
+      250.0,
+      11.976,
+      "cents/kWh"
+     ],
+     [
+      null,
+      13.766,
+      "cents/kWh"
+     ]
+    ],
+    "category": "delivery_energy",
+    "rate": null,
+    "source": [
+     "psc10-leaf-388-r14",
+     "388",
+     14
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2021-01-01",
+   "2022-01-01"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc1_rate1/2022-01-01": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 17.0,
+    "source": [
+     "psc10-leaf-388-r15",
+     "388",
+     15
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_other": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 12.732,
+    "source": [
+     "psc10-leaf-388-r15",
+     "388",
+     15
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_summer": {
+    "blocks": [
+     [
+      250.0,
+      12.732,
+      "cents/kWh"
+     ],
+     [
+      null,
+      14.635,
+      "cents/kWh"
+     ]
+    ],
+    "category": "delivery_energy",
+    "rate": null,
+    "source": [
+     "psc10-leaf-388-r15",
+     "388",
+     15
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2022-01-01",
+   "2023-08-01"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc1_rate1/2023-08-01": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 18.0,
+    "source": [
+     "psc10-leaf-388-r17",
+     "388",
+     17
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_other": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 14.116,
+    "source": [
+     "psc10-leaf-388-r17",
+     "388",
+     17
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_summer": {
+    "blocks": [
+     [
+      250.0,
+      14.116,
+      "cents/kWh"
+     ],
+     [
+      null,
+      16.228,
+      "cents/kWh"
+     ]
+    ],
+    "category": "delivery_energy",
+    "rate": null,
+    "source": [
+     "psc10-leaf-388-r17",
+     "388",
+     17
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2023-08-01",
+   "2024-01-01"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc1_rate1/2024-01-01-r18": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 19.0,
+    "source": [
+     "psc10-leaf-388-r18",
+     "388",
+     18
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_other": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 15.112,
+    "source": [
+     "psc10-leaf-388-r18",
+     "388",
+     18
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_summer": {
+    "blocks": [
+     [
+      250.0,
+      15.112,
+      "cents/kWh"
+     ],
+     [
+      null,
+      17.373,
+      "cents/kWh"
+     ]
+    ],
+    "category": "delivery_energy",
+    "rate": null,
+    "source": [
+     "psc10-leaf-388-r18",
+     "388",
+     18
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2024-01-01",
+   "2024-02-04"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc1_rate1/2024-01-01-r19": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 18.0,
+    "source": [
+     "psc10-leaf-388-r19",
+     "388",
+     19
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_other": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 14.116,
+    "source": [
+     "psc10-leaf-388-r19",
+     "388",
+     19
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_summer": {
+    "blocks": [
+     [
+      250.0,
+      14.116,
+      "cents/kWh"
+     ],
+     [
+      null,
+      16.228,
+      "cents/kWh"
+     ]
+    ],
+    "category": "delivery_energy",
+    "rate": null,
+    "source": [
+     "psc10-leaf-388-r19",
+     "388",
+     19
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2024-01-01",
+   "2024-02-04"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc1_rate1/2024-02-04": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 19.0,
+    "source": [
+     "psc10-leaf-388-r20",
+     "388",
+     20
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_other": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 15.112,
+    "source": [
+     "psc10-leaf-388-r20",
+     "388",
+     20
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_summer": {
+    "blocks": [
+     [
+      250.0,
+      15.112,
+      "cents/kWh"
+     ],
+     [
+      null,
+      17.373,
+      "cents/kWh"
+     ]
+    ],
+    "category": "delivery_energy",
+    "rate": null,
+    "source": [
+     "psc10-leaf-388-r20",
+     "388",
+     20
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2024-02-04",
+   "2025-01-01"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc1_rate1/2025-01-01": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 20.0,
+    "source": [
+     "psc10-leaf-388-r21",
+     "388",
+     21
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_other": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 16.107,
+    "source": [
+     "psc10-leaf-388-r21",
+     "388",
+     21
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_summer": {
+    "blocks": [
+     [
+      250.0,
+      16.107,
+      "cents/kWh"
+     ],
+     [
+      null,
+      18.518,
+      "cents/kWh"
+     ]
+    ],
+    "category": "delivery_energy",
+    "rate": null,
+    "source": [
+     "psc10-leaf-388-r21",
+     "388",
+     21
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2025-01-01",
+   "2026-02-01"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc1_rate1/2026-02-01": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 21.0,
+    "source": [
+     "psc10-leaf-388-r23",
+     "388",
+     23
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_other": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 0.16402,
+    "source": [
+     "psc10-leaf-388-r23",
+     "388",
+     23
+    ],
+    "unit": "USD/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_summer": {
+    "blocks": [
+     [
+      250.0,
+      0.16402,
+      "USD/kWh"
+     ],
+     [
+      null,
+      0.18858,
+      "USD/kWh"
+     ]
+    ],
+    "category": "delivery_energy",
+    "rate": null,
+    "source": [
+     "psc10-leaf-388-r23",
+     "388",
+     23
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2026-02-01",
+   null
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc1_rate1/legacy": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 20.0,
+    "source": null,
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_1": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 16.107,
+    "source": null,
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_2": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 18.518,
+    "source": null,
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "merchant_charge": {
+    "blocks": [],
+    "category": "merchant_charge",
+    "rate": 0.5414,
+    "source": null,
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "supply_energy": {
+    "blocks": [],
+    "category": "supply_energy",
+    "rate": 11.531,
+    "source": null,
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   null,
+   null
+  ],
+  "excluded": [],
+  "verification_status": "unverified"
+ },
+ "sc2_rate1/2019-01-01": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 26.01,
+    "source": [
+     "psc10-leaf-397-r11",
+     "397",
+     11
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_other": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 11.09,
+    "source": [
+     "psc10-leaf-397-r11",
+     "397",
+     11
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_summer": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 13.21,
+    "source": [
+     "psc10-leaf-397-r11",
+     "397",
+     11
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2019-01-01",
+   "2020-02-01"
+  ],
+  "excluded": [
+   "customer_charge_unmetered",
+   "additional_delivery_charges_gr26",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc2_rate1/2020-02-01": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 28.1,
+    "source": [
+     "psc10-leaf-397-r13",
+     "397",
+     13
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_other": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 11.25,
+    "source": [
+     "psc10-leaf-397-r13",
+     "397",
+     13
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_summer": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 13.4,
+    "source": [
+     "psc10-leaf-397-r13",
+     "397",
+     13
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2020-02-01",
+   "2021-01-01"
+  ],
+  "excluded": [
+   "customer_charge_unmetered",
+   "additional_delivery_charges_gr26",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc2_rate1/2021-01-01": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 28.1,
+    "source": [
+     "psc10-leaf-397-r14",
+     "397",
+     14
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_other": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 12.32,
+    "source": [
+     "psc10-leaf-397-r14",
+     "397",
+     14
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_summer": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 14.68,
+    "source": [
+     "psc10-leaf-397-r14",
+     "397",
+     14
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2021-01-01",
+   "2022-01-01"
+  ],
+  "excluded": [
+   "customer_charge_unmetered",
+   "additional_delivery_charges_gr26",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc2_rate1/2022-01-01": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 28.1,
+    "source": [
+     "psc10-leaf-397-r15",
+     "397",
+     15
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_other": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 13.3,
+    "source": [
+     "psc10-leaf-397-r15",
+     "397",
+     15
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_summer": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 15.84,
+    "source": [
+     "psc10-leaf-397-r15",
+     "397",
+     15
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2022-01-01",
+   "2023-08-01"
+  ],
+  "excluded": [
+   "customer_charge_unmetered",
+   "additional_delivery_charges_gr26",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc2_rate1/2023-08-01": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 30.0,
+    "source": [
+     "psc10-leaf-397-r17",
+     "397",
+     17
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_other": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 14.69,
+    "source": [
+     "psc10-leaf-397-r17",
+     "397",
+     17
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_summer": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 17.51,
+    "source": [
+     "psc10-leaf-397-r17",
+     "397",
+     17
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2023-08-01",
+   "2024-01-01"
+  ],
+  "excluded": [
+   "customer_charge_unmetered",
+   "additional_delivery_charges_gr26",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc2_rate1/2024-01-01-r18": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 32.0,
+    "source": [
+     "psc10-leaf-397-r18",
+     "397",
+     18
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_other": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 15.59,
+    "source": [
+     "psc10-leaf-397-r18",
+     "397",
+     18
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_summer": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 18.59,
+    "source": [
+     "psc10-leaf-397-r18",
+     "397",
+     18
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2024-01-01",
+   "2024-02-04"
+  ],
+  "excluded": [
+   "customer_charge_unmetered",
+   "additional_delivery_charges_gr26",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc2_rate1/2024-01-01-r19": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 30.0,
+    "source": [
+     "psc10-leaf-397-r19",
+     "397",
+     19
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_other": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 14.69,
+    "source": [
+     "psc10-leaf-397-r19",
+     "397",
+     19
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_summer": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 17.51,
+    "source": [
+     "psc10-leaf-397-r19",
+     "397",
+     19
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2024-01-01",
+   "2024-02-04"
+  ],
+  "excluded": [
+   "customer_charge_unmetered",
+   "additional_delivery_charges_gr26",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc2_rate1/2024-02-04": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 32.0,
+    "source": [
+     "psc10-leaf-397-r20",
+     "397",
+     20
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_other": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 15.59,
+    "source": [
+     "psc10-leaf-397-r20",
+     "397",
+     20
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_summer": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 18.59,
+    "source": [
+     "psc10-leaf-397-r20",
+     "397",
+     20
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2024-02-04",
+   "2025-01-01"
+  ],
+  "excluded": [
+   "customer_charge_unmetered",
+   "additional_delivery_charges_gr26",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc2_rate1/2025-01-01": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 33.0,
+    "source": [
+     "psc10-leaf-397-r21",
+     "397",
+     21
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_other": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 16.69,
+    "source": [
+     "psc10-leaf-397-r21",
+     "397",
+     21
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_summer": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 19.9,
+    "source": [
+     "psc10-leaf-397-r21",
+     "397",
+     21
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2025-01-01",
+   "2026-02-01"
+  ],
+  "excluded": [
+   "customer_charge_unmetered",
+   "additional_delivery_charges_gr26",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc2_rate1/2026-02-01": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 34.0,
+    "source": [
+     "psc10-leaf-397-r23",
+     "397",
+     23
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_other": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 0.1709,
+    "source": [
+     "psc10-leaf-397-r23",
+     "397",
+     23
+    ],
+    "unit": "USD/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_summer": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 0.2038,
+    "source": [
+     "psc10-leaf-397-r23",
+     "397",
+     23
+    ],
+    "unit": "USD/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2026-02-01",
+   null
+  ],
+  "excluded": [
+   "customer_charge_unmetered",
+   "additional_delivery_charges_gr26",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc2_rate1/legacy": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 33.0,
+    "source": null,
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_1": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 19.9,
+    "source": null,
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_2": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 16.69,
+    "source": null,
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "merchant_charge": {
+    "blocks": [],
+    "category": "merchant_charge",
+    "rate": 0.3101,
+    "source": null,
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "supply_energy": {
+    "blocks": [],
+    "category": "supply_energy",
+    "rate": 10.4483,
+    "source": null,
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   null,
+   null
+  ],
+  "excluded": [],
+  "verification_status": "unverified"
+ },
+ "sc8_rate1_lt/2020-02-01": {
+  "components": {
+   "demand_delivery_other": {
+    "blocks": [
+     [
+      10.0,
+      312.42,
+      "USD/month"
+     ],
+     [
+      null,
+      27.29,
+      "USD/kW"
+     ]
+    ],
+    "category": "delivery_demand",
+    "rate": null,
+    "source": [
+     "psc10-leaf-432-r12",
+     "432",
+     12
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_summer": {
+    "blocks": [
+     [
+      10.0,
+      400.92,
+      "USD/month"
+     ],
+     [
+      null,
+      35.33,
+      "USD/kW"
+     ]
+    ],
+    "category": "delivery_demand",
+    "rate": null,
+    "source": [
+     "psc10-leaf-432-r12",
+     "432",
+     12
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 1.67,
+    "source": [
+     "psc10-leaf-432-r12",
+     "432",
+     12
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2020-02-01",
+   "2021-01-01"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "reactive_power_demand_gr1011",
+   "minimum_monthly_charge_gr1010",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc8_rate1_lt/2021-01-01": {
+  "components": {
+   "demand_delivery_other": {
+    "blocks": [
+     [
+      10.0,
+      334.38,
+      "USD/month"
+     ],
+     [
+      null,
+      29.27,
+      "USD/kW"
+     ]
+    ],
+    "category": "delivery_demand",
+    "rate": null,
+    "source": [
+     "psc10-leaf-432-r13",
+     "432",
+     13
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_summer": {
+    "blocks": [
+     [
+      10.0,
+      429.33,
+      "USD/month"
+     ],
+     [
+      null,
+      37.89,
+      "USD/kW"
+     ]
+    ],
+    "category": "delivery_demand",
+    "rate": null,
+    "source": [
+     "psc10-leaf-432-r13",
+     "432",
+     13
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 1.67,
+    "source": [
+     "psc10-leaf-432-r13",
+     "432",
+     13
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2021-01-01",
+   "2022-01-01"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "reactive_power_demand_gr1011",
+   "minimum_monthly_charge_gr1010",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc8_rate1_lt/2022-01-01": {
+  "components": {
+   "demand_delivery_other": {
+    "blocks": [
+     [
+      10.0,
+      354.02,
+      "USD/month"
+     ],
+     [
+      null,
+      31.04,
+      "USD/kW"
+     ]
+    ],
+    "category": "delivery_demand",
+    "rate": null,
+    "source": [
+     "psc10-leaf-432-r14",
+     "432",
+     14
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_summer": {
+    "blocks": [
+     [
+      10.0,
+      454.74,
+      "USD/month"
+     ],
+     [
+      null,
+      40.18,
+      "USD/kW"
+     ]
+    ],
+    "category": "delivery_demand",
+    "rate": null,
+    "source": [
+     "psc10-leaf-432-r14",
+     "432",
+     14
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 1.67,
+    "source": [
+     "psc10-leaf-432-r14",
+     "432",
+     14
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2022-01-01",
+   "2023-08-01"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "reactive_power_demand_gr1011",
+   "minimum_monthly_charge_gr1010",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc8_rate1_lt/2023-08-01": {
+  "components": {
+   "demand_delivery_other": {
+    "blocks": [
+     [
+      10.0,
+      399.66,
+      "USD/month"
+     ],
+     [
+      null,
+      35.04,
+      "USD/kW"
+     ]
+    ],
+    "category": "delivery_demand",
+    "rate": null,
+    "source": [
+     "psc10-leaf-432-r16",
+     "432",
+     16
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_summer": {
+    "blocks": [
+     [
+      10.0,
+      513.37,
+      "USD/month"
+     ],
+     [
+      null,
+      45.36,
+      "USD/kW"
+     ]
+    ],
+    "category": "delivery_demand",
+    "rate": null,
+    "source": [
+     "psc10-leaf-432-r16",
+     "432",
+     16
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 1.55,
+    "source": [
+     "psc10-leaf-432-r16",
+     "432",
+     16
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2023-08-01",
+   "2024-01-01"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "reactive_power_demand_gr1011",
+   "minimum_monthly_charge_gr1010",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc8_rate1_lt/2024-01-01": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 55.0,
+    "source": [
+     "psc10-leaf-432-r17",
+     "432",
+     17
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_other": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 38.28,
+    "source": [
+     "psc10-leaf-432-r17",
+     "432",
+     17
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_summer": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 49.61,
+    "source": [
+     "psc10-leaf-432-r17",
+     "432",
+     17
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 1.44,
+    "source": [
+     "psc10-leaf-432-r17",
+     "432",
+     17
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2024-01-01",
+   "2024-03-16"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "transition_bills_december_2023",
+   "reactive_power_demand_gr1011",
+   "minimum_monthly_charge_gr1010",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc8_rate1_lt/2024-03-16": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 55.0,
+    "source": [
+     "psc10-leaf-432-r18",
+     "432",
+     18
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_other": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 38.28,
+    "source": [
+     "psc10-leaf-432-r18",
+     "432",
+     18
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_summer": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 49.61,
+    "source": [
+     "psc10-leaf-432-r18",
+     "432",
+     18
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 1.44,
+    "source": [
+     "psc10-leaf-432-r18",
+     "432",
+     18
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2024-03-16",
+   "2025-01-01"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "transition_bills_december_2023",
+   "reactive_power_demand_gr1011",
+   "minimum_monthly_charge_gr1010",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc8_rate1_lt/2025-01-01": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 58.0,
+    "source": [
+     "psc10-leaf-432-r19",
+     "432",
+     19
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_other": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 41.56,
+    "source": [
+     "psc10-leaf-432-r19",
+     "432",
+     19
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_summer": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 53.85,
+    "source": [
+     "psc10-leaf-432-r19",
+     "432",
+     19
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 1.32,
+    "source": [
+     "psc10-leaf-432-r19",
+     "432",
+     19
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2025-01-01",
+   "2026-02-01"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "reactive_power_demand_gr1011",
+   "minimum_monthly_charge_gr1010",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc8_rate1_lt/2026-02-01": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 59.0,
+    "source": [
+     "psc10-leaf-432-r21",
+     "432",
+     21
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_other": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 42.9,
+    "source": [
+     "psc10-leaf-432-r21",
+     "432",
+     21
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_summer": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 55.65,
+    "source": [
+     "psc10-leaf-432-r21",
+     "432",
+     21
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 0.0123,
+    "source": [
+     "psc10-leaf-432-r21",
+     "432",
+     21
+    ],
+    "unit": "USD/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2026-02-01",
+   null
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "reactive_power_demand_gr1011",
+   "minimum_monthly_charge_gr1010",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc8_rate1_lt/legacy": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 59.0,
+    "source": null,
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_1": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 55.65,
+    "source": null,
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_2": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 42.9,
+    "source": null,
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_supply_1": {
+    "blocks": [],
+    "category": "supply_demand",
+    "rate": 11.35,
+    "source": null,
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_1": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 1.23,
+    "source": null,
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "merchant_charge": {
+    "blocks": [],
+    "category": "merchant_charge",
+    "rate": 0.1561,
+    "source": null,
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "supply_energy": {
+    "blocks": [],
+    "category": "supply_energy",
+    "rate": 7.6885,
+    "source": null,
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   null,
+   null
+  ],
+  "excluded": [],
+  "verification_status": "unverified"
+ },
+ "sc9_rate1_ht/2020-02-01": {
+  "components": {
+   "demand_delivery_other": {
+    "blocks": [
+     [
+      5.0,
+      96.98,
+      "USD/month"
+     ],
+     [
+      null,
+      13.03,
+      "USD/kW"
+     ]
+    ],
+    "category": "delivery_demand",
+    "rate": null,
+    "source": [
+     "psc10-leaf-445-r13",
+     "445",
+     13
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_summer": {
+    "blocks": [
+     [
+      5.0,
+      133.73,
+      "USD/month"
+     ],
+     [
+      null,
+      18.68,
+      "USD/kW"
+     ]
+    ],
+    "category": "delivery_demand",
+    "rate": null,
+    "source": [
+     "psc10-leaf-445-r13",
+     "445",
+     13
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 1.95,
+    "source": [
+     "psc10-leaf-445-r13",
+     "445",
+     13
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2020-02-01",
+   "2021-01-01"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "reactive_power_demand_gr1011",
+   "minimum_monthly_charge_gr1010",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc9_rate1_ht/2021-01-01": {
+  "components": {
+   "demand_delivery_other": {
+    "blocks": [
+     [
+      5.0,
+      104.69,
+      "USD/month"
+     ],
+     [
+      null,
+      14.15,
+      "USD/kW"
+     ]
+    ],
+    "category": "delivery_demand",
+    "rate": null,
+    "source": [
+     "psc10-leaf-445-r14",
+     "445",
+     14
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_summer": {
+    "blocks": [
+     [
+      5.0,
+      144.58,
+      "USD/month"
+     ],
+     [
+      null,
+      20.28,
+      "USD/kW"
+     ]
+    ],
+    "category": "delivery_demand",
+    "rate": null,
+    "source": [
+     "psc10-leaf-445-r14",
+     "445",
+     14
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 1.95,
+    "source": [
+     "psc10-leaf-445-r14",
+     "445",
+     14
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2021-01-01",
+   "2022-01-01"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "reactive_power_demand_gr1011",
+   "minimum_monthly_charge_gr1010",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc9_rate1_ht/2022-01-01": {
+  "components": {
+   "demand_delivery_other": {
+    "blocks": [
+     [
+      5.0,
+      111.69,
+      "USD/month"
+     ],
+     [
+      null,
+      15.17,
+      "USD/kW"
+     ]
+    ],
+    "category": "delivery_demand",
+    "rate": null,
+    "source": [
+     "psc10-leaf-445-r15",
+     "445",
+     15
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_summer": {
+    "blocks": [
+     [
+      5.0,
+      154.43,
+      "USD/month"
+     ],
+     [
+      null,
+      21.73,
+      "USD/kW"
+     ]
+    ],
+    "category": "delivery_demand",
+    "rate": null,
+    "source": [
+     "psc10-leaf-445-r15",
+     "445",
+     15
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 1.95,
+    "source": [
+     "psc10-leaf-445-r15",
+     "445",
+     15
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2022-01-01",
+   "2023-08-01"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "reactive_power_demand_gr1011",
+   "minimum_monthly_charge_gr1010",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc9_rate1_ht/2023-08-01": {
+  "components": {
+   "demand_delivery_other": {
+    "blocks": [
+     [
+      5.0,
+      126.79,
+      "USD/month"
+     ],
+     [
+      null,
+      17.4,
+      "USD/kW"
+     ]
+    ],
+    "category": "delivery_demand",
+    "rate": null,
+    "source": [
+     "psc10-leaf-445-r17",
+     "445",
+     17
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_summer": {
+    "blocks": [
+     [
+      5.0,
+      175.31,
+      "USD/month"
+     ],
+     [
+      null,
+      24.85,
+      "USD/kW"
+     ]
+    ],
+    "category": "delivery_demand",
+    "rate": null,
+    "source": [
+     "psc10-leaf-445-r17",
+     "445",
+     17
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 1.81,
+    "source": [
+     "psc10-leaf-445-r17",
+     "445",
+     17
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2023-08-01",
+   "2024-01-01"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "reactive_power_demand_gr1011",
+   "minimum_monthly_charge_gr1010",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc9_rate1_ht/2024-01-01": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 66.0,
+    "source": [
+     "psc10-leaf-445-r18",
+     "445",
+     18
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_other": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 18.83,
+    "source": [
+     "psc10-leaf-445-r18",
+     "445",
+     18
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_summer": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 27.08,
+    "source": [
+     "psc10-leaf-445-r18",
+     "445",
+     18
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 1.68,
+    "source": [
+     "psc10-leaf-445-r18",
+     "445",
+     18
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2024-01-01",
+   "2024-03-16"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "transition_bills_december_2023",
+   "reactive_power_demand_gr1011",
+   "minimum_monthly_charge_gr1010",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc9_rate1_ht/2024-03-16": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 66.0,
+    "source": [
+     "psc10-leaf-445-r19",
+     "445",
+     19
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_other": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 18.83,
+    "source": [
+     "psc10-leaf-445-r19",
+     "445",
+     19
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_summer": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 27.08,
+    "source": [
+     "psc10-leaf-445-r19",
+     "445",
+     19
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 1.68,
+    "source": [
+     "psc10-leaf-445-r19",
+     "445",
+     19
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2024-03-16",
+   "2025-01-01"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "transition_bills_december_2023",
+   "reactive_power_demand_gr1011",
+   "minimum_monthly_charge_gr1010",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc9_rate1_ht/2025-01-01": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 71.0,
+    "source": [
+     "psc10-leaf-445-r20",
+     "445",
+     20
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_other": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 20.51,
+    "source": [
+     "psc10-leaf-445-r20",
+     "445",
+     20
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_summer": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 29.5,
+    "source": [
+     "psc10-leaf-445-r20",
+     "445",
+     20
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 1.54,
+    "source": [
+     "psc10-leaf-445-r20",
+     "445",
+     20
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2025-01-01",
+   "2026-02-01"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "reactive_power_demand_gr1011",
+   "minimum_monthly_charge_gr1010",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc9_rate1_ht/2026-02-01": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 72.0,
+    "source": [
+     "psc10-leaf-445-r22",
+     "445",
+     22
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_other": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 21.17,
+    "source": [
+     "psc10-leaf-445-r22",
+     "445",
+     22
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_summer": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 30.41,
+    "source": [
+     "psc10-leaf-445-r22",
+     "445",
+     22
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 0.0143,
+    "source": [
+     "psc10-leaf-445-r22",
+     "445",
+     22
+    ],
+    "unit": "USD/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2026-02-01",
+   null
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "reactive_power_demand_gr1011",
+   "minimum_monthly_charge_gr1010",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc9_rate1_ht/legacy": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 71.0,
+    "source": null,
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_1": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 29.5,
+    "source": null,
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_2": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 20.51,
+    "source": null,
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_supply_1": {
+    "blocks": [],
+    "category": "supply_demand",
+    "rate": 11.35,
+    "source": null,
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_1": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 1.54,
+    "source": null,
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "merchant_charge": {
+    "blocks": [],
+    "category": "merchant_charge",
+    "rate": 0.1561,
+    "source": null,
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "supply_energy": {
+    "blocks": [],
+    "category": "supply_energy",
+    "rate": 7.6885,
+    "source": null,
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   null,
+   null
+  ],
+  "excluded": [],
+  "verification_status": "unverified"
+ },
+ "sc9_rate1_lt/2020-02-01": {
+  "components": {
+   "demand_delivery_other": {
+    "blocks": [
+     [
+      5.0,
+      152.77,
+      "USD/month"
+     ],
+     [
+      null,
+      21.14,
+      "USD/kW"
+     ]
+    ],
+    "category": "delivery_demand",
+    "rate": null,
+    "source": [
+     "psc10-leaf-445-r13",
+     "445",
+     13
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_summer": {
+    "blocks": [
+     [
+      5.0,
+      189.57,
+      "USD/month"
+     ],
+     [
+      null,
+      26.77,
+      "USD/kW"
+     ]
+    ],
+    "category": "delivery_demand",
+    "rate": null,
+    "source": [
+     "psc10-leaf-445-r13",
+     "445",
+     13
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 2.1,
+    "source": [
+     "psc10-leaf-445-r13",
+     "445",
+     13
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2020-02-01",
+   "2021-01-01"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "reactive_power_demand_gr1011",
+   "minimum_monthly_charge_gr1010",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc9_rate1_lt/2021-01-01": {
+  "components": {
+   "demand_delivery_other": {
+    "blocks": [
+     [
+      5.0,
+      165.25,
+      "USD/month"
+     ],
+     [
+      null,
+      22.95,
+      "USD/kW"
+     ]
+    ],
+    "category": "delivery_demand",
+    "rate": null,
+    "source": [
+     "psc10-leaf-445-r14",
+     "445",
+     14
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_summer": {
+    "blocks": [
+     [
+      5.0,
+      205.19,
+      "USD/month"
+     ],
+     [
+      null,
+      29.06,
+      "USD/kW"
+     ]
+    ],
+    "category": "delivery_demand",
+    "rate": null,
+    "source": [
+     "psc10-leaf-445-r14",
+     "445",
+     14
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 2.1,
+    "source": [
+     "psc10-leaf-445-r14",
+     "445",
+     14
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2021-01-01",
+   "2022-01-01"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "reactive_power_demand_gr1011",
+   "minimum_monthly_charge_gr1010",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc9_rate1_lt/2022-01-01": {
+  "components": {
+   "demand_delivery_other": {
+    "blocks": [
+     [
+      5.0,
+      176.57,
+      "USD/month"
+     ],
+     [
+      null,
+      24.59,
+      "USD/kW"
+     ]
+    ],
+    "category": "delivery_demand",
+    "rate": null,
+    "source": [
+     "psc10-leaf-445-r15",
+     "445",
+     15
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_summer": {
+    "blocks": [
+     [
+      5.0,
+      219.36,
+      "USD/month"
+     ],
+     [
+      null,
+      31.13,
+      "USD/kW"
+     ]
+    ],
+    "category": "delivery_demand",
+    "rate": null,
+    "source": [
+     "psc10-leaf-445-r15",
+     "445",
+     15
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 2.1,
+    "source": [
+     "psc10-leaf-445-r15",
+     "445",
+     15
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2022-01-01",
+   "2023-08-01"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "reactive_power_demand_gr1011",
+   "minimum_monthly_charge_gr1010",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc9_rate1_lt/2023-08-01": {
+  "components": {
+   "demand_delivery_other": {
+    "blocks": [
+     [
+      5.0,
+      200.44,
+      "USD/month"
+     ],
+     [
+      null,
+      28.09,
+      "USD/kW"
+     ]
+    ],
+    "category": "delivery_demand",
+    "rate": null,
+    "source": [
+     "psc10-leaf-445-r17",
+     "445",
+     17
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_summer": {
+    "blocks": [
+     [
+      5.0,
+      249.01,
+      "USD/month"
+     ],
+     [
+      null,
+      35.51,
+      "USD/kW"
+     ]
+    ],
+    "category": "delivery_demand",
+    "rate": null,
+    "source": [
+     "psc10-leaf-445-r17",
+     "445",
+     17
+    ],
+    "unit": null,
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 1.95,
+    "source": [
+     "psc10-leaf-445-r17",
+     "445",
+     17
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2023-08-01",
+   "2024-01-01"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "reactive_power_demand_gr1011",
+   "minimum_monthly_charge_gr1010",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc9_rate1_lt/2024-01-01": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 66.0,
+    "source": [
+     "psc10-leaf-445-r18",
+     "445",
+     18
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_other": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 30.73,
+    "source": [
+     "psc10-leaf-445-r18",
+     "445",
+     18
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_summer": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 39.27,
+    "source": [
+     "psc10-leaf-445-r18",
+     "445",
+     18
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 1.81,
+    "source": [
+     "psc10-leaf-445-r18",
+     "445",
+     18
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2024-01-01",
+   "2024-03-16"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "transition_bills_december_2023",
+   "reactive_power_demand_gr1011",
+   "minimum_monthly_charge_gr1010",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc9_rate1_lt/2024-03-16": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 66.0,
+    "source": [
+     "psc10-leaf-445-r19",
+     "445",
+     19
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_other": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 30.73,
+    "source": [
+     "psc10-leaf-445-r19",
+     "445",
+     19
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_summer": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 39.27,
+    "source": [
+     "psc10-leaf-445-r19",
+     "445",
+     19
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 1.81,
+    "source": [
+     "psc10-leaf-445-r19",
+     "445",
+     19
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2024-03-16",
+   "2025-01-01"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "transition_bills_december_2023",
+   "reactive_power_demand_gr1011",
+   "minimum_monthly_charge_gr1010",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc9_rate1_lt/2025-01-01": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 71.0,
+    "source": [
+     "psc10-leaf-445-r20",
+     "445",
+     20
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_other": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 33.5,
+    "source": [
+     "psc10-leaf-445-r20",
+     "445",
+     20
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_summer": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 42.8,
+    "source": [
+     "psc10-leaf-445-r20",
+     "445",
+     20
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 1.66,
+    "source": [
+     "psc10-leaf-445-r20",
+     "445",
+     20
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2025-01-01",
+   "2026-02-01"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "reactive_power_demand_gr1011",
+   "minimum_monthly_charge_gr1010",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc9_rate1_lt/2026-02-01": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 72.0,
+    "source": [
+     "psc10-leaf-445-r22",
+     "445",
+     22
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_other": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 34.5,
+    "source": [
+     "psc10-leaf-445-r22",
+     "445",
+     22
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_summer": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 44.05,
+    "source": [
+     "psc10-leaf-445-r22",
+     "445",
+     22
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 0.0154,
+    "source": [
+     "psc10-leaf-445-r22",
+     "445",
+     22
+    ],
+    "unit": "USD/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2026-02-01",
+   null
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "reactive_power_demand_gr1011",
+   "minimum_monthly_charge_gr1010",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc9_rate1_lt/legacy": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 71.0,
+    "source": null,
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_1": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 42.8,
+    "source": null,
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_2": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 33.5,
+    "source": null,
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_supply_1": {
+    "blocks": [],
+    "category": "supply_demand",
+    "rate": 11.35,
+    "source": null,
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_1": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 1.66,
+    "source": null,
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "merchant_charge": {
+    "blocks": [],
+    "category": "merchant_charge",
+    "rate": 0.1561,
+    "source": null,
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "supply_energy": {
+    "blocks": [],
+    "category": "supply_energy",
+    "rate": 7.6885,
+    "source": null,
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   null,
+   null
+  ],
+  "excluded": [],
+  "verification_status": "unverified"
+ },
+ "sc9_rate2_lt/2020-02-01": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 143.09,
+    "source": [
+     "psc10-leaf-449-r12",
+     "449",
+     12
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_other_all_hours": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 3.92,
+    "source": [
+     "psc10-leaf-449-r12",
+     "449",
+     12
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_other_weekday_0800_2200": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 13.01,
+    "source": [
+     "psc10-leaf-449-r12",
+     "449",
+     12
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "22:00",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": "08:00",
+     "weekdays_only": true
+    }
+   },
+   "demand_summer_all_hours": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 15.53,
+    "source": [
+     "psc10-leaf-449-r12",
+     "449",
+     12
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_summer_weekday_0800_1800": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 8.53,
+    "source": [
+     "psc10-leaf-449-r12",
+     "449",
+     12
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "18:00",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": "08:00",
+     "weekdays_only": true
+    }
+   },
+   "demand_summer_weekday_0800_2200": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 17.19,
+    "source": [
+     "psc10-leaf-449-r12",
+     "449",
+     12
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "22:00",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": "08:00",
+     "weekdays_only": true
+    }
+   },
+   "energy_delivery": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 0.79,
+    "source": [
+     "psc10-leaf-449-r12",
+     "449",
+     12
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2020-02-01",
+   "2021-01-01"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "reactive_power_demand_gr1011",
+   "minimum_monthly_charge_gr1010",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc9_rate2_lt/2021-01-01": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 143.09,
+    "source": [
+     "psc10-leaf-449-r13",
+     "449",
+     13
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_other_all_hours": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 4.21,
+    "source": [
+     "psc10-leaf-449-r13",
+     "449",
+     13
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_other_weekday_0800_2200": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 13.96,
+    "source": [
+     "psc10-leaf-449-r13",
+     "449",
+     13
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "22:00",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": "08:00",
+     "weekdays_only": true
+    }
+   },
+   "demand_summer_all_hours": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 16.66,
+    "source": [
+     "psc10-leaf-449-r13",
+     "449",
+     13
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_summer_weekday_0800_1800": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 9.15,
+    "source": [
+     "psc10-leaf-449-r13",
+     "449",
+     13
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "18:00",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": "08:00",
+     "weekdays_only": true
+    }
+   },
+   "demand_summer_weekday_0800_2200": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 18.44,
+    "source": [
+     "psc10-leaf-449-r13",
+     "449",
+     13
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "22:00",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": "08:00",
+     "weekdays_only": true
+    }
+   },
+   "energy_delivery": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 0.79,
+    "source": [
+     "psc10-leaf-449-r13",
+     "449",
+     13
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2021-01-01",
+   "2022-01-01"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "reactive_power_demand_gr1011",
+   "minimum_monthly_charge_gr1010",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc9_rate2_lt/2022-01-01": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 143.09,
+    "source": [
+     "psc10-leaf-449-r14",
+     "449",
+     14
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_other_all_hours": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 4.47,
+    "source": [
+     "psc10-leaf-449-r14",
+     "449",
+     14
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_other_weekday_0800_2200": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 14.84,
+    "source": [
+     "psc10-leaf-449-r14",
+     "449",
+     14
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "22:00",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": "08:00",
+     "weekdays_only": true
+    }
+   },
+   "demand_summer_all_hours": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 17.71,
+    "source": [
+     "psc10-leaf-449-r14",
+     "449",
+     14
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_summer_weekday_0800_1800": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 9.73,
+    "source": [
+     "psc10-leaf-449-r14",
+     "449",
+     14
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "18:00",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": "08:00",
+     "weekdays_only": true
+    }
+   },
+   "demand_summer_weekday_0800_2200": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 19.6,
+    "source": [
+     "psc10-leaf-449-r14",
+     "449",
+     14
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "22:00",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": "08:00",
+     "weekdays_only": true
+    }
+   },
+   "energy_delivery": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 0.79,
+    "source": [
+     "psc10-leaf-449-r14",
+     "449",
+     14
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2022-01-01",
+   "2023-08-01"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "reactive_power_demand_gr1011",
+   "minimum_monthly_charge_gr1010",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc9_rate2_lt/2023-08-01": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 500.0,
+    "source": [
+     "psc10-leaf-449-r16",
+     "449",
+     16
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_other_all_hours": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 4.98,
+    "source": [
+     "psc10-leaf-449-r16",
+     "449",
+     16
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_other_weekday_0800_2200": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 16.53,
+    "source": [
+     "psc10-leaf-449-r16",
+     "449",
+     16
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "22:00",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": "08:00",
+     "weekdays_only": true
+    }
+   },
+   "demand_summer_all_hours": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 18.75,
+    "source": [
+     "psc10-leaf-449-r16",
+     "449",
+     16
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_summer_weekday_0800_1800": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 10.3,
+    "source": [
+     "psc10-leaf-449-r16",
+     "449",
+     16
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "18:00",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": "08:00",
+     "weekdays_only": true
+    }
+   },
+   "demand_summer_weekday_0800_2200": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 20.75,
+    "source": [
+     "psc10-leaf-449-r16",
+     "449",
+     16
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "22:00",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": "08:00",
+     "weekdays_only": true
+    }
+   },
+   "energy_delivery": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 0.79,
+    "source": [
+     "psc10-leaf-449-r16",
+     "449",
+     16
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2023-08-01",
+   "2024-01-01"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "reactive_power_demand_gr1011",
+   "minimum_monthly_charge_gr1010",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc9_rate2_lt/2024-01-01": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 500.0,
+    "source": [
+     "psc10-leaf-449-r17",
+     "449",
+     17
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_other_all_hours": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 5.29,
+    "source": [
+     "psc10-leaf-449-r17",
+     "449",
+     17
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_other_weekday_0800_2200": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 17.56,
+    "source": [
+     "psc10-leaf-449-r17",
+     "449",
+     17
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "22:00",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": "08:00",
+     "weekdays_only": true
+    }
+   },
+   "demand_summer_all_hours": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 19.91,
+    "source": [
+     "psc10-leaf-449-r17",
+     "449",
+     17
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_summer_weekday_0800_1800": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 10.94,
+    "source": [
+     "psc10-leaf-449-r17",
+     "449",
+     17
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "18:00",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": "08:00",
+     "weekdays_only": true
+    }
+   },
+   "demand_summer_weekday_0800_2200": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 22.04,
+    "source": [
+     "psc10-leaf-449-r17",
+     "449",
+     17
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "22:00",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": "08:00",
+     "weekdays_only": true
+    }
+   },
+   "energy_delivery": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 0.79,
+    "source": [
+     "psc10-leaf-449-r17",
+     "449",
+     17
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2024-01-01",
+   "2025-01-01"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "reactive_power_demand_gr1011",
+   "minimum_monthly_charge_gr1010",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc9_rate2_lt/2025-01-01": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 500.0,
+    "source": [
+     "psc10-leaf-449-r18",
+     "449",
+     18
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_other_all_hours": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 5.6,
+    "source": [
+     "psc10-leaf-449-r18",
+     "449",
+     18
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_other_weekday_0800_2200": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 18.6,
+    "source": [
+     "psc10-leaf-449-r18",
+     "449",
+     18
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "22:00",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": "08:00",
+     "weekdays_only": true
+    }
+   },
+   "demand_summer_all_hours": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 21.09,
+    "source": [
+     "psc10-leaf-449-r18",
+     "449",
+     18
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_summer_weekday_0800_1800": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 11.59,
+    "source": [
+     "psc10-leaf-449-r18",
+     "449",
+     18
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "18:00",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": "08:00",
+     "weekdays_only": true
+    }
+   },
+   "demand_summer_weekday_0800_2200": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 23.35,
+    "source": [
+     "psc10-leaf-449-r18",
+     "449",
+     18
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "22:00",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": "08:00",
+     "weekdays_only": true
+    }
+   },
+   "energy_delivery": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 0.79,
+    "source": [
+     "psc10-leaf-449-r18",
+     "449",
+     18
+    ],
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2025-01-01",
+   "2026-02-01"
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "reactive_power_demand_gr1011",
+   "minimum_monthly_charge_gr1010",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc9_rate2_lt/2026-02-01": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 510.0,
+    "source": [
+     "psc10-leaf-449-r20",
+     "449",
+     20
+    ],
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_other_all_hours": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 5.85,
+    "source": [
+     "psc10-leaf-449-r20",
+     "449",
+     20
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_other_weekday_0800_2200": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 19.41,
+    "source": [
+     "psc10-leaf-449-r20",
+     "449",
+     20
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "22:00",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": "08:00",
+     "weekdays_only": true
+    }
+   },
+   "demand_summer_all_hours": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 20.61,
+    "source": [
+     "psc10-leaf-449-r20",
+     "449",
+     20
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_summer_weekday_0800_1800": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 11.33,
+    "source": [
+     "psc10-leaf-449-r20",
+     "449",
+     20
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "18:00",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": "08:00",
+     "weekdays_only": true
+    }
+   },
+   "demand_summer_weekday_0800_2200": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 22.82,
+    "source": [
+     "psc10-leaf-449-r20",
+     "449",
+     20
+    ],
+    "unit": "USD/kW",
+    "window": {
+     "end": "22:00",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": "08:00",
+     "weekdays_only": true
+    }
+   },
+   "energy_delivery": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 0.0079,
+    "source": [
+     "psc10-leaf-449-r20",
+     "449",
+     20
+    ],
+    "unit": "USD/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   "2026-02-01",
+   null
+  ],
+  "excluded": [
+   "additional_delivery_charges_gr26",
+   "reactive_power_demand_gr1011",
+   "minimum_monthly_charge_gr1010",
+   "supply_charges_gr25",
+   "increase_in_rates_gr30"
+  ],
+  "verification_status": "transcribed"
+ },
+ "sc9_rate2_lt/legacy": {
+  "components": {
+   "customer_charge": {
+    "blocks": [],
+    "category": "fixed_charge",
+    "rate": 500.0,
+    "source": null,
+    "unit": "USD/month",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_1": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 11.59,
+    "source": null,
+    "unit": "USD/kW",
+    "window": {
+     "end": "18:00",
+     "excluded_holidays": "coned_six",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": "08:00",
+     "weekdays_only": true
+    }
+   },
+   "demand_delivery_2": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 23.35,
+    "source": null,
+    "unit": "USD/kW",
+    "window": {
+     "end": "22:00",
+     "excluded_holidays": "coned_six",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": "08:00",
+     "weekdays_only": true
+    }
+   },
+   "demand_delivery_3": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 21.09,
+    "source": null,
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_delivery_4": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 18.6,
+    "source": null,
+    "unit": "USD/kW",
+    "window": {
+     "end": "22:00",
+     "excluded_holidays": "coned_six",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": "08:00",
+     "weekdays_only": true
+    }
+   },
+   "demand_delivery_5": {
+    "blocks": [],
+    "category": "delivery_demand",
+    "rate": 5.6,
+    "source": null,
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+     ],
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "demand_supply_1": {
+    "blocks": [],
+    "category": "supply_demand",
+    "rate": 11.35,
+    "source": null,
+    "unit": "USD/kW",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "energy_delivery_1": {
+    "blocks": [],
+    "category": "delivery_energy",
+    "rate": 0.79,
+    "source": null,
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "merchant_charge": {
+    "blocks": [],
+    "category": "merchant_charge",
+    "rate": 0.1561,
+    "source": null,
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   },
+   "supply_energy": {
+    "blocks": [],
+    "category": "supply_energy",
+    "rate": 7.6885,
+    "source": null,
+    "unit": "cents/kWh",
+    "window": {
+     "end": "end_of_day",
+     "excluded_holidays": "none",
+     "months": null,
+     "start": null,
+     "weekdays_only": null
+    }
+   }
+  },
+  "effective": [
+   null,
+   null
+  ],
+  "excluded": [],
+  "verification_status": "unverified"
+ }
+}

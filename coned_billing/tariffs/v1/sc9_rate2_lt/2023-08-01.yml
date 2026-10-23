@@ -1,0 +1,315 @@
+# Tariff schema v1. Transcribed from the cited leaves; see docs/dev/transcription_review.md.
+# verification_status 'owner_verified' may only be set through verification_record.yml.
+schema_version: 1
+tariff_id: sc9_rate2_lt
+version: '2023-08-01'
+utility: Consolidated Edison Company of New York, Inc.
+jurisdiction: New York State Public Service Commission
+tariff_book: PSC No. 10 - Electricity
+service_classification: SC-9
+rate_option: Rate II - General - Large - Time-of-Day
+voltage: low_tension
+zone: null
+timezone: America/New_York
+effective:
+  start: 2023-08-01
+  end: 2024-01-01
+verification_status: transcribed
+calculation_modes:
+- historical
+- scenario
+case: 22-E-0064
+sources:
+- psc10-leaf-449-r16
+- psc10-leaf-85-r3
+- psc10-leaf-84-r0
+- psc10-leaf-90-r4
+eligibility: SC-9 Rate II is mandatory for Customers whose monthly maximum demand exceeds 1,500 kW in
+  any annual period ending September 30, among other criteria (leaf 447). Low tension service.
+required_account_inputs:
+- 'service voltage: low_tension'
+assumptions:
+- Delivery charges only. Supply (GR 25), GR 26 adjustments and the GR 30 percentage increase are excluded
+  and listed under excluded_components.
+- 'Effective dates are dates of service: start inclusive, end exclusive. Bills spanning a rate change
+  are prorated by days of service (GR 10.5.1, leaf 85); proration is applied by the billing engine (WP5).'
+- The Customer Charge 'per month' is read as a monthly charge prorated by elapsed days / 30 under GR 10.5.2,
+  not as a per-bill or per-calendar-month charge. Owner to confirm.
+- Maximum demand for each time period is the highest 30-minute integrated demand in that period (GR 10.4);
+  WP4 derives it from interval data.
+- 'The time periods are stated ''Monday through Friday'' with no holiday wording (leaf 449), and GR 10.10
+  (leaf 90) describes off-peak hours as the 48 hours of Saturday and Sunday plus 10 PM-8 AM weekdays,
+  so holidays are not excluded (owner decision 2026-10-23: follow the leaf).'
+- 'The demand charges for the time periods are additive: ''The total demand charge will be the sum of
+  the charges for each of the time periods.'''
+components:
+- id: customer_charge
+  name: Customer Charge
+  category: fixed_charge
+  determinant: billing_period
+  unit: USD/month
+  rate: 500.0
+  window:
+    excluded_holidays: none
+  proration:
+    rule: days_over_30
+    source:
+      document: psc10-leaf-85-r3
+      leaf: '85'
+      revision: 3
+      page: 1
+      text: Monthly rates and charges will be prorated when the Company renders a bill for other than
+        a 30-day period on the basis of the number of elapsed days divided by 30
+  source:
+    document: psc10-leaf-449-r16
+    leaf: '449'
+    revision: 16
+    page: 1
+    text: $500.00 per month
+    method: page_image
+- id: demand_summer_weekday_0800_1800
+  name: Demand Delivery Charge, June-September, Mon-Fri 8 AM-6 PM
+  category: delivery_demand
+  determinant: max_demand_kw
+  unit: USD/kW
+  rate: 10.3
+  window:
+    months: [6, 7, 8, 9]
+    weekdays_only: true
+    start: 08:00
+    end: '18:00'
+    excluded_holidays: none
+  proration:
+    rule: days_over_30
+    source:
+      document: psc10-leaf-85-r3
+      leaf: '85'
+      revision: 3
+      page: 1
+      text: Rates and charges assessed per kW will be prorated for 30 days
+  demand_measurement:
+    method: integrated_demand
+    integration_minutes: 30
+    source:
+      document: psc10-leaf-84-r0
+      leaf: '84'
+      revision: 0
+      page: 1
+      text: highest 30 minute integrated demand occurring during the billing period
+  source:
+    document: psc10-leaf-449-r16
+    leaf: '449'
+    revision: 16
+    page: 1
+    text: Monday through Friday, 8 AM to 6 PM (high/low tension service) $10.30 per kW
+    method: page_image
+  notes: 'No holiday exclusion: the leaf says Monday through Friday and gives no holiday wording; GR 10.10
+    (leaf 90) describes off-peak hours as "the entire 48 hours of Saturday and Sunday, and 10 PM through
+    8 AM, Monday through Friday".'
+- id: demand_summer_weekday_0800_2200
+  name: Demand Delivery Charge, June-September, Mon-Fri 8 AM-10 PM
+  category: delivery_demand
+  determinant: max_demand_kw
+  unit: USD/kW
+  rate: 20.75
+  window:
+    months: [6, 7, 8, 9]
+    weekdays_only: true
+    start: 08:00
+    end: '22:00'
+    excluded_holidays: none
+  proration:
+    rule: days_over_30
+    source:
+      document: psc10-leaf-85-r3
+      leaf: '85'
+      revision: 3
+      page: 1
+      text: Rates and charges assessed per kW will be prorated for 30 days
+  demand_measurement:
+    method: integrated_demand
+    integration_minutes: 30
+    source:
+      document: psc10-leaf-84-r0
+      leaf: '84'
+      revision: 0
+      page: 1
+      text: highest 30 minute integrated demand occurring during the billing period
+  source:
+    document: psc10-leaf-449-r16
+    leaf: '449'
+    revision: 16
+    page: 1
+    text: Monday through Friday, 8 AM to 10 PM (high/low tension service) $20.75 per kW
+    method: page_image
+  notes: 'No holiday exclusion: the leaf says Monday through Friday and gives no holiday wording; GR 10.10
+    (leaf 90) describes off-peak hours as "the entire 48 hours of Saturday and Sunday, and 10 PM through
+    8 AM, Monday through Friday".'
+- id: demand_summer_all_hours
+  name: Demand Delivery Charge, June-September, all hours (low tension only)
+  category: delivery_demand
+  determinant: max_demand_kw
+  unit: USD/kW
+  rate: 18.75
+  window:
+    months: [6, 7, 8, 9]
+    excluded_holidays: none
+  proration:
+    rule: days_over_30
+    source:
+      document: psc10-leaf-85-r3
+      leaf: '85'
+      revision: 3
+      page: 1
+      text: Rates and charges assessed per kW will be prorated for 30 days
+  demand_measurement:
+    method: integrated_demand
+    integration_minutes: 30
+    source:
+      document: psc10-leaf-84-r0
+      leaf: '84'
+      revision: 0
+      page: 1
+      text: highest 30 minute integrated demand occurring during the billing period
+  source:
+    document: psc10-leaf-449-r16
+    leaf: '449'
+    revision: 16
+    page: 1
+    text: All hours of all days (low tension service only) $18.75 per kW
+    method: page_image
+- id: demand_other_weekday_0800_2200
+  name: Demand Delivery Charge, all other months, Mon-Fri 8 AM-10 PM
+  category: delivery_demand
+  determinant: max_demand_kw
+  unit: USD/kW
+  rate: 16.53
+  window:
+    months: [1, 2, 3, 4, 5, 10, 11, 12]
+    weekdays_only: true
+    start: 08:00
+    end: '22:00'
+    excluded_holidays: none
+  proration:
+    rule: days_over_30
+    source:
+      document: psc10-leaf-85-r3
+      leaf: '85'
+      revision: 3
+      page: 1
+      text: Rates and charges assessed per kW will be prorated for 30 days
+  demand_measurement:
+    method: integrated_demand
+    integration_minutes: 30
+    source:
+      document: psc10-leaf-84-r0
+      leaf: '84'
+      revision: 0
+      page: 1
+      text: highest 30 minute integrated demand occurring during the billing period
+  source:
+    document: psc10-leaf-449-r16
+    leaf: '449'
+    revision: 16
+    page: 1
+    text: Monday through Friday, 8 AM to 10 PM (high/low tension service) $16.53 per kW
+    method: page_image
+  notes: 'No holiday exclusion: the leaf says Monday through Friday and gives no holiday wording; GR 10.10
+    (leaf 90) describes off-peak hours as "the entire 48 hours of Saturday and Sunday, and 10 PM through
+    8 AM, Monday through Friday".'
+- id: demand_other_all_hours
+  name: Demand Delivery Charge, all other months, all hours (low tension only)
+  category: delivery_demand
+  determinant: max_demand_kw
+  unit: USD/kW
+  rate: 4.98
+  window:
+    months: [1, 2, 3, 4, 5, 10, 11, 12]
+    excluded_holidays: none
+  proration:
+    rule: days_over_30
+    source:
+      document: psc10-leaf-85-r3
+      leaf: '85'
+      revision: 3
+      page: 1
+      text: Rates and charges assessed per kW will be prorated for 30 days
+  demand_measurement:
+    method: integrated_demand
+    integration_minutes: 30
+    source:
+      document: psc10-leaf-84-r0
+      leaf: '84'
+      revision: 0
+      page: 1
+      text: highest 30 minute integrated demand occurring during the billing period
+  source:
+    document: psc10-leaf-449-r16
+    leaf: '449'
+    revision: 16
+    page: 1
+    text: All hours of all days (low tension service only) $4.98 per kW
+    method: page_image
+- id: energy_delivery
+  name: Energy Delivery Charge
+  category: delivery_energy
+  determinant: kwh
+  unit: cents/kWh
+  rate: 0.79
+  window:
+    excluded_holidays: none
+  proration:
+    rule: none
+    source:
+      document: psc10-leaf-85-r3
+      leaf: '85'
+      revision: 3
+      page: 1
+      text: rates and charges assessed per kWhr will not be prorated
+  exclusive_group: energy_delivery
+  source:
+    document: psc10-leaf-449-r16
+    leaf: '449'
+    revision: 16
+    page: 1
+    text: All hours of all days 0.79 cents per kWhr
+    method: page_image
+excluded_components:
+- id: additional_delivery_charges_gr26
+  name: Additional Delivery Charges and Adjustments (General Rule 26)
+  reason: Set by monthly statements (e.g. MAC, surcharges, adjustment factors) that are not transcribed;
+    not modeled.
+  source:
+    document: psc10-leaf-449-r16
+    leaf: '449'
+    revision: 16
+    page: 1
+    text: Additional Delivery Charges and Adjustments, as specified in General Rule 26.
+    method: page_image
+- id: reactive_power_demand_gr1011
+  name: Reactive Power Demand Charge (General Rule 10.11)
+  reason: Needs kVAr metering data, which the package does not take; not modeled.
+  source:
+    document: psc10-leaf-449-r16
+    leaf: '449'
+    revision: 16
+    page: 1
+    text: Reactive Power Demand Charge, applicable as specified in General Rule 10.11.
+    method: page_image
+- id: minimum_monthly_charge_gr1010
+  name: Minimum Monthly Charge (General Rule 10.10, Contract Demand)
+  reason: Needs the account's highest registered demand in the most recent 18 months; not modeled.
+  source:
+    document: psc10-leaf-90-r4
+    leaf: '90'
+    revision: 4
+    page: 1
+    text: A Minimum Monthly Charge is applicable to Customers billed for demand under SCs 5, 8, 9, 12,
+      and 13
+- id: supply_charges_gr25
+  name: 'Supply and supply-related charges (General Rule 25: Market Supply Charge, Merchant Function Charge)'
+  reason: Supply is not part of this delivery tariff version; calculations must supply an explicit supply
+    assumption (D5). A packaged, sourced MSC dataset is WP8.
+- id: increase_in_rates_gr30
+  name: Increase in Rates and Charges (General Rule 30)
+  reason: Percentage increase shown on a separate statement; not transcribed, not modeled.

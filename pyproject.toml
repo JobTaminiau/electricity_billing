@@ -47,7 +47,7 @@ where = ["."]
 include = ["coned_billing*"]
 
 [tool.setuptools.package-data]
-coned_billing = ["tariffs/*.yml"]
+coned_billing = ["tariffs/*.yml", "tariffs/v1/*.yml", "tariffs/v1/*/*.yml"]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
@@ -73,6 +73,10 @@ ignore = [
 "coned_billing/supply_charge.py" = ["E501"]
 # One-off WP0 diagnostic with long report strings.
 "scripts/wp0_verify_findings.py" = ["E501"]
+# Generators of Markdown prose and tariff metadata text (WP3).
+"coned_billing/tariff_docs.py" = ["E501"]
+"scripts/build_source_leaves.py" = ["E501"]
+"scripts/migrate_legacy_tariffs.py" = ["E501"]
 
 [tool.mypy]
 # No python_version pin: numpy>=2.5 stubs use 3.12 syntax, so mypy checks against the

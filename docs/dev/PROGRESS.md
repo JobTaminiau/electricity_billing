@@ -406,3 +406,168 @@ tuple.
 
 `pytest -W error`: 206 passed, 2 skipped (Hypothesis, great_tables not
 installed), 10 xfailed. ruff, ruff format and mypy are clean.
+
+## WP3: tariff schema, versioning and source transcription
+
+### What was done
+
+- **Schema v1** (`coned_billing/tariff_schema.py`, documented in
+  `docs/tariff_schema.md`) covers:
+  - dated versions with the spec 6.1 metadata;
+  - components with categories, units in the tariff's own terms,
+    determinants, windows that must name their holiday set, blocks with a
+    cited proration rule, exclusive groups, demand measurement and
+    citations;
+  - excluded components.
+- **Strict loader and registry.**
+  - Unknown keys, types, non-finite values, units, dates, months, windows,
+    duplicate ids, source ids, block structure, signs by category, and gaps
+    or overlaps in exclusive groups are all rejected, naming the field.
+  - The registry rejects undeclared overlapping versions, and
+    `owner_verified` status without an entry in `verification_record.yml`.
+  - `historical()` and `historical_segments()` select by service date and
+    raise on uncovered or ambiguous dates; `scenario()` needs an explicit
+    version.
+- **The legacy loader is strict too.** `load_rate` names unknown keys
+  (F3.8), so the misspelled `weekday_only` now fails.
+- **Migration.** `scripts/migrate_legacy_tariffs.py` turns the six legacy
+  files into `legacy` versions: values unchanged, `unverified`, scenario
+  mode only, header comments kept in `legacy_notes`. The stray `0:` notes in
+  `sc_1_res_rate_1.yml` moved, verbatim, under `notes:`.
+- **Sources.**
+  - 60 cited leaves are in `docs/sources/psc10/` (6.8 MB): 20 pages
+    extracted from the current full PDF and 40 superseded leaves from the
+    NY PSC ETS.
+  - Each is registered in `tariffs/v1/sources.yml` with its sha256, URL and
+    retrieval time, and extracted pages also record the parent PDF's sha256
+    and page. `scripts/build_source_leaves.py` rebuilds them.
+  - `.gitignore` already admitted `docs/sources/**/*.pdf`.
+- **Transcription.** 51 versions are `transcribed`:
+
+  | Tariff | Coverage | Versions |
+  |---|---|---|
+  | SC-1 Rate I | 2019-01-01 onward | 10 |
+  | SC-2 Rate I | 2019-01-01 onward | 10 |
+  | SC-8 Rate I LT | 2020-02-01 onward | 8 |
+  | SC-9 Rate I LT | 2020-02-01 onward | 8 |
+  | SC-9 Rate I HT | 2020-02-01 onward | 8 |
+  | SC-9 Rate II LT | 2020-02-01 onward | 7 |
+
+  - Every value cites its leaf and revision, with a quote. GR 10.5 (leaf 85)
+    is cited for proration and GR 10.4 (leaf 84 r0 or r1) for the 30-minute
+    demand.
+  - `scripts/check_transcription_text.py`: all 587 text-layer quotes occur in
+    their PDFs, and every value occurs in its own quote.
+  - 33 quotes on five image-only leaves were read from the rendered page and
+    are flagged `page_image` for the owner's review.
+- **Generated docs.**
+  - `docs/support_matrix.md` and `docs/dev/transcription_review.md`, with a
+    test that both are current.
+  - `tests/snapshots/tariff_values.json` and its update script.
+
+### Decisions
+
+- **D8: dataclasses with explicit validation, not pydantic.**
+  - No new core dependency: the package still installs offline with pandas,
+    numpy and PyYAML.
+  - Error messages name the exact YAML path (`file.yml.components[id].window`).
+  - Cross-field rules (units by category and determinant, signs, block
+    contiguity, exclusive-group coverage, overlaps across files) are explicit
+    code either way.
+- **Versions are named after their first service date.** Where two leaf
+  revisions claim the same date, the revision is appended
+  (`2024-01-01-r18`).
+- **Holidays.** Every window must state its holiday set. All transcribed
+  windows use `none`:
+  - SC-1, SC-2 and SC-8/SC-9 Rate I windows are month-only;
+  - SC-9 Rate II follows leaf 449 (owner, 2026-10-23).
+- **Delivery only.** Supply (GR 25), the GR 26 adjustments, the GR 30
+  increase, reactive power (GR 10.11) and the minimum monthly charge (GR
+  10.10) are `excluded_components` with reasons, so WP5 can mark results
+  `modeled_subtotal`.
+- **Units follow each leaf:** cents/kWh up to 2025, $/kWh from 02/01/2026.
+
+### Findings
+
+- **N5. Two SC-1 and SC-2 revisions claim 01/01/2024.**
+  - Leaf 388 rev 18 (Case 22-E-0064: $19.00, 15.112/17.373 ¢) and rev 19
+    (Case 15-E-0751: $18.00, 14.116/16.228 ¢) both state 01/01/2024, and
+    both were cancelled 02/04/2024. Leaf 397 rev 18/19 for SC-2 is the same
+    case.
+  - Rev 19 repeats the rev 17 (08/01/2023) rates. Rev 20 (02/04/2024)
+    returns to the rev 18 rates.
+  - Both are transcribed as `known_overlaps`, so historical mode rejects
+    2024-01-01..2024-02-03. Owner to decide which was billed.
+- **N6. SC-8 and SC-9 Rate I changed structure on 01/01/2024.**
+  - Before that, demand was billed in blocks: "first 10 kW (or less)" for
+    SC-8 and "first 5 kW (or less)" for SC-9, at a flat $/month, then $/kW
+    above it, with the minimum charge equal to the first block. There was no
+    customer charge.
+  - From 01/01/2024 there is a customer charge and a flat $/kW demand
+    charge. The schema models the old structure as a flat first block.
+- **N7. Transition bills.** SC-8 leaf 432 r18 and SC-9 leaf 445 r19
+  (03/16/2024) set special demand charges for bills spanning December 2023
+  and January 2024. These are listed as excluded; WP5 must reject billing
+  periods that start before 2024-01-01 under these versions.
+- **N8. GR 10.5.2 proration.**
+  - kWh blocks scale by elapsed days / 30. The old F3.4 test expected an
+    unprorated 31-day July; it now checks both cases.
+  - Open reading for the owner: is the "per month" customer charge prorated
+    by days / 30 (recorded as an assumption), or is it a "per bill"
+    charge, which is not prorated?
+- **N9. 2019 rate leaves for SC-8, SC-9 Rate I and SC-9 Rate II** carry
+  meter ownership, meter service and meter data charges with MSP
+  conditions. They are not transcribed, so coverage for these tariffs starts
+  2020-02-01.
+- **N10. Legacy values identified.**
+  - SC-1, SC-2, SC-9 Rate I LT/HT and SC-9 Rate II are the 01/01/2025
+    leaves; SC-8 is the 02/01/2026 leaf.
+  - The legacy SC-1 file bills every summer kWh at 18.518 ¢, the over-250
+    rate (F3.4 confirmed).
+
+### Not obtained or not transcribed (exact list)
+
+- GR 26 statements (MAC, surcharges and adjustment factors), the GR 30
+  percentage statement, and GR 25 MSC/MFC values (WP8).
+- Reactive power demand rates (GR 10.11) and the minimum monthly charge
+  calculation (GR 10.10, contract demand).
+- Rate-leaf versions of SC-8 and SC-9 for 2019-01-01..2020-01-31 (N9).
+- Superseded revisions of the applicability and common-provision leaves
+  (387, 390, 396, 399, 431, 440, 444, 447, 454). Historical versions cite
+  only their rate leaf for eligibility.
+- SC-8 high tension (outside D3).
+
+### Tests
+
+- `tests/test_tariff_schema.py` (115 cases) covers every WP3 schema test on
+  the list:
+  - valid loads;
+  - missing fields;
+  - unknown keys named;
+  - units, non-finite values, dates and months;
+  - duplicates;
+  - sign rules and documented credits;
+  - overlaps declared or not;
+  - uncovered dates;
+  - additive SC-9 Rate II overlap;
+  - gaps and overlaps in exclusive energy groups;
+  - malformed blocks;
+  - legacy migration exactness and the stray key;
+  - the owner-status gate;
+  - block arithmetic by hand, including GR 10.5.2 proration and the flat
+    first demand block.
+- `tests/test_tariff_sources.py` (19 cases) covers citations on every
+  transcribed value, sha256 of every registered source, no unregistered
+  files, the value snapshot, current generated docs, and hand-typed values
+  from the Feb-2026 leaves plus spot checks of superseded revisions,
+  including two image-only leaves.
+- Strict xfails removed: F3.4 ×4, adapted to the versioned API, and the
+  F3.8 misspelled key. 5 xfails remain: F3.5 ×2, F3.6 and F3.7 ×2. The F3.5
+  `pytest.raises` match was narrowed so that the new unknown-key error does
+  not count as the WP4 fix.
+
+### Results (cloud, CPython 3.13.17, pandas 3.0.5, numpy 2.5.3)
+
+`pytest -W error`: 345 passed, 2 skipped, 5 xfailed. ruff, ruff format and
+mypy are clean. A wheel built locally contains `tariffs/v1/` and loads all 57
+versions outside the checkout.

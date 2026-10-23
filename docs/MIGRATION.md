@@ -79,3 +79,34 @@ package. The CHANGELOG is written in WP9 from these notes.
   as a tuple.
 - **`TimeWindow.mask`** rejects timezone-naive input and converts other time
   zones to New York.
+
+## WP3
+
+- **New: dated, source-cited tariff versions.**
+  - The new API is `coned_billing.tariff_schema` (exported as
+    `TariffRegistry`, `TariffVersion`, `default_registry` and
+    `load_tariff_version`), documented in `docs/tariff_schema.md`.
+  - The bundled versions cover SC-1 Rate I and SC-2 Rate I from 2019-01-01,
+    and SC-8 Rate I LT, SC-9 Rate I LT/HT and SC-9 Rate II LT from
+    2020-02-01. All run up to the current 02/01/2026 leaves and are
+    `transcribed`.
+  - Each bundled tariff also has an `unverified`, scenario-only `legacy`
+    version holding the old values unchanged.
+  - The billing engine does not use the new versions until WP5.
+- **`load_rate` rejects unknown keys.**
+  - Unknown or misspelled keys in legacy tariff files now raise
+    `ConEdBillingError` naming the key, for example `weekday_only`. Before,
+    they were ignored silently, which turned a weekday window into an
+    all-days window.
+  - The only new key is `notes`.
+- **`sc_1_res_rate_1.yml`:** the scratch notes under the stray top-level key
+  `0:` now sit, unchanged, under `notes:`. No rate changed. The `legacy`
+  version records them in `legacy_notes`.
+- **Errors:** new `TariffSchemaError` (a `ValueError`) and
+  `TariffSelectionError` (a `LookupError`), both subclasses of
+  `ConEdBillingError`.
+- **Packaging:** the wheel now carries `tariffs/v1/`. The cited source PDFs
+  under `docs/sources/` stay in the repository only.
+- **SC-9 Rate II holidays:** the transcribed versions exclude no holidays,
+  following leaf 449 (owner decision, 2026-10-23). The legacy file keeps its
+  six-holiday exclusion.

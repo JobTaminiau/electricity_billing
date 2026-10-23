@@ -3,7 +3,7 @@
 Each test asserts the *correct* behaviour and is marked ``xfail(strict=True)``
 with its finding ID while the defect is open. Resolved so far: F3.1 and the
 CSV/local-time parts of F3.3 (WP1); F3.2 and the F3.8 end-of-day part
-(WP2). The work package that fixes a defect removes the marker (and may
+(WP2); F3.4 and F3.8 (WP3). The work package that fixes a defect removes the marker (and may
 adapt the test to the new API). A strict xfail that starts passing fails the
 suite: investigate it, do not delete the test.
 
@@ -14,6 +14,7 @@ calendar dates, and rates read from the bundled 02/01/2026 leaves.
 from __future__ import annotations
 
 import textwrap
+from datetime import date
 from pathlib import Path
 
 import numpy as np
@@ -23,9 +24,10 @@ import pytest
 import coned_billing
 from coned_billing import calendars
 from coned_billing.billing import bill
-from coned_billing.errors import LoadDataError
+from coned_billing.errors import LoadDataError, TariffSelectionError
 from coned_billing.loader import load_rate
 from coned_billing.models import EnergyCharge, RateSchedule, TimeWindow
+from coned_billing.tariff_schema import default_registry
 
 TARIFFS = Path(coned_billing.__file__).parent / "tariffs"
 NY = "America/New_York"
@@ -149,42 +151,63 @@ def test_csv_across_dst_bills(tmp_path):
 
 
 # ───────────────────────────── F3.4 tariff data ─────────────────────────────────
-@_xfail("F3.4: bundled SC-1/SC-9 values predate the 02/01/2026 leaves")
+# Resolved in WP3 by the dated, source-cited tariff versions (coned_billing.tariff_schema).
+# The legacy files are kept unchanged as version "legacy" (D2), so these tests now
+# address the versioned API.
 def test_bundled_values_match_feb_2026_leaves():
-    # Values read from docs/sc1_residential_psc10.pdf leaf 388 and
-    # docs/sc9_general_large_psc10.pdf leaves 445 and 449 (Case 25-E-0072).
-    sc1 = load_rate(TARIFFS / "sc_1_res_rate_1.yml")
-    sc9 = load_rate(TARIFFS / "sc9_general_rate_1_LT.yml")
-    sc9ii = load_rate(TARIFFS / "sc9_general_rate_2_TOU.yml")
-    summer = [d.rate for d in sc9.demand_components if d.window.months and 7 in d.window.months]
-    assert sc1.customer_charge == 21.00
-    assert summer == [44.05]
-    assert sc9ii.customer_charge == 510.00
+    # Values read from leaf 388 r23 and leaves 445 r22 and 449 r20 (Case 25-E-0072).
+    reg = default_registry()
+    on = date(2026, 3, 1)
+    sc1 = reg.historical("sc1_rate1", on)
+    sc9 = reg.historical("sc9_rate1_lt", on)
+    sc9ii = reg.historical("sc9_rate2_lt", on)
+    assert sc1.component("customer_charge").rate == 21.00
+    assert sc9.component("demand_delivery_summer").rate == 44.05
+    assert sc9ii.component("customer_charge").rate == 510.00
 
 
-@_xfail("F3.4: SC-1 Rate I summer delivery is not tiered")
 def test_sc1_summer_first_250_kwh_block():
-    sc1 = load_rate(TARIFFS / "sc_1_res_rate_1.yml")
-    idx = pd.date_range("2026-07-01", "2026-07-31 23:00", freq="h", tz=NY)
-    out = sc1.bill(pd.DataFrame({"kW": 600.0 / len(idx)}, index=idx))
-    supply_and_merchant = 600.0 * (sc1.supply_charge + sc1.merchant_charge) / 100.0
-    delivery = out["energy_cost"].sum() - supply_and_merchant
-    # Leaf 388: first 250 kWh at $0.16402, over 250 kWh at $0.18858.
-    assert delivery == pytest.approx(250 * 0.16402 + 350 * 0.18858, abs=1e-9)
+    summer = (
+        default_registry()
+        .historical("sc1_rate1", date(2026, 7, 1))
+        .component("energy_delivery_summer")
+    )
+    # Leaf 388: first 250 kWh at $0.16402, over 250 kWh at $0.18858 (30-day period).
+    assert summer.block_charge(600) == pytest.approx(250 * 0.16402 + 350 * 0.18858, abs=1e-9)
+    # GR 10.5.2 (leaf 85): a 31-day period prorates the block to 250 * 31 / 30 kWh.
+    first = 250 * 31 / 30
+    assert summer.block_charge(600, elapsed_days=31) == pytest.approx(
+        first * 0.16402 + (600 - first) * 0.18858, abs=1e-9
+    )
 
 
-@_xfail("F3.4: stray top-level '0:' key in sc_1_res_rate_1.yml loads silently")
-def test_legacy_sc1_stray_key_is_surfaced():
+def test_legacy_sc1_stray_key_is_surfaced(tmp_path):
+    # The strict legacy loader names the stray key...
+    path = _write(
+        tmp_path,
+        """
+        code: TEST
+        customer_charge: 0
+        supply_charge: 0
+        merchant_charge: 0
+        0:
+          sc 1 0.1466 + 0.1991
+        """,
+    )
     with pytest.raises(Exception, match=r"\b0\b"):
-        load_rate(TARIFFS / "sc_1_res_rate_1.yml")
+        load_rate(path)
+    # ...and the bundled file's notes survive the migration to the legacy version.
+    legacy = default_registry().scenario("sc1_rate1", "legacy")
+    assert "sc 1 0.1466 + 0.1991" in legacy.legacy_notes
 
 
-@_xfail("F3.4: tariff effective dates are not enforced")
 def test_load_outside_tariff_effective_period_is_rejected():
-    sc8 = load_rate(TARIFFS / "sc8_multi_dwell_rate_1.yml")  # leaves effective 02/01/2026
-    idx = pd.date_range("2019-01-01", periods=24, freq="h", tz=NY)
-    with pytest.raises(Exception):  # noqa: B017 - exception type is chosen in WP3/WP5
-        sc8.bill(pd.DataFrame({"kW": 1.0}, index=idx))
+    # SC-8 Rate I is transcribed from 02/01/2020; 2019 service dates are uncovered,
+    # and the undated legacy version cannot be used in historical mode.
+    reg = default_registry()
+    with pytest.raises(TariffSelectionError):
+        reg.historical("sc8_rate1_lt", date(2019, 1, 1))
+    assert "historical" not in reg.scenario("sc8_rate1_lt", "legacy").calculation_modes
 
 
 # ───────────────────────────── F3.5 demand measurement ──────────────────────────
@@ -230,7 +253,9 @@ def test_hourly_input_rejected_for_15min_demand(tmp_path):
         """,
     )
     idx = pd.date_range("2024-01-02", periods=24, freq="h", tz=NY)
-    with pytest.raises(Exception, match=r"(?i)resolution|interval"):
+    # WP3 made the legacy loader reject the unknown key ``measurement_interval``;
+    # the match is narrowed so that rejection does not count as the WP4 fix.
+    with pytest.raises(Exception, match=r"(?i)resolution"):
         load_rate(path).bill(pd.DataFrame({"kW": 1.0}, index=idx))
 
 
@@ -277,7 +302,6 @@ def test_energy_cost_categories_reported_separately():
 
 
 # ───────────────────────────── F3.8 schema permissiveness ───────────────────────
-@_xfail("F3.8: unknown/misspelled tariff keys silently ignored")
 def test_misspelled_window_key_rejected(tmp_path):
     path = _write(
         tmp_path,

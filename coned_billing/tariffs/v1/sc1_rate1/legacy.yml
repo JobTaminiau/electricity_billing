@@ -1,0 +1,92 @@
+# Tariff schema v1. Migrated from coned_billing/tariffs/sc_1_res_rate_1.yml by
+# scripts/migrate_legacy_tariffs.py; values unchanged, status unverified.
+schema_version: 1
+tariff_id: sc1_rate1
+version: legacy
+utility: Consolidated Edison Company of New York, Inc.
+jurisdiction: New York State Public Service Commission
+tariff_book: PSC No. 10 - Electricity
+service_classification: SC-1
+rate_option: Rate I - Residential and Religious
+voltage: null
+zone: null
+timezone: America/New_York
+effective:
+  start: null
+  end: null
+verification_status: unverified
+calculation_modes:
+- scenario
+sources: []
+assumptions:
+- Values copied unchanged from the legacy file sc_1_res_rate_1.yml (code SC-1-RES-NYC-RATE-1); their provenance
+  and dates are unverified (D2). Scenario mode only.
+- The legacy files mix delivery values from different leaf revisions with supply and merchant assumptions
+  from other periods (finding F3.4).
+- Legacy demand is the largest input-interval kW (method input_interval_maximum), the pre-WP4 engine behaviour.
+- 'Windows keep the legacy holiday semantics: include_holidays false excludes the six-day set (coned_six),
+  true excludes none.'
+legacy_notes: 'Header comments of sc_1_res_rate_1.yml:
+
+  # leaf 388 in PSC NO. 10 - Electricity
+
+  # Initial Effective Date: 01/01/2025
+
+  # Issued in compliance with Order in Case 22-E-0064 dated 07/20/2023
+
+  # Source: docs/sc1_residential_psc10.pdf (pages 615-627 of full tariff)
+
+  # WP3: the scratch notes below used to sit under a stray top-level key `0:`,
+
+  # which the old loader ignored silently. They are kept verbatim under `notes`.
+
+  notes (formerly a stray top-level key ''0''):
+
+  sc 1 0.1466 + 0.1991 sc 2 0.1217 + 0.1462 sc 9 0.0797 + 0.0342'
+components:
+- id: customer_charge
+  name: Customer charge (legacy)
+  category: fixed_charge
+  determinant: billing_period
+  unit: USD/month
+  rate: 20.0
+  window:
+    excluded_holidays: none
+- id: energy_delivery_1
+  name: Energy delivery charge 1 (legacy)
+  category: delivery_energy
+  determinant: kwh
+  unit: cents/kWh
+  rate: 16.107
+  window:
+    months: [1, 2, 3, 4, 5, 10, 11, 12]
+    excluded_holidays: none
+  exclusive_group: energy_delivery
+- id: energy_delivery_2
+  name: Energy delivery charge 2 (legacy)
+  category: delivery_energy
+  determinant: kwh
+  unit: cents/kWh
+  rate: 18.518
+  window:
+    months: [6, 7, 8, 9]
+    excluded_holidays: none
+  exclusive_group: energy_delivery
+- id: supply_energy
+  name: Supply charge (legacy)
+  category: supply_energy
+  determinant: kwh
+  unit: cents/kWh
+  rate: 11.531
+  window:
+    excluded_holidays: none
+  exclusive_group: supply_energy
+- id: merchant_charge
+  name: Merchant function charge (legacy)
+  category: merchant_charge
+  determinant: kwh
+  unit: cents/kWh
+  rate: 0.5414
+  window:
+    excluded_holidays: none
+excluded_components: []

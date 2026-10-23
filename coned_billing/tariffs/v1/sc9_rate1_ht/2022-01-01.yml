@@ -1,0 +1,182 @@
+# Tariff schema v1. Transcribed from the cited leaves; see docs/dev/transcription_review.md.
+# verification_status 'owner_verified' may only be set through verification_record.yml.
+schema_version: 1
+tariff_id: sc9_rate1_ht
+version: '2022-01-01'
+utility: Consolidated Edison Company of New York, Inc.
+jurisdiction: New York State Public Service Commission
+tariff_book: PSC No. 10 - Electricity
+service_classification: SC-9
+rate_option: Rate I - General - Large
+voltage: high_tension
+zone: null
+timezone: America/New_York
+effective:
+  start: 2022-01-01
+  end: 2023-08-01
+verification_status: transcribed
+calculation_modes:
+- historical
+- scenario
+case: 19-E-0065
+sources:
+- psc10-leaf-445-r15
+- psc10-leaf-85-r3
+- psc10-leaf-84-r0
+- psc10-leaf-90-r4
+eligibility: 'SC-9 Rate I applicability (leaf 445): "To all Customers other than those billed under Rate
+  II, Rate III, Rate IV, or Rate V." High tension service.'
+required_account_inputs:
+- 'service voltage: high_tension'
+assumptions:
+- Delivery charges only. Supply (GR 25), GR 26 adjustments and the GR 30 percentage increase are excluded
+  and listed under excluded_components.
+- 'Effective dates are dates of service: start inclusive, end exclusive. Bills spanning a rate change
+  are prorated by days of service (GR 10.5.1, leaf 85); proration is applied by the billing engine (WP5).'
+- The Customer Charge 'per month' is read as a monthly charge prorated by elapsed days / 30 under GR 10.5.2,
+  not as a per-bill or per-calendar-month charge. Owner to confirm.
+- Maximum demand is the highest 30-minute integrated demand in the billing period (GR 10.4); WP4 derives
+  it from interval data.
+components:
+- id: demand_delivery_summer
+  name: Demand Delivery Charge, June-September
+  category: delivery_demand
+  determinant: max_demand_kw
+  window:
+    months: [6, 7, 8, 9]
+    excluded_holidays: none
+  blocks:
+  - up_to: 5
+    rate: 154.43
+    unit: USD/month
+  - up_to: null
+    rate: 21.73
+    unit: USD/kW
+  block_proration:
+    rule: total_days_over_30
+    source:
+      document: psc10-leaf-85-r3
+      leaf: '85'
+      revision: 3
+      page: 1
+      text: where there are kW rate blocks, the Demand Delivery Charges will be totaled and then prorated
+        on the basis of the number of elapsed days divided by 30
+  demand_measurement:
+    method: integrated_demand
+    integration_minutes: 30
+    source:
+      document: psc10-leaf-84-r0
+      leaf: '84'
+      revision: 0
+      page: 1
+      text: highest 30 minute integrated demand occurring during the billing period
+  source:
+    document: psc10-leaf-445-r15
+    leaf: '445'
+    revision: 15
+    page: 1
+    text: first 5 kW (or less) $219.36 per month $154.43 per month over 5 kW $31.13 per kW $21.73 per
+      kW
+  notes: The first block is a flat charge for 5 kW or less; the leaf's Minimum Charge is "the charge for
+    5 kW of demand", which this block structure reproduces.
+- id: demand_delivery_other
+  name: Demand Delivery Charge, all other months
+  category: delivery_demand
+  determinant: max_demand_kw
+  window:
+    months: [1, 2, 3, 4, 5, 10, 11, 12]
+    excluded_holidays: none
+  blocks:
+  - up_to: 5
+    rate: 111.69
+    unit: USD/month
+  - up_to: null
+    rate: 15.17
+    unit: USD/kW
+  block_proration:
+    rule: total_days_over_30
+    source:
+      document: psc10-leaf-85-r3
+      leaf: '85'
+      revision: 3
+      page: 1
+      text: where there are kW rate blocks, the Demand Delivery Charges will be totaled and then prorated
+        on the basis of the number of elapsed days divided by 30
+  demand_measurement:
+    method: integrated_demand
+    integration_minutes: 30
+    source:
+      document: psc10-leaf-84-r0
+      leaf: '84'
+      revision: 0
+      page: 1
+      text: highest 30 minute integrated demand occurring during the billing period
+  source:
+    document: psc10-leaf-445-r15
+    leaf: '445'
+    revision: 15
+    page: 1
+    text: first 5 kW (or less) $176.57 per month $111.69 per month over 5 kW $24.59 per kW $15.17 per
+      kW
+  notes: The first block is a flat charge for 5 kW or less; the leaf's Minimum Charge is "the charge for
+    5 kW of demand", which this block structure reproduces.
+- id: energy_delivery
+  name: Energy Delivery Charge
+  category: delivery_energy
+  determinant: kwh
+  unit: cents/kWh
+  rate: 1.95
+  window:
+    excluded_holidays: none
+  proration:
+    rule: none
+    source:
+      document: psc10-leaf-85-r3
+      leaf: '85'
+      revision: 3
+      page: 1
+      text: rates and charges assessed per kWhr will not be prorated
+  exclusive_group: energy_delivery
+  source:
+    document: psc10-leaf-445-r15
+    leaf: '445'
+    revision: 15
+    page: 1
+    text: Charges applicable for all months 2.10 cents per kWhr 1.95 cents per kWhr
+excluded_components:
+- id: additional_delivery_charges_gr26
+  name: Additional Delivery Charges and Adjustments (General Rule 26)
+  reason: Set by monthly statements (e.g. MAC, surcharges, adjustment factors) that are not transcribed;
+    not modeled.
+  source:
+    document: psc10-leaf-445-r15
+    leaf: '445'
+    revision: 15
+    page: 1
+    text: Additional Delivery Charges and Adjustments, as specified in General Rule 26.
+- id: reactive_power_demand_gr1011
+  name: Reactive Power Demand Charge (General Rule 10.11)
+  reason: Needs kVAr metering data, which the package does not take; not modeled.
+  source:
+    document: psc10-leaf-445-r15
+    leaf: '445'
+    revision: 15
+    page: 1
+    text: Reactive Power Demand Charge, applicable as specified in General Rule 10.11.
+- id: minimum_monthly_charge_gr1010
+  name: Minimum Monthly Charge (General Rule 10.10, Contract Demand)
+  reason: Needs the account's highest registered demand in the most recent 18 months; not modeled.
+  source:
+    document: psc10-leaf-90-r4
+    leaf: '90'
+    revision: 4
+    page: 1
+    text: A Minimum Monthly Charge is applicable to Customers billed for demand under SCs 5, 8, 9, 12,
+      and 13
+- id: supply_charges_gr25
+  name: 'Supply and supply-related charges (General Rule 25: Market Supply Charge, Merchant Function Charge)'
+  reason: Supply is not part of this delivery tariff version; calculations must supply an explicit supply
+    assumption (D5). A packaged, sourced MSC dataset is WP8.
+- id: increase_in_rates_gr30
+  name: Increase in Rates and Charges (General Rule 30)
+  reason: Percentage increase shown on a separate statement; not transcribed, not modeled.

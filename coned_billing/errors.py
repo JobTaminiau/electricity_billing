@@ -7,7 +7,12 @@ Every error raised deliberately by ``coned_billing`` derives from
 
 from __future__ import annotations
 
-__all__ = ["ConEdBillingError", "LoadDataError"]
+__all__ = [
+    "ConEdBillingError",
+    "LoadDataError",
+    "TariffSchemaError",
+    "TariffSelectionError",
+]
 
 
 class ConEdBillingError(Exception):
@@ -16,3 +21,11 @@ class ConEdBillingError(Exception):
 
 class LoadDataError(ConEdBillingError, ValueError):
     """The load profile violates the input contract (see docs/load_data.md)."""
+
+
+class TariffSchemaError(ConEdBillingError, ValueError):
+    """A tariff file violates the schema (see docs/tariff_schema.md)."""
+
+
+class TariffSelectionError(ConEdBillingError, LookupError):
+    """No single tariff version applies (unknown, uncovered or ambiguous)."""

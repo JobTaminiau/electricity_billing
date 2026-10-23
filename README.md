@@ -14,7 +14,9 @@ State the interval duration and whether timestamps mark interval start or end
 duplicates, misaligned or naive timestamps are rejected. The full input
 contract is in [docs/load_data.md](docs/load_data.md). Holidays and
 time-of-use windows (New York time, cited holiday sets, `end_of_day`) are
-described in [docs/calendars.md](docs/calendars.md).
+described in [docs/calendars.md](docs/calendars.md). Dated, source-cited tariff
+versions and their schema are described in [docs/tariff_schema.md](docs/tariff_schema.md); the
+support matrix is [docs/support_matrix.md](docs/support_matrix.md).
 
 > **Status:** this package is being upgraded to research quality on branch
 > `research-quality` (work packages WP0-WP9, log in `docs/dev/PROGRESS.md`).

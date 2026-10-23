@@ -1,0 +1,149 @@
+# Tariff schema v1. Transcribed from the cited leaves; see docs/dev/transcription_review.md.
+# verification_status 'owner_verified' may only be set through verification_record.yml.
+schema_version: 1
+tariff_id: sc2_rate1
+version: '2026-02-01'
+utility: Consolidated Edison Company of New York, Inc.
+jurisdiction: New York State Public Service Commission
+tariff_book: PSC No. 10 - Electricity
+service_classification: SC-2
+rate_option: Rate I - General - Small
+voltage: null
+zone: null
+timezone: America/New_York
+effective:
+  start: 2026-02-01
+  end: null
+valid_as_of: 2026-10-23
+verification_status: transcribed
+calculation_modes:
+- historical
+- scenario
+case: 25-E-0072
+sources:
+- psc10-leaf-397-r23
+- psc10-leaf-85-r3
+- psc10-leaf-396-r3
+- psc10-leaf-399-r5
+eligibility: 'SC-2 Rate I applicability (leaf 397): "To all Customers other than those billed under other
+  Rates." SC-2 applies where the Customer''s requirements do not exceed 10 kW (leaf 396).'
+required_account_inputs:
+- metered service (the unmetered General Rule 6.9 Customer Charge is not supported)
+assumptions:
+- Delivery charges only. Supply (GR 25), GR 26 adjustments and the GR 30 percentage increase are excluded
+  and listed under excluded_components.
+- 'Effective dates are dates of service: start inclusive, end exclusive. Bills spanning a rate change
+  are prorated by days of service (GR 10.5.1, leaf 85); proration is applied by the billing engine (WP5).'
+- The Customer Charge 'per month' is read as a monthly charge prorated by elapsed days / 30 under GR 10.5.2,
+  not as a per-bill or per-calendar-month charge. Owner to confirm.
+components:
+- id: customer_charge
+  name: Customer Charge (metered service)
+  category: fixed_charge
+  determinant: billing_period
+  unit: USD/month
+  rate: 34.0
+  window:
+    excluded_holidays: none
+  proration:
+    rule: days_over_30
+    source:
+      document: psc10-leaf-85-r3
+      leaf: '85'
+      revision: 3
+      page: 1
+      text: Monthly rates and charges will be prorated when the Company renders a bill for other than
+        a 30-day period on the basis of the number of elapsed days divided by 30
+  source:
+    document: psc10-leaf-397-r23
+    leaf: '397'
+    revision: 23
+    page: 1
+    text: $34.00 per month, except as specified below
+- id: energy_delivery_summer
+  name: Energy Delivery Charge, June-September
+  category: delivery_energy
+  determinant: kwh
+  unit: USD/kWh
+  rate: 0.2038
+  window:
+    months: [6, 7, 8, 9]
+    excluded_holidays: none
+  proration:
+    rule: none
+    source:
+      document: psc10-leaf-85-r3
+      leaf: '85'
+      revision: 3
+      page: 1
+      text: rates and charges assessed per kWhr will not be prorated
+  exclusive_group: energy_delivery
+  source:
+    document: psc10-leaf-397-r23
+    leaf: '397'
+    revision: 23
+    page: 1
+    text: Charges applicable for the months of June, July, August, and September $0.2038 per kWhr
+- id: energy_delivery_other
+  name: Energy Delivery Charge, all other months
+  category: delivery_energy
+  determinant: kwh
+  unit: USD/kWh
+  rate: 0.1709
+  window:
+    months: [1, 2, 3, 4, 5, 10, 11, 12]
+    excluded_holidays: none
+  proration:
+    rule: none
+    source:
+      document: psc10-leaf-85-r3
+      leaf: '85'
+      revision: 3
+      page: 1
+      text: rates and charges assessed per kWhr will not be prorated
+  exclusive_group: energy_delivery
+  source:
+    document: psc10-leaf-397-r23
+    leaf: '397'
+    revision: 23
+    page: 1
+    text: Charges applicable for all other months $0.1709 per kWhr
+excluded_components:
+- id: customer_charge_unmetered
+  name: Customer Charge for unmetered service (GR 6.9)
+  reason: Rate option not supported (D3).
+  source:
+    document: psc10-leaf-397-r23
+    leaf: '397'
+    revision: 23
+    page: 1
+    text: $30.21 per month for Customers furnished with unmetered service
+- id: additional_delivery_charges_gr26
+  name: Additional Delivery Charges and Adjustments (General Rule 26)
+  reason: Set by monthly statements (e.g. MAC, surcharges, adjustment factors) that are not transcribed;
+    not modeled.
+  source:
+    document: psc10-leaf-397-r23
+    leaf: '397'
+    revision: 23
+    page: 1
+    text: Additional Delivery Charges and Adjustments, as specified in General Rule 26.
+- id: supply_charges_gr25
+  name: 'Supply and supply-related charges (General Rule 25: Market Supply Charge, Merchant Function Charge)'
+  reason: Supply is not part of this delivery tariff version; calculations must supply an explicit supply
+    assumption (D5). A packaged, sourced MSC dataset is WP8.
+  source:
+    document: psc10-leaf-399-r5
+    leaf: '399'
+    revision: 5
+    page: 1
+    text: supply and supply-related charges and adjustments specified in General Rule 25
+- id: increase_in_rates_gr30
+  name: Increase in Rates and Charges (General Rule 30)
+  reason: Percentage increase shown on a separate statement; not transcribed, not modeled.
+  source:
+    document: psc10-leaf-399-r5
+    leaf: '399'
+    revision: 5
+    page: 1
+    text: increased by the applicable percentage as explained in General Rule 30

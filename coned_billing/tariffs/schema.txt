@@ -16,3 +16,7 @@ Window fields (all optional)
     start           "HH:MM"
     end             "HH:MM"
     include_holidays true/false
+
+Note (WP3): this is the legacy format read by load_rate. The validated, dated
+schema is v1, documented in docs/tariff_schema.md (files under tariffs/v1/).
+Unknown keys are rejected; the only optional free-text key is `notes`.

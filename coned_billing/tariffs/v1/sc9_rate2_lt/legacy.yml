@@ -1,0 +1,145 @@
+# Tariff schema v1. Migrated from coned_billing/tariffs/sc9_general_rate_2_TOU.yml by
+# scripts/migrate_legacy_tariffs.py; values unchanged, status unverified.
+schema_version: 1
+tariff_id: sc9_rate2_lt
+version: legacy
+utility: Consolidated Edison Company of New York, Inc.
+jurisdiction: New York State Public Service Commission
+tariff_book: PSC No. 10 - Electricity
+service_classification: SC-9
+rate_option: Rate II - General - Large - Time-of-Day
+voltage: low_tension
+zone: null
+timezone: America/New_York
+effective:
+  start: null
+  end: null
+verification_status: unverified
+calculation_modes:
+- scenario
+sources: []
+assumptions:
+- Values copied unchanged from the legacy file sc9_general_rate_2_TOU.yml (code SC-9-GEN-NYC-RATE-2-LT);
+  their provenance and dates are unverified (D2). Scenario mode only.
+- The legacy files mix delivery values from different leaf revisions with supply and merchant assumptions
+  from other periods (finding F3.4).
+- Legacy demand is the largest input-interval kW (method input_interval_maximum), the pre-WP4 engine behaviour.
+- 'Windows keep the legacy holiday semantics: include_holidays false excludes the six-day set (coned_six),
+  true excludes none.'
+legacy_notes: "Header comments of sc9_general_rate_2_TOU.yml:\n# leaf 444 in PSC NO. 10 - Electricity\n\
+  # Initial Effective Date: 01/01/2025\n# Issued in compliance with Order in Case 22-E-0064 dated 07/20/2023\n\
+  # Source: docs/sc9_general_large_psc10.pdf (pages 681-708 of full tariff)\n  # ─── Summer Months (June\
+  \ to September) ───────────────────────────────\n  # Weekdays, 8 AM to 6 PM → $11.59/kW\n  # Weekdays,\
+  \ 8 AM to 10 PM → $23.35/kW\n  # All hours of all days (summer) → $21.09/kW (low-tension only)\n  #\
+  \ ─── Non-Summer Months (October to May) ──────────────────────────────\n  # Weekdays, 8 AM to 10 PM\
+  \ → $18.60/kW\n  # All hours of all days (non-summer) → $5.60/kW (low-tension only)"
+components:
+- id: customer_charge
+  name: Customer charge (legacy)
+  category: fixed_charge
+  determinant: billing_period
+  unit: USD/month
+  rate: 500.0
+  window:
+    excluded_holidays: none
+- id: energy_delivery_1
+  name: Energy delivery charge 1 (legacy)
+  category: delivery_energy
+  determinant: kwh
+  unit: cents/kWh
+  rate: 0.79
+  window:
+    excluded_holidays: none
+  exclusive_group: energy_delivery
+- id: demand_delivery_1
+  name: Demand delivery charge 1 (legacy)
+  category: delivery_demand
+  determinant: max_demand_kw
+  unit: USD/kW
+  rate: 11.59
+  window:
+    months: [6, 7, 8, 9]
+    weekdays_only: true
+    start: 08:00
+    end: '18:00'
+    excluded_holidays: coned_six
+  demand_measurement:
+    method: input_interval_maximum
+- id: demand_delivery_2
+  name: Demand delivery charge 2 (legacy)
+  category: delivery_demand
+  determinant: max_demand_kw
+  unit: USD/kW
+  rate: 23.35
+  window:
+    months: [6, 7, 8, 9]
+    weekdays_only: true
+    start: 08:00
+    end: '22:00'
+    excluded_holidays: coned_six
+  demand_measurement:
+    method: input_interval_maximum
+- id: demand_delivery_3
+  name: Demand delivery charge 3 (legacy)
+  category: delivery_demand
+  determinant: max_demand_kw
+  unit: USD/kW
+  rate: 21.09
+  window:
+    months: [6, 7, 8, 9]
+    excluded_holidays: none
+  demand_measurement:
+    method: input_interval_maximum
+- id: demand_delivery_4
+  name: Demand delivery charge 4 (legacy)
+  category: delivery_demand
+  determinant: max_demand_kw
+  unit: USD/kW
+  rate: 18.6
+  window:
+    months: [1, 2, 3, 4, 5, 10, 11, 12]
+    weekdays_only: true
+    start: 08:00
+    end: '22:00'
+    excluded_holidays: coned_six
+  demand_measurement:
+    method: input_interval_maximum
+- id: demand_delivery_5
+  name: Demand delivery charge 5 (legacy)
+  category: delivery_demand
+  determinant: max_demand_kw
+  unit: USD/kW
+  rate: 5.6
+  window:
+    months: [1, 2, 3, 4, 5, 10, 11, 12]
+    excluded_holidays: none
+  demand_measurement:
+    method: input_interval_maximum
+- id: demand_supply_1
+  name: Demand supply charge 1 (legacy)
+  category: supply_demand
+  determinant: max_demand_kw
+  unit: USD/kW
+  rate: 11.35
+  window:
+    excluded_holidays: none
+  demand_measurement:
+    method: input_interval_maximum
+- id: supply_energy
+  name: Supply charge (legacy)
+  category: supply_energy
+  determinant: kwh
+  unit: cents/kWh
+  rate: 7.6885
+  window:
+    excluded_holidays: none
+  exclusive_group: supply_energy
+- id: merchant_charge
+  name: Merchant function charge (legacy)
+  category: merchant_charge
+  determinant: kwh
+  unit: cents/kWh
+  rate: 0.1561
+  window:
+    excluded_holidays: none
+excluded_components: []
