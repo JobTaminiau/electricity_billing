@@ -7,4 +7,21 @@ Estimate monthly bills from an hourly load curve using Consolidated Edison tarif
 The CSV file entered into the model must contain the following columns:
 
 1. "ts" - timezone-aware timestamp (YYYY-MM-DD HH:MM±HH:MM)
-2. "kw" - interval demand (kW)
+2. "kW" - interval demand (kW)
+
+> **Status:** this package is being upgraded to research quality on branch
+> `research-quality` (work packages WP0-WP9, log in `docs/dev/PROGRESS.md`).
+> Until WP5 lands, results are scenario estimates of modeled components only,
+> rest on unverified legacy rates, and must not be cited as complete bills.
+> Known defects are listed as strict-xfail tests in `tests/test_known_defects.py`.
+
+## Development
+
+Requires Python 3.11 or newer.
+
+```bash
+pip install -e ".[dev]"          # add ",report" for the great_tables summary table
+pytest                           # offline; network tests are opt-in with -m network
+ruff check . && ruff format --check .
+mypy
+```

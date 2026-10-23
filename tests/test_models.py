@@ -56,7 +56,7 @@ def test_timewindow_time_bounds_are_half_open():
     idx = pd.date_range(
         "2023-01-01 07:30",
         periods=4,
-        freq="30T",
+        freq="30min",
         tz="America/New_York",
     )
     window = TimeWindow(start=time(8, 0), end=time(9, 0))
@@ -85,7 +85,7 @@ def test_bill_regular_frequency_components_sum():
     idx = pd.date_range(
         "2023-03-01",
         periods=24,
-        freq="H",
+        freq="h",
         tz="America/New_York",
     )
     load = pd.DataFrame({"kW": 1.0}, index=idx)
@@ -150,7 +150,7 @@ def test_bill_accepts_ts_column_and_multiple_customers():
             "ts": pd.date_range(
                 "2023-07-01",
                 periods=2,
-                freq="H",
+                freq="h",
                 tz="America/New_York",
             ),
             "kW": [2.0, 4.0],

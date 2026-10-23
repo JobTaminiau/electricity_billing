@@ -1,4 +1,6 @@
-import pandas as pd
+import sys
+
+import pytest
 
 from coned_billing.summary import rate_schedule_summary_dataframe, rate_schedule_summary_table
 
@@ -17,15 +19,16 @@ def test_rate_schedule_summary_dataframe_contents():
     }
     assert set(df.columns) == expected_columns
 
-    # Ensure all known tariffs are present once.
-    codes = set(df["Rate code"])
-    assert codes == {
+    # Explicit list of the bundled tariffs, each present exactly once. Kept
+    # independent of the tariff directory so a lost or added file is noticed.
+    assert sorted(df["Rate code"]) == [
         "SC-1-RES-NYC-RATE-1",
         "SC-2-GEN-NYC-RATE-1",
-        "SC-9-GEN-NYC-RATE-1-LT",
+        "SC-8-MULTIDWELL-NYC-RATE-1-LT",
         "SC-9-GEN-NYC-RATE-1-HT",
+        "SC-9-GEN-NYC-RATE-1-LT",
         "SC-9-GEN-NYC-RATE-2-LT",
-    }
+    ]
 
     # Spot check a few values to ensure the summary contains the expected text.
     sc1 = df.loc[df["Rate code"] == "SC-1-RES-NYC-RATE-1"].iloc[0]
@@ -37,10 +40,16 @@ def test_rate_schedule_summary_dataframe_contents():
     assert "00:00" not in sc9_rate2["Delivery demand ($/kW)"]
 
 
-def test_rate_schedule_summary_table_has_dataframe():
-    table = rate_schedule_summary_table()
+def test_rate_schedule_summary_table_renders():
+    pytest.importorskip("great_tables")
+    from great_tables import GT
 
-    # The helper attaches the dataframe to the GT instance for introspection/testing.
-    df = getattr(table, "_source_df")
-    assert isinstance(df, pd.DataFrame)
-    assert not df.empty
+    table = rate_schedule_summary_table()
+    assert isinstance(table, GT)
+
+
+def test_rate_schedule_summary_table_without_great_tables(monkeypatch):
+    # A None entry in sys.modules makes ``import great_tables`` raise ImportError.
+    monkeypatch.setitem(sys.modules, "great_tables", None)
+    with pytest.raises(ImportError, match=r"coned_billing\[report\]"):
+        rate_schedule_summary_table()

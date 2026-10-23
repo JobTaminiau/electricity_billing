@@ -1,41 +1,19 @@
 """Utilities for summarising the available rate schedules."""
+
 from __future__ import annotations
 
 from calendar import month_abbr
+from collections.abc import Iterable
 from pathlib import Path
-from typing import Iterable
+from typing import TYPE_CHECKING
 
 import pandas as pd
 
 from .loader import load_all
 from .models import DemandCharge, EnergyCharge, TimeWindow
 
-try:  # pragma: no cover - exercised in integration environments with the dependency
-    from great_tables import GT  # type: ignore
-except ImportError:  # pragma: no cover - used during unit tests when dependency missing
-    class GT:  # minimal shim so the project remains usable without the optional dependency
-        """Fallback representation that mimics :class:`great_tables.GT` for tests."""
-
-        def __init__(self, data: pd.DataFrame | Iterable[dict]):
-            if isinstance(data, pd.DataFrame):
-                self._source_df = data.copy()
-            else:
-                self._source_df = pd.DataFrame(list(data))
-
-        def to_pandas(self) -> pd.DataFrame:
-            """Return the underlying data as a :class:`~pandas.DataFrame`."""
-
-            return self._source_df.copy()
-
-        # provide no-op formatting hooks so fluent chains don't fail
-        def tab_header(self, *_, **__):  # noqa: D401 - behaviour documented by great_tables
-            return self
-
-        def fmt_currency(self, *_, **__):
-            return self
-
-        def fmt_number(self, *_, **__):
-            return self
+if TYPE_CHECKING:  # pragma: no cover
+    from great_tables import GT
 
 
 __all__ = [
@@ -77,9 +55,7 @@ def _window_summary(window: TimeWindow) -> str:
 
 
 def _summarise_demand(charges: Iterable[DemandCharge]) -> str:
-    formatted = [
-        f"{charge.rate:.2f} $/kW ({_window_summary(charge.window)})" for charge in charges
-    ]
+    formatted = [f"{charge.rate:.2f} $/kW ({_window_summary(charge.window)})" for charge in charges]
     return "; ".join(formatted) if formatted else "None"
 
 
@@ -116,31 +92,25 @@ def rate_schedule_summary_dataframe(tariff_dir: Path | None = None) -> pd.DataFr
 
 
 def rate_schedule_summary_table(tariff_dir: Path | None = None) -> GT:
-    """Build a :class:`great_tables.GT` table describing all rate schedules."""
+    """Build a :class:`great_tables.GT` table describing all rate schedules.
+
+    Requires the optional ``great_tables`` dependency (``coned_billing[report]``).
+    """
+
+    try:
+        from great_tables import GT
+    except ImportError as exc:  # optional dependency (extra "report")
+        raise ImportError(
+            "rate_schedule_summary_table() needs the optional 'great_tables' package. "
+            "Install it with: pip install 'coned_billing[report]'. "
+            "rate_schedule_summary_dataframe() returns the same data without it."
+        ) from exc
 
     df = rate_schedule_summary_dataframe(tariff_dir)
-    table = GT(df)
-
-    # Attach the dataframe to ease testing and allow consumers to inspect the source data.
-    setattr(table, "_source_df", df)
-
-    # Apply light formatting when the optional dependency is installed.
-    tab_header = getattr(table, "tab_header", None)
-    if callable(tab_header):
-        table = tab_header(title="Con Edison Rate Schedule Summary")
-
-    fmt_currency = getattr(table, "fmt_currency", None)
-    if callable(fmt_currency):
-        table = fmt_currency(columns=["Customer charge ($/month)"], currency="USD")
-
-    fmt_number = getattr(table, "fmt_number", None)
-    if callable(fmt_number):
-        table = fmt_number(
-            columns=[
-                "Supply charge (¢/kWh)",
-                "Merchant charge (¢/kWh)",
-            ],
-            decimals=4,
-        )
-
+    table = (
+        GT(df)
+        .tab_header(title="Con Edison Rate Schedule Summary")
+        .fmt_currency(columns=["Customer charge ($/month)"], currency="USD")
+        .fmt_number(columns=["Supply charge (¢/kWh)", "Merchant charge (¢/kWh)"], decimals=4)
+    )
     return table

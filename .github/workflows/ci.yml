@@ -1,0 +1,66 @@
+# WP0 skeleton (R12). Finalized in WP9. Not yet run on GitHub: the branch is
+# local until the owner authorizes a push.
+name: ci
+
+on:
+  push:
+    branches: [master, research-quality]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: py${{ matrix.python }} / pandas ${{ matrix.pandas }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.11", "3.12", "3.13", "3.14"]
+        pandas: ["2.2.*", "3.*"]
+        exclude:
+          # pandas 2.2.x publishes no CPython 3.14 wheels.
+          - python: "3.14"
+            pandas: "2.2.*"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[test]" "pandas==${{ matrix.pandas }}"
+          python -c "import sys, pandas, numpy; print(sys.version, pandas.__version__, numpy.__version__)"
+      - name: Test
+        run: python -m pytest -q
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: python -m pip install -e ".[dev]"
+      - run: ruff check .
+      - run: ruff format --check .
+      - run: mypy
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: python -m pip install build
+      - run: python -m build
+      - name: Wheel smoke test outside the checkout
+        run: |
+          python -m venv /tmp/wheel-env
+          /tmp/wheel-env/bin/pip install dist/*.whl
+          cd /tmp
+          /tmp/wheel-env/bin/python -c "import coned_billing, coned_billing.supply_charge; print(coned_billing.__version__)"
+          /tmp/wheel-env/bin/coned-bill --help

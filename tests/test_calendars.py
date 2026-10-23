@@ -4,10 +4,12 @@ from coned_billing.calendars import _CONED_HOLIDAYS, is_coned_holiday
 
 
 def test_is_coned_holiday_datetime_index():
-    idx = pd.DatetimeIndex([
-        "2023-01-01",  # New Year's Day – holiday
-        "2023-01-03",  # Ordinary weekday
-    ])
+    idx = pd.DatetimeIndex(
+        [
+            "2023-01-01",  # New Year's Day – holiday
+            "2023-01-03",  # Ordinary weekday
+        ]
+    )
 
     result = is_coned_holiday(idx)
 
@@ -16,11 +18,13 @@ def test_is_coned_holiday_datetime_index():
 
 def test_is_coned_holiday_index_membership():
     reference_holiday = min(_CONED_HOLIDAYS)
-    idx = pd.DatetimeIndex([
-        reference_holiday - pd.Timedelta(days=1),
-        reference_holiday,
-        reference_holiday + pd.Timedelta(days=1),
-    ])
+    idx = pd.DatetimeIndex(
+        [
+            reference_holiday - pd.Timedelta(days=1),
+            reference_holiday,
+            reference_holiday + pd.Timedelta(days=1),
+        ]
+    )
 
     result = is_coned_holiday(idx)
 

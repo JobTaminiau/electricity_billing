@@ -29,7 +29,7 @@ def _create_load_csv(path: Path) -> pd.DataFrame:
             "ts": pd.date_range(
                 "2023-08-01",
                 periods=3,
-                freq="H",
+                freq="h",
                 tz="America/New_York",
             ),
             "kW": [1.0, 1.0, 1.0],

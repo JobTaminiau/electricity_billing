@@ -1,5 +1,6 @@
 [build-system]
-requires = ["setuptools>=68", "wheel"]
+# setuptools>=77 implements PEP 639 license expressions (license / license-files).
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -8,17 +9,35 @@ version = "0.1.0"
 description = "Light-weight Consolidated Edison billing engine"
 authors = [{ name = "Job Taminiau", email = "jt@freefutures.org" }]
 readme = "README.md"
-requires-python = ">=3.9"
-license = {text = "MIT"}
+# D7: 3.10 reaches end of life in October 2026 and pandas 3.x needs 3.11+.
+requires-python = ">=3.11"
+# D1: metadata follows the existing restrictive LICENSE.txt; no new rights are
+# granted. Licensing remains an open owner decision (see docs/dev/PROGRESS.md).
+# PEP 639 forbids "License ::" classifiers next to a license expression, so the
+# proprietary status is carried by the LicenseRef- identifier alone.
+license = "LicenseRef-FREE-All-Rights-Reserved"
+license-files = ["LICENSE.txt"]
+classifiers = [
+    "Private :: Do Not Upload",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+# Ranges are provisional until WP9: pandas 2.2 is the oldest line tested (D7),
+# numpy 1.26 is the oldest numpy that pandas 2.2 supports on Python 3.11/3.12.
 dependencies = [
-    "pandas>=2.0",
-    "numpy>=1.24",
+    "pandas>=2.2",
+    "numpy>=1.26",
     "pyyaml>=6.0",
-    "great_tables>=0.2",
 ]
 
 [project.optional-dependencies]
+# Optional rendering of the rate-schedule summary table.
+report = ["great_tables>=0.2"]
 test = ["pytest>=8.0"]
+dev = ["pytest>=8.0", "ruff>=0.6", "mypy>=1.10", "build>=1.0"]
 
 [project.scripts]
 coned-bill = "coned_billing.cli:main"
@@ -32,3 +51,40 @@ coned_billing = ["tariffs/*.yml"]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
+xfail_strict = true
+markers = [
+    "network: test needs network access (skipped by default; run with -m network)",
+]
+addopts = "-m 'not network'"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = ["docs"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "NPY", "PD002", "RUF"]
+ignore = [
+    "RUF001", "RUF002", "RUF003",  # unicode box-drawing and ¢ in comments/docstrings are deliberate
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Legacy downloader, quarantined in WP0 and rewritten in WP8.
+"coned_billing/supply_charge.py" = ["E501"]
+# One-off WP0 diagnostic with long report strings.
+"scripts/wp0_verify_findings.py" = ["E501"]
+
+[tool.mypy]
+# No python_version pin: numpy>=2.5 stubs use 3.12 syntax, so mypy checks against the
+# running interpreter (CI runs it on 3.13).
+files = ["coned_billing"]
+warn_unused_configs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+check_untyped_defs = true
+no_implicit_optional = true
+
+[[tool.mypy.overrides]]
+# pandas-stubs and types-PyYAML are not pinned yet (WP9); treat as untyped.
+module = ["pandas.*", "yaml.*", "great_tables.*", "requests.*", "urllib3.*"]
+ignore_missing_imports = true

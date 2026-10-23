@@ -1,10 +1,18 @@
+from datetime import time
 from pathlib import Path
+
 import numpy as np
 import pandas as pd
 import pytest
+
 import coned_billing
-from coned_billing.loader import load_all, TimeWindow, EnergyCharge, DemandCharge, RateSchedule, load_rate
-from datetime import time
+from coned_billing.loader import (
+    DemandCharge,
+    EnergyCharge,
+    RateSchedule,
+    TimeWindow,
+    load_all,
+)
 
 # ─────────────────────────────── constants ────────────────────────────────
 TAR_DIR = Path(coned_billing.__file__).parent / "tariffs"
@@ -13,7 +21,7 @@ SCHEDULES = load_all(TAR_DIR)
 
 # ─────────────────────────────── synthetic data ────────────────────────────────
 def _synthetic_load():
-    idx = pd.date_range("2023-01-01", "2023-01-31 23:00", freq="H", tz="America/New_York")
+    idx = pd.date_range("2023-01-01", "2023-01-31 23:00", freq="h", tz="America/New_York")
     return pd.DataFrame({"ts": idx, "kW": 5.0}), idx
 
 
@@ -73,7 +81,7 @@ def test_demand_charge_uses_monthly_peak():
     idx = pd.date_range(
         "2023-01-01",
         periods=10,
-        freq="H",
+        freq="h",
         tz="America/New_York",
     )
     df = pd.DataFrame({"kW": [1, 2, 3, 8, 3, 1, 4, 2, 5, 1]}, index=idx)
@@ -98,7 +106,7 @@ def test_demand_charge_window_filters_peak():
     idx = pd.date_range(
         "2023-01-02 00:00",
         periods=24,
-        freq="H",
+        freq="h",
         tz="America/New_York",
     )
     values = np.full(len(idx), 5.0)
@@ -108,7 +116,9 @@ def test_demand_charge_window_filters_peak():
     sched = RateSchedule(
         code="TEST",
         customer_charge=0.0,
-        demand_components=[DemandCharge(rate=20.0, window=TimeWindow(start=time(12, 0), end=time(18, 0)))],
+        demand_components=[
+            DemandCharge(rate=20.0, window=TimeWindow(start=time(12, 0), end=time(18, 0)))
+        ],
         demand_supply=[],
         energy_components=[EnergyCharge(rate=0.0, window=TimeWindow())],
         supply_charge=0.0,

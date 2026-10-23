@@ -34,7 +34,7 @@ def _write_load_csv(path: Path) -> pd.DataFrame:
             "ts": pd.date_range(
                 "2023-06-01",
                 periods=4,
-                freq="H",
+                freq="h",
                 tz="America/New_York",
             ),
             "kW": [1.0, 2.0, 3.0, 4.0],

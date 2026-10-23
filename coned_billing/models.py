@@ -1,7 +1,8 @@
 from __future__ import annotations
+
+from collections.abc import Sequence
 from dataclasses import dataclass
 from datetime import time
-from typing import Sequence
 
 import numpy as np
 import pandas as pd
@@ -9,10 +10,10 @@ import pandas as pd
 from .calendars import _CONED_HOLIDAYS
 
 __all__ = [
-    "TimeWindow",
     "DemandCharge",
     "EnergyCharge",
     "RateSchedule",
+    "TimeWindow",
 ]
 
 
@@ -21,8 +22,14 @@ def _to_minutes(t: time) -> int:  # 00:15->15
     return t.hour * 60 + t.minute
 
 
-def _is_weekend(ts: pd.DatetimeIndex ) -> bool:
+def _is_weekend(ts: pd.DatetimeIndex) -> bool:
     return ts.weekday >= 5  # 5=Sat,6=Sun
+
+
+def _month_periods(idx: pd.DatetimeIndex) -> pd.PeriodIndex:
+    """Monthly periods of the index's wall-clock time (tz dropped explicitly)."""
+    naive = idx.tz_localize(None) if idx.tz is not None else idx
+    return naive.to_period("M")
 
 
 # ──────────────────────────────────── core DSL ───────────────────────────────────
@@ -104,7 +111,7 @@ class RateSchedule:
         load_df: pd.DataFrame,
         kw_col: str = "kW",
         ts_col: str | None = None,
-        n_customers: int = 1  # sets the number of customers for the customer charge
+        n_customers: int = 1,  # sets the number of customers for the customer charge
     ) -> pd.DataFrame:
         """
         Parameters
@@ -122,7 +129,7 @@ class RateSchedule:
 
         # convert each row's demand (kW) into energy (kWh for that interval)
         if idx.freq is not None:  # regular grid → fast path
-            kwh = load_df[kw_col] * (idx.freq.delta / pd.Timedelta("1h"))
+            kwh = load_df[kw_col] * (pd.Timedelta(idx.freq) / pd.Timedelta("1h"))
         else:  # fallback: variable intervals
             dt_hours = (
                 idx.to_series()
@@ -146,8 +153,8 @@ class RateSchedule:
         # ── Demand charges (peak) ────────────────────────────────────────────
         demand_delivery_cost = pd.Series(0.0, index=idx)
         demand_supply_cost = pd.Series(0.0, index=idx)
-        grouped = load_df.groupby(load_df.index.to_period("M"))
-        for period, sub in grouped:
+        grouped = load_df.groupby(_month_periods(load_df.index))
+        for _period, sub in grouped:
             for dc in self.demand_components:
                 mask = dc.window.mask(sub.index)
                 if mask.any():
@@ -161,8 +168,7 @@ class RateSchedule:
 
         # ── Monthly customer charge ─────────────────────────────────────────
         monthly_fee = (
-            grouped.size().rename("obs_count").to_frame()
-            * 0.0  # broadcast shape
+            grouped.size().rename("obs_count").to_frame() * 0.0  # broadcast shape
             + self.customer_charge * n_customers
         )
 
@@ -176,8 +182,10 @@ class RateSchedule:
             }
         )
 
+        # Group on local wall-clock months (identical to the former
+        # ``resample("M", kind="period")``, which pandas 3 removed).
         monthly = (
-            result.resample("M", kind="period").sum(numeric_only=True).join(monthly_fee, how="left")
+            result.groupby(_month_periods(idx)).sum(numeric_only=True).join(monthly_fee, how="left")
         )
         monthly["customer_charge"] = monthly.pop("obs_count")
         monthly["total"] = (
@@ -191,9 +199,10 @@ class RateSchedule:
 
 
 """
-Bill amounts are averages of twelve monthly bills for each year, 
-based on the consumption level indicated on each chart. Actual customer consumption and demand will vary
-Delivery Charges include: 
+Bill amounts are averages of twelve monthly bills for each year,
+based on the consumption level indicated on each chart. Actual customer consumption and demand will
+vary
+Delivery Charges include:
 Customer Charge: INCLUDED
 Delivery (Energy): INCLUDED
 Delivery (Demand): INCLUDED
@@ -203,7 +212,7 @@ Billing and Payment Processing Charge: NOT INCLUDED
 Delivery Revenue Surcharge: NOT INCLUDED
 Revenue Decoupling Mechanism Adjustment: NOT INCLUDED
 Dynamic Load Management Surcharge: NOT INCLUDED
-Metering Charges: NOT INCLUDED, 
+Metering Charges: NOT INCLUDED,
 VDER Cost Recovery: NOT INCLUDED
 AMP Recovery: NOT INCLUDED
 EVMR Charge: NOT INCLUDED
@@ -214,11 +223,11 @@ MSC I Adjustment
 Merchant Function Charge
 MSC II Adjustment
 Clean Energy Standard Supply Surcharge.
- 
-Surcharges include: 
+
+Surcharges include:
 Systems Benefits Charge
 Renewable Portfolio Standard Charge
-Temporary State Assessment Surcharge, 
+Temporary State Assessment Surcharge,
 Clean Energy Standard Delivery Surcharge
 Tax Surcredit
 Gross Receipts Tax.
@@ -226,13 +235,15 @@ Gross Receipts Tax.
 
 relevant notes:
 For Customers billed under SC 1 Rate V and SC 2 Rate III, maximum as-used daily demand values, where
-applicable, shall be determined by calculating the highest integrated 60-minute demand ending in each day
+applicable, shall be determined by calculating the highest integrated 60-minute demand ending in
+each day
 and being entirely comprised of intervals ending in the same time period. Such Customer’s monthly
 maximum demand shall be determined by calculating the highest integrated 60-minute demand during the
-billing period in which such use is made. 
+billing period in which such use is made.
 
 for tou:
 The demand charge for each time period will be determined by multiplying the maximum demand for the
-respective time period by the rate applicable to the demand for that time period. The total demand charge will be
+respective time period by the rate applicable to the demand for that time period. The total demand
+charge will be
 the sum of the charges for each of the time periods
 """

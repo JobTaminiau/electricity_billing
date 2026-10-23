@@ -1,6 +1,10 @@
 # Documents
 *.docx
 *.pdf
+# ...except primary tariff sources, which are tracked with sha256 checksums (R5, WP3).
+!docs/sources/
+!docs/sources/**/
+!docs/sources/**/*.pdf
 
 # Python
 __pycache__/

@@ -1,9 +1,9 @@
-import yaml
 from datetime import time
 from pathlib import Path
-from typing import Dict, List
 
-from .models import RateSchedule, DemandCharge, EnergyCharge, TimeWindow
+import yaml
+
+from .models import DemandCharge, EnergyCharge, RateSchedule, TimeWindow
 
 
 # helper ───────────────────────────────────────────────────────────────────
@@ -14,7 +14,7 @@ def _parse_time(s: str | None) -> time | None:
     return time(hh, mm)
 
 
-def _window_from_dict(d: Dict) -> TimeWindow:
+def _window_from_dict(d: dict) -> TimeWindow:
     return TimeWindow(
         months=d.get("months"),
         weekdays_only=d.get("weekdays_only"),
@@ -51,5 +51,5 @@ def load_rate(path: Path) -> RateSchedule:
     )
 
 
-def load_all(directory: Path) -> List[RateSchedule]:
+def load_all(directory: Path) -> list[RateSchedule]:
     return [load_rate(p) for p in directory.glob("*.yml")]
