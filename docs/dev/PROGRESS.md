@@ -20,7 +20,8 @@ decisions taken, deviations from the plan, and open questions for the owner.
 | Environment | Result | Cause of failures |
 |---|---|---|
 | CPython 3.13.17, pandas 3.0.5, numpy 2.5.3 (cloud) | 22 failed, 16 passed | Removed pandas aliases (`"H"`, `"T"`), removed `resample(kind=...)`, removed `Tick.delta`, plus the stale summary test (SC-8 missing from its expected set) |
-| pandas 2.2.x | see "Matrix run" below | |
+| CPython 3.13.13, pandas 2.2.3, numpy 2.5.4 (owner's laptop, Windows 11) | 1 failed, 37 passed | Stale summary test (SC-8 missing), as in the review |
+| CPython 3.13.13, pandas 3.1.0, numpy 2.5.4 (laptop) | 22 failed, 16 passed | Same causes as the cloud pandas 3.0.5 run |
 
 The pandas 3 count matches the review exactly. `Tick.delta` (used by the
 `.freq` fast path in `RateSchedule.bill`) is a pandas 3 removal the review did
@@ -158,11 +159,32 @@ F3.9   packaging: requires-python '>=3.9'; license meta {'text': 'MIT'}; LICENSE
   imports, ships the six tariff YAMLs and `LICENSE.txt`, and `coned-bill
   --help` runs.
 
-### Matrix run
+### Matrix run (owner's laptop, Windows 11 Pro 10.0.26200, uv 0.11.7, commit 048544d)
 
-Pending: the cloud container has one interpreter with pandas (3.13) and no
-PyPI access, so the pandas 2.2.x baseline and the 3.11-3.14 matrix are run on
-the owner's laptop. Results are added here when available.
+| Python | pandas | numpy | Result |
+|---|---|---|---|
+| 3.11.15 | 2.2.3 | 2.4.6 | 40 passed, 23 xfailed |
+| 3.11.15 | 3.1.0 | 2.4.6 | 40 passed, 23 xfailed |
+| 3.12.13 | 2.2.3 | 2.5.4 | 40 passed, 23 xfailed |
+| 3.12.13 | 3.1.0 | 2.5.4 | 40 passed, 23 xfailed |
+| 3.13.13 | 2.2.3 | 2.5.4 | 40 passed, 23 xfailed |
+| 3.13.13 | 3.1.0 | 2.5.4 | 40 passed, 23 xfailed |
+| 3.14.4 | 3.1.0 | 2.5.4 | 40 passed, 23 xfailed |
+| 3.14 | 2.2 | | excluded (no wheels) |
+
+No failures, no XPASS; `great_tables` was installed, so its test ran. On the
+laptop with Python 3.13: ruff, ruff format and mypy clean; `python -m build`
+(isolated) made the sdist and wheel; the wheel installed in a fresh venv
+outside the repo imports and `coned-bill --help` exits 0.
+
+Warnings seen there:
+
+- pandas 3.1 deprecates `DatetimeIndex.weekday` (Pandas4Warning). Fixed after
+  the matrix run by using `day_of_week` (available in pandas 2.2 too).
+- numpy 2.5.4 warns about a "generic" timedelta unit in
+  `tests/test_calendars.py` and `tests/test_models.py`, in the tests that
+  derive expected holidays from the lookup itself. Not reproducible with
+  numpy 2.5.3 in the cloud. Those circular tests are replaced in WP2 (F3.2).
 
 ### Decisions taken
 
